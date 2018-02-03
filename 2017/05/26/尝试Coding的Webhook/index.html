@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+  
+  <title>尝试Coding的Webhook | 小 忆 博 客 | 有梦想，有精彩</title>
+  <script type="text/javascript" src="https://tajs.qq.com/stats?sId=61247340" charset="UTF-8"></script>
+  
+    <link rel="icon" href="/img/site.png">
+  
+  
+    <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <script src="/js/jquery.min.js"></script>
+</head>
+<body ontouchstart="">
+<!--[if lt IE 10]>
+<p class="browserupgrade">
+  You are using an <strong>outdated</strong> browser.
+  Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
+</p>
+<![endif]-->
+<header>
+	<!-- 站点信息 -->
+	<div class="site-info">
+		<a href="/" class="avatar"><img src="/img/avatar.jpg" class="animated zoomIn"></a>
+		<div class="info">
+			<h1 class="site-title"><a href="/">小忆</a></h1>
+			<span class="describe">有梦想，有精彩</span>
+		</div>
+		<ul>
+	        
+	            <li class="link"><a href="mailto:xy@domeyi.com" class="iconfont icon-email" target="_blank"></a></li>
+	        
+	            <li class="link"><a href="https://github.com/racall" class="iconfont icon-github" target="_blank"></a></li>
+	        
+	            <li class="link"><a href="https://twitter.com/xexiaoyi" class="iconfont icon-twitter" target="_blank"></a></li>
+	        
+	            <li class="link"><a href="http://sighttp.qq.com/authd?IDKEY=d05bb896ad60f4735751ee569b9626f9ba5e1d397da3530c" class="iconfont icon-qq" target="_blank"></a></li>
+	        
+			
+		</ul>
+	</div>
+	<!-- 欢迎语 -->
+	<div class="notice">
+	
+	</div>
+
+	<!-- 导航栏 -->
+	<nav class="navbar animate-init">
+		<ul>
+			
+	        <li class="nav-item"><a href="/">主页</a></li>
+	      	
+	        <li class="nav-item"><a href="/archives/">归档</a></li>
+	      	
+	        <li class="nav-item"><a href="/about/">关于</a></li>
+	      	
+		</ul>
+	</nav>
+</header>
+<div class="container">
+	<main>
+			<!-- 文章部分 -->
+	<article class="animate-init">
+
+    
+    	<h3 class="article-title">尝试Coding的Webhook</h3>
+    
+
+		<div class="article-time">
+			<a href="/2017/05/26/尝试Coding的Webhook/">2017-05-26</a>
+		</div>
+		<div class="article-content">
+			
+				<input type="hidden" class="isFancy" />
+			
+			<div class="entry">
+			      
+			        <p>Coding或者GitHub上都有Webhook这个功能，以前不知道这个有什么用，今天看到一篇关于Webhook的文章，一时兴起就尝试Coding上的Webhook（主要原因是GitHub上的关于Webhook的文档看不太懂）。<a id="more"></a></p>
+<h4 id="什么是Webhook"><a href="#什么是Webhook" class="headerlink" title="什么是Webhook?"></a>什么是Webhook?</h4><p>Webhook 允许第三方应用监听 Coding.net 上的特定事件，在这些事件发生时通过 HTTP POST 方式通知( 超时5秒) 到第三方应用指定的 Web URL。WebHook 可方便用户实现自动部署，自动测试，自动打包，监控项目变化等。</p>
+<p>写了几遍，感觉自己解释不清楚，所以直接复制Coding官方文档中的一段话。</p>
+<h4 id="Coding的Webhook事件"><a href="#Coding的Webhook事件" class="headerlink" title="Coding的Webhook事件"></a>Coding的Webhook事件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Ping </span><br><span class="line">Push</span><br><span class="line">Member</span><br><span class="line">Task</span><br><span class="line">Topic</span><br><span class="line">Document</span><br><span class="line">Star</span><br><span class="line">MR/PR</span><br></pre></td></tr></table></figure>
+<p>Webhook中的每个POST请求都包含特殊的Header</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X-Coding-Event</td>
+<td>事件名（具体每个事件对应的 event 就是上面事件列表的事件名字）</td>
+</tr>
+<tr>
+<td>User-Agent</td>
+<td>Coding.net Hook</td>
+</tr>
+</tbody>
+</table>
+<h4 id="附上自己的测试代码吧"><a href="#附上自己的测试代码吧" class="headerlink" title="附上自己的测试代码吧"></a>附上自己的测试代码吧</h4><p>等我研究透彻了，在写一篇详细的文章给大家。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">var</span> bodyParser = <span class="built_in">require</span>(<span class="string">'body-parser'</span>);</span><br><span class="line"><span class="keyword">var</span> process = <span class="built_in">require</span>(<span class="string">'child_process'</span>);</span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"></span><br><span class="line">app.use(bodyParser.json()); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.post(<span class="string">'/webhook'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">if</span>(<span class="string">'xxx'</span> === req.body[<span class="string">'token'</span>] )&#123;</span><br><span class="line">         <span class="built_in">console</span>.log(req.headers[<span class="string">'user-agent'</span>]);</span><br><span class="line">        <span class="comment">//console.log(req.body.event);</span></span><br><span class="line">    process.exec(<span class="string">'git pull origin master'</span>, &#123;<span class="string">'cwd'</span>:<span class="string">'/root/whtest'</span>&#125;,</span><br><span class="line">            <span class="function"><span class="keyword">function</span> (<span class="params">error, stdout, stderr</span>) </span>&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'stdout========================\n'</span> + stdout);</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'stderr========================\n'</span> + stderr);</span><br><span class="line">                <span class="keyword">if</span> (error !== <span class="literal">null</span>) &#123;</span><br><span class="line">                    res.send(<span class="string">'&lt;pre&gt;fail!!!\n'</span> + stdout + error + <span class="string">'&lt;/pre&gt;'</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    res.send(<span class="string">'&lt;pre&gt;done!!!\n'</span> + stdout + <span class="string">'&lt;/pre&gt;'</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'failed token'</span>)</span><br><span class="line">        res.send(<span class="string">'&lt;pre&gt;token不正确?&lt;/pre&gt;'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.set(<span class="string">'port'</span>, <span class="number">9000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> server = app.listen(<span class="number">9000</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Listening on port %d'</span>, server.address().port);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+			      
+	      	</div>
+		</div>
+
+		<div class="article-footer clearfix">
+		
+			
+				<div class="article-meta pull-left">
+				
+				    <span class="post-categories">
+				      <i class="glyphicon glyphicon-chevron-left"></i>
+				        <a href="/2017/05/23/线上安装mongoDB/">线上安装mongoDB</a>
+				    </span>
+				
+		    	</div>
+				 <div class="article-meta pull-right">
+				 
+					  <span>
+					  	<a href="/2017/05/28/浅析Webhook/">浅析Webhook</a>
+					    <i class="glyphicon glyphicon-chevron-right"></i>
+					  </span>
+				
+				</div>
+			
+		
+		</div>
+	</article>
+
+  
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: 'https://blog.domeyi.com/2017/05/26/尝试Coding的Webhook/', // 可选。默认为 location.href
+  owner: 'racall',
+  repo: 'comment',
+  oauth: {
+    client_id: 'c7d336cf3868196517c0',
+    client_secret: 'a6bee65b0275b51140b2fd203ff90d57e0b00ad5',
+  },
+})
+gitment.render('container')
+</script>
+
+
+
+	</main>
+<section class="BR">
+	<!-- 右下角标签云 -->
+
+<section class="tags">
+	<div class="tags-box">
+		<a href="/tags/2016/" style="font-size: 10px;">2016</a> <a href="/tags/2017/" style="font-size: 10px;">2017</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/Hexo主题/" style="font-size: 10px;">Hexo主题</a> <a href="/tags/Https/" style="font-size: 10px;">Https</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MVC/" style="font-size: 10px;">MVC</a> <a href="/tags/MacBook/" style="font-size: 10px;">MacBook</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/TK域名/" style="font-size: 10px;">TK域名</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Webhook/" style="font-size: 13.33px;">Webhook</a> <a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/tags/mongoDB/" style="font-size: 10px;">mongoDB</a> <a href="/tags/ngrok/" style="font-size: 10px;">ngrok</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/php/" style="font-size: 13.33px;">php</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/七牛/" style="font-size: 10px;">七牛</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/多说评论/" style="font-size: 10px;">多说评论</a> <a href="/tags/大学/" style="font-size: 10px;">大学</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/转载/" style="font-size: 10px;">转载</a>
+	</div>
+	<div class="pop-tags" title="标签"></div>
+</section>
+
+	<!-- 右下角友链 -->
+
+	<section class="friends">
+		<div class="friends-box">
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/racall">GitHub</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.netcan666.com">Netcan</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.waydrow.com">Waydrow</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://hubojing.github.io">胡博靖</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.yuedongxu.cn">Ezreal</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.iqi7.com/">七夏浅笑</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.isecret.vip/">Secret Blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://cshrimp.cc/">CGSP&#39;s blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.manso-he.net/">Manso</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.qaq6.cn/">67博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://hannahsuu.top/">Hannah Su</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://wehentai.org/">Linger</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.iwangyu.cn">Wang Yu&#39;s Blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://ykksmile.top">Ykksir</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://mao486.me/">MAO486</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://nk39.net">愤青博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://hoofoo.me/">Hoofoo&#39;s Blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.daraw.cn/">DaraW</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://ruke.xyz">ruke驿站</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.poyuming.com">铅笔的破博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.fmemory.pw/">风潇水寒</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.qiujinfeng.com/">疯疯</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://itsay.tech">张大侠</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.werelone.cn/">Werelone的博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://blessing.studio">Blessing Studio</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://liyuans.com">Leonn的博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://itruke.com/">技术宅男子</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.huxinchun.com/">胡新春博客</a>
+            
+		</div>
+		<div class="pop-friends" title="友链"></div>
+	</section>
+
+</section>
+</div>
+<footer>
+	<p>
+		访客数:<span id="busuanzi_value_site_uv"></span>
+		访问量:<span id="busuanzi_value_site_pv"></span>
+	</p>
+	<p class="author">Copyright <i class="glyphicon glyphicon-copyright-mark"></i> <a href="http://www.domeyi.com">Racall</a> 2016</p>
+	<p class="motto">
+		<i class="glyphicon glyphicon-chevron-left"></i>
+		THE PROGRAME CHANGE THE WORLD
+		<i class="glyphicon glyphicon-italic"></i>
+		<i class="glyphicon glyphicon-chevron-right"></i>
+	</p>
+</footer>
+<div id="backtoTop" title="回到顶部" data-action="gototop">
+	<canvas id="backtoTopCanvas" width="48" height="48"></canvas>
+	<div class="per" data-percent="100"></div>
+</div>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+
+<script src="/js/jquery.marquee.min.js"></script>
+<script src="/js/tipso.min.js"></script>
+<script src="/js/right.js"></script>
+<script src="/js/time.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/gotop.js"></script>
+
+	<script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+</body>
+</html>

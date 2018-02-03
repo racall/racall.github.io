@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+  
+  <title>Java中类的理解 | 小 忆 博 客 | 有梦想，有精彩</title>
+  <script type="text/javascript" src="https://tajs.qq.com/stats?sId=61247340" charset="UTF-8"></script>
+  
+    <link rel="icon" href="/img/site.png">
+  
+  
+    <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <script src="/js/jquery.min.js"></script>
+</head>
+<body ontouchstart="">
+<!--[if lt IE 10]>
+<p class="browserupgrade">
+  You are using an <strong>outdated</strong> browser.
+  Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
+</p>
+<![endif]-->
+<header>
+	<!-- 站点信息 -->
+	<div class="site-info">
+		<a href="/" class="avatar"><img src="/img/avatar.jpg" class="animated zoomIn"></a>
+		<div class="info">
+			<h1 class="site-title"><a href="/">小忆</a></h1>
+			<span class="describe">有梦想，有精彩</span>
+		</div>
+		<ul>
+	        
+	            <li class="link"><a href="mailto:xy@domeyi.com" class="iconfont icon-email" target="_blank"></a></li>
+	        
+	            <li class="link"><a href="https://github.com/racall" class="iconfont icon-github" target="_blank"></a></li>
+	        
+	            <li class="link"><a href="https://twitter.com/xexiaoyi" class="iconfont icon-twitter" target="_blank"></a></li>
+	        
+	            <li class="link"><a href="http://sighttp.qq.com/authd?IDKEY=d05bb896ad60f4735751ee569b9626f9ba5e1d397da3530c" class="iconfont icon-qq" target="_blank"></a></li>
+	        
+			
+		</ul>
+	</div>
+	<!-- 欢迎语 -->
+	<div class="notice">
+	
+	</div>
+
+	<!-- 导航栏 -->
+	<nav class="navbar animate-init">
+		<ul>
+			
+	        <li class="nav-item"><a href="/">主页</a></li>
+	      	
+	        <li class="nav-item"><a href="/archives/">归档</a></li>
+	      	
+	        <li class="nav-item"><a href="/about/">关于</a></li>
+	      	
+		</ul>
+	</nav>
+</header>
+<div class="container">
+	<main>
+			<!-- 文章部分 -->
+	<article class="animate-init">
+
+    
+    	<h3 class="article-title">Java中类的理解</h3>
+    
+
+		<div class="article-time">
+			<a href="/2016/03/14/Java中类的理解/">2016-03-14</a>
+		</div>
+		<div class="article-content">
+			
+				<input type="hidden" class="isFancy" />
+			
+			<div class="entry">
+			      
+			        <p>　　学习计算机编程语言有很几年了，一直都在学习面向过程编程语言，始终没有去接触面向对象编程语言，即使有过接触，也没有深入，现在在学校学习Java语言，终于接触到了面向对象编程语言，随着这几天学习，发现自己渐渐开始喜欢Java这门语言。<br><a id="more"></a><br>　　类，这个概念很抽象，可以把客观世界的每一个实体都看作一个对象，比如：一只鸟、一个人、一辆汽车等。对象的定义并不局限于看得见摸得着的实体，比如一家卖手机的公司，它作为一个机构，但并没有物理上德形状，却又概念上的形状，它有明确的业务活动。</p>
+<p>　　我们平时会把麻雀、格子、燕子等都叫做鸟，因为它们都有一些共同的特征：会飞翔、有羽毛、下蛋孵化下一代等，因此我们会把它们归属到鸟类。记得小学时，有《自然与科学》这门课，这门课里有讲到把自然界里的树、各种动物归属到各种类里面。</p>
+<p>　　这里举个例子吧，我有一辆车，汽车有哪些配件呢？有车轮、颜色、型号、发动机、变速器等，汽车有哪些功能呢？或者说有哪些行为呢？汽车会启动、可以行使、可以加速、停止等。在类的概念里，汽车的配件称作属性，汽车的功能称作方法，我的这一辆车是汽车类的一个实例化对象。</p>
+<p>　　在Java中，类的简单格式是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">　　[访问限定符] class 类名&#123;</span><br><span class="line"></span><br><span class="line">　　[类的成员变量] //类的属性</span><br><span class="line"></span><br><span class="line">　　[类的方法定义] //行为定义</span><br><span class="line"></span><br><span class="line">　　&#125;</span><br></pre></td></tr></table></figure>
+<p>　　写这篇博文，只是为加深个人对Java中类的理解，如有理解错误的地方，请各位大神指出，谢谢</p>
+
+			      
+	      	</div>
+		</div>
+
+		<div class="article-footer clearfix">
+		
+			
+				<div class="article-meta pull-left">
+				
+				    <span class="post-categories">
+				      <i class="glyphicon glyphicon-chevron-left"></i>
+				        <a href="/2016/01/28/链表学习笔记-一/">链表学习笔记(一)</a>
+				    </span>
+				
+		    	</div>
+				 <div class="article-meta pull-right">
+				 
+					  <span>
+					  	<a href="/2016/03/15/Java求100以内的完数/">Java求100以内的完数</a>
+					    <i class="glyphicon glyphicon-chevron-right"></i>
+					  </span>
+				
+				</div>
+			
+		
+		</div>
+	</article>
+
+  
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: 'https://blog.domeyi.com/2016/03/14/Java中类的理解/', // 可选。默认为 location.href
+  owner: 'racall',
+  repo: 'comment',
+  oauth: {
+    client_id: 'c7d336cf3868196517c0',
+    client_secret: 'a6bee65b0275b51140b2fd203ff90d57e0b00ad5',
+  },
+})
+gitment.render('container')
+</script>
+
+
+
+	</main>
+<section class="BR">
+	<!-- 右下角标签云 -->
+
+<section class="tags">
+	<div class="tags-box">
+		<a href="/tags/2016/" style="font-size: 10px;">2016</a> <a href="/tags/2017/" style="font-size: 10px;">2017</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/Hexo主题/" style="font-size: 10px;">Hexo主题</a> <a href="/tags/Https/" style="font-size: 10px;">Https</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MVC/" style="font-size: 10px;">MVC</a> <a href="/tags/MacBook/" style="font-size: 10px;">MacBook</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/TK域名/" style="font-size: 10px;">TK域名</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Webhook/" style="font-size: 13.33px;">Webhook</a> <a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/tags/mongoDB/" style="font-size: 10px;">mongoDB</a> <a href="/tags/ngrok/" style="font-size: 10px;">ngrok</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/php/" style="font-size: 13.33px;">php</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/七牛/" style="font-size: 10px;">七牛</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/多说评论/" style="font-size: 10px;">多说评论</a> <a href="/tags/大学/" style="font-size: 10px;">大学</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/转载/" style="font-size: 10px;">转载</a>
+	</div>
+	<div class="pop-tags" title="标签"></div>
+</section>
+
+	<!-- 右下角友链 -->
+
+	<section class="friends">
+		<div class="friends-box">
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/racall">GitHub</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.netcan666.com">Netcan</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.waydrow.com">Waydrow</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://hubojing.github.io">胡博靖</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.yuedongxu.cn">Ezreal</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.iqi7.com/">七夏浅笑</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.isecret.vip/">Secret Blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://cshrimp.cc/">CGSP&#39;s blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.manso-he.net/">Manso</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.qaq6.cn/">67博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://hannahsuu.top/">Hannah Su</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://wehentai.org/">Linger</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.iwangyu.cn">Wang Yu&#39;s Blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://ykksmile.top">Ykksir</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://mao486.me/">MAO486</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://nk39.net">愤青博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://hoofoo.me/">Hoofoo&#39;s Blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.daraw.cn/">DaraW</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://ruke.xyz">ruke驿站</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.poyuming.com">铅笔的破博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.fmemory.pw/">风潇水寒</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.qiujinfeng.com/">疯疯</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://itsay.tech">张大侠</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.werelone.cn/">Werelone的博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://blessing.studio">Blessing Studio</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://liyuans.com">Leonn的博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://itruke.com/">技术宅男子</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.huxinchun.com/">胡新春博客</a>
+            
+		</div>
+		<div class="pop-friends" title="友链"></div>
+	</section>
+
+</section>
+</div>
+<footer>
+	<p>
+		访客数:<span id="busuanzi_value_site_uv"></span>
+		访问量:<span id="busuanzi_value_site_pv"></span>
+	</p>
+	<p class="author">Copyright <i class="glyphicon glyphicon-copyright-mark"></i> <a href="http://www.domeyi.com">Racall</a> 2016</p>
+	<p class="motto">
+		<i class="glyphicon glyphicon-chevron-left"></i>
+		THE PROGRAME CHANGE THE WORLD
+		<i class="glyphicon glyphicon-italic"></i>
+		<i class="glyphicon glyphicon-chevron-right"></i>
+	</p>
+</footer>
+<div id="backtoTop" title="回到顶部" data-action="gototop">
+	<canvas id="backtoTopCanvas" width="48" height="48"></canvas>
+	<div class="per" data-percent="100"></div>
+</div>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+
+<script src="/js/jquery.marquee.min.js"></script>
+<script src="/js/tipso.min.js"></script>
+<script src="/js/right.js"></script>
+<script src="/js/time.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/gotop.js"></script>
+
+	<script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+</body>
+</html>

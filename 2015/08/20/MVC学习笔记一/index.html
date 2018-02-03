@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+  
+  <title>MVC学习笔记一 | 小 忆 博 客 | 有梦想，有精彩</title>
+  <script type="text/javascript" src="https://tajs.qq.com/stats?sId=61247340" charset="UTF-8"></script>
+  
+    <link rel="icon" href="/img/site.png">
+  
+  
+    <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <script src="/js/jquery.min.js"></script>
+</head>
+<body ontouchstart="">
+<!--[if lt IE 10]>
+<p class="browserupgrade">
+  You are using an <strong>outdated</strong> browser.
+  Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
+</p>
+<![endif]-->
+<header>
+	<!-- 站点信息 -->
+	<div class="site-info">
+		<a href="/" class="avatar"><img src="/img/avatar.jpg" class="animated zoomIn"></a>
+		<div class="info">
+			<h1 class="site-title"><a href="/">小忆</a></h1>
+			<span class="describe">有梦想，有精彩</span>
+		</div>
+		<ul>
+	        
+	            <li class="link"><a href="mailto:xy@domeyi.com" class="iconfont icon-email" target="_blank"></a></li>
+	        
+	            <li class="link"><a href="https://github.com/racall" class="iconfont icon-github" target="_blank"></a></li>
+	        
+	            <li class="link"><a href="https://twitter.com/xexiaoyi" class="iconfont icon-twitter" target="_blank"></a></li>
+	        
+	            <li class="link"><a href="http://sighttp.qq.com/authd?IDKEY=d05bb896ad60f4735751ee569b9626f9ba5e1d397da3530c" class="iconfont icon-qq" target="_blank"></a></li>
+	        
+			
+		</ul>
+	</div>
+	<!-- 欢迎语 -->
+	<div class="notice">
+	
+	</div>
+
+	<!-- 导航栏 -->
+	<nav class="navbar animate-init">
+		<ul>
+			
+	        <li class="nav-item"><a href="/">主页</a></li>
+	      	
+	        <li class="nav-item"><a href="/archives/">归档</a></li>
+	      	
+	        <li class="nav-item"><a href="/about/">关于</a></li>
+	      	
+		</ul>
+	</nav>
+</header>
+<div class="container">
+	<main>
+			<!-- 文章部分 -->
+	<article class="animate-init">
+
+    
+    	<h3 class="article-title">MVC学习笔记一</h3>
+    
+
+		<div class="article-time">
+			<a href="/2015/08/20/MVC学习笔记一/">2015-08-20</a>
+		</div>
+		<div class="article-content">
+			
+				<input type="hidden" class="isFancy" />
+			
+			<div class="entry">
+			      
+			        <p>　　最近开始学习PHP的mvc架构，可能大家也知道很多的PHP框架,都是采用MVC架构，比如ThinkPHP、yii。MVC全名是Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写。<br><br><a id="more"></a><br><code></code></p>
+<p><ol></ol></p>
+<p><li> Model（模型）表示应用程序核心（比如数据库记录列表）。</li></p>
+<p><li>View（视图）显示数据（数据库记录）。</li></p>
+<p><li>Controller（控制器）处理输入（写入数据库记录）。</li><br><br></p>
+<p>　　其实根据我肤浅的理解，Model（模型）就把是从数据库中把数据取出来，View（视图）就是把模型从数据库中取出的数据显示出来，Controller（控制器）就相当于一个遥控器，能让用户操作，并且处理用户输入的内容。这些都是我学习这两天对MVC概念的理解，可能理解的很肤浅,希望大家多多指教！</p>
+<p>下面展示一下我的第一个MVC代码：</p>
+<blockquote>
+<p>testModel.class.php</p>
+</blockquote>
+<p><code><pre><br>&lt;?php<br>/**</pre></code></p>
+<ul>
+<li><p>模型的作用是获取数据并处理返回数据<br>*/<br>class testModel<br>{</p>
+<p>  function get()<br>  {</p>
+<pre><code>return &quot;Hello World&quot;;
+</code></pre><p>  }<br>}<br>?&gt;<br><br></p>
+</li>
+</ul>
+<blockquote>
+<p>testView.class.php</p>
+</blockquote>
+<p><code><pre><br>&lt;?php<br>/**</pre></code></p>
+<ul>
+<li><p>视图的作用是将取得的数据进行组织、美化等，并向用户输出<br>*/<br>class testView<br>{</p>
+<p>  function display($date)<br>  {</p>
+<pre><code>echo $date;
+</code></pre><p>  }<br>}<br>?&gt;<br><br></p>
+</li>
+</ul>
+<blockquote>
+<p>testController.class.php</p>
+</blockquote>
+<p><code><pre><br>&lt;?php<br>/**</pre></code></p>
+<ul>
+<li><p>控制器的作用是调用模型，并调用视图，将模型产生的数据传递给试图，并让相关视图去显示<br>*/<br>class testController<br>{</p>
+<p>  function show()<br>  {</p>
+<pre><code>$testModel=M(&apos;test&apos;);
+$data=$testModel-&gt;get();
+$testView=V(&apos;test&apos;);
+$testView-&gt;display($data);
+</code></pre><p>  }<br>}<br>?&gt;<br><br></p>
+</li>
+</ul>
+<blockquote>
+<p>test.php</p>
+</blockquote>
+<p><code></code></p>
+<p><pre><br>&lt;?php<br>    require ‘testController.class.php’;<br>    require ‘testModel.class.php’;<br>    require ‘testView.class.php’;<br>    $testController=new testController();<br>    $testController-&gt;show();<br>?&gt;<br></pre><br></p>
+<p>希望大家多多指教！</p>
+
+			      
+	      	</div>
+		</div>
+
+		<div class="article-footer clearfix">
+		
+			
+				<div class="article-meta pull-left">
+				
+				    <span class="post-categories">
+				      <i class="glyphicon glyphicon-chevron-left"></i>
+				        <a href="/2015/08/14/把TK域名的域名解析服务器换成dnspod/">把TK域名的域名解析服务器换成dnspod</a>
+				    </span>
+				
+		    	</div>
+				 <div class="article-meta pull-right">
+				 
+					  <span>
+					  	<a href="/2015/11/02/hexo迁移环境/">hexo迁移环境</a>
+					    <i class="glyphicon glyphicon-chevron-right"></i>
+					  </span>
+				
+				</div>
+			
+		
+		</div>
+	</article>
+
+  
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: 'https://blog.domeyi.com/2015/08/20/MVC学习笔记一/', // 可选。默认为 location.href
+  owner: 'racall',
+  repo: 'comment',
+  oauth: {
+    client_id: 'c7d336cf3868196517c0',
+    client_secret: 'a6bee65b0275b51140b2fd203ff90d57e0b00ad5',
+  },
+})
+gitment.render('container')
+</script>
+
+
+
+	</main>
+<section class="BR">
+	<!-- 右下角标签云 -->
+
+<section class="tags">
+	<div class="tags-box">
+		<a href="/tags/2016/" style="font-size: 10px;">2016</a> <a href="/tags/2017/" style="font-size: 10px;">2017</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/Hexo主题/" style="font-size: 10px;">Hexo主题</a> <a href="/tags/Https/" style="font-size: 10px;">Https</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MVC/" style="font-size: 10px;">MVC</a> <a href="/tags/MacBook/" style="font-size: 10px;">MacBook</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/TK域名/" style="font-size: 10px;">TK域名</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Webhook/" style="font-size: 13.33px;">Webhook</a> <a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/tags/mongoDB/" style="font-size: 10px;">mongoDB</a> <a href="/tags/ngrok/" style="font-size: 10px;">ngrok</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/php/" style="font-size: 13.33px;">php</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/七牛/" style="font-size: 10px;">七牛</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/多说评论/" style="font-size: 10px;">多说评论</a> <a href="/tags/大学/" style="font-size: 10px;">大学</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/转载/" style="font-size: 10px;">转载</a>
+	</div>
+	<div class="pop-tags" title="标签"></div>
+</section>
+
+	<!-- 右下角友链 -->
+
+	<section class="friends">
+		<div class="friends-box">
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/racall">GitHub</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.netcan666.com">Netcan</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.waydrow.com">Waydrow</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://hubojing.github.io">胡博靖</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.yuedongxu.cn">Ezreal</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.iqi7.com/">七夏浅笑</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.isecret.vip/">Secret Blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://cshrimp.cc/">CGSP&#39;s blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.manso-he.net/">Manso</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.qaq6.cn/">67博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://hannahsuu.top/">Hannah Su</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://wehentai.org/">Linger</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.iwangyu.cn">Wang Yu&#39;s Blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://ykksmile.top">Ykksir</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://mao486.me/">MAO486</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://nk39.net">愤青博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://hoofoo.me/">Hoofoo&#39;s Blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.daraw.cn/">DaraW</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://ruke.xyz">ruke驿站</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.poyuming.com">铅笔的破博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.fmemory.pw/">风潇水寒</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.qiujinfeng.com/">疯疯</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://itsay.tech">张大侠</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.werelone.cn/">Werelone的博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://blessing.studio">Blessing Studio</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://liyuans.com">Leonn的博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://itruke.com/">技术宅男子</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.huxinchun.com/">胡新春博客</a>
+            
+		</div>
+		<div class="pop-friends" title="友链"></div>
+	</section>
+
+</section>
+</div>
+<footer>
+	<p>
+		访客数:<span id="busuanzi_value_site_uv"></span>
+		访问量:<span id="busuanzi_value_site_pv"></span>
+	</p>
+	<p class="author">Copyright <i class="glyphicon glyphicon-copyright-mark"></i> <a href="http://www.domeyi.com">Racall</a> 2016</p>
+	<p class="motto">
+		<i class="glyphicon glyphicon-chevron-left"></i>
+		THE PROGRAME CHANGE THE WORLD
+		<i class="glyphicon glyphicon-italic"></i>
+		<i class="glyphicon glyphicon-chevron-right"></i>
+	</p>
+</footer>
+<div id="backtoTop" title="回到顶部" data-action="gototop">
+	<canvas id="backtoTopCanvas" width="48" height="48"></canvas>
+	<div class="per" data-percent="100"></div>
+</div>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+
+<script src="/js/jquery.marquee.min.js"></script>
+<script src="/js/tipso.min.js"></script>
+<script src="/js/right.js"></script>
+<script src="/js/time.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/gotop.js"></script>
+
+	<script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+</body>
+</html>

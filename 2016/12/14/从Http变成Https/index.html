@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+  
+  <title>从Http变成Https | 小 忆 博 客 | 有梦想，有精彩</title>
+  <script type="text/javascript" src="https://tajs.qq.com/stats?sId=61247340" charset="UTF-8"></script>
+  
+    <link rel="icon" href="/img/site.png">
+  
+  
+    <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <script src="/js/jquery.min.js"></script>
+</head>
+<body ontouchstart="">
+<!--[if lt IE 10]>
+<p class="browserupgrade">
+  You are using an <strong>outdated</strong> browser.
+  Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
+</p>
+<![endif]-->
+<header>
+	<!-- 站点信息 -->
+	<div class="site-info">
+		<a href="/" class="avatar"><img src="/img/avatar.jpg" class="animated zoomIn"></a>
+		<div class="info">
+			<h1 class="site-title"><a href="/">小忆</a></h1>
+			<span class="describe">有梦想，有精彩</span>
+		</div>
+		<ul>
+	        
+	            <li class="link"><a href="mailto:xy@domeyi.com" class="iconfont icon-email" target="_blank"></a></li>
+	        
+	            <li class="link"><a href="https://github.com/racall" class="iconfont icon-github" target="_blank"></a></li>
+	        
+	            <li class="link"><a href="https://twitter.com/xexiaoyi" class="iconfont icon-twitter" target="_blank"></a></li>
+	        
+	            <li class="link"><a href="http://sighttp.qq.com/authd?IDKEY=d05bb896ad60f4735751ee569b9626f9ba5e1d397da3530c" class="iconfont icon-qq" target="_blank"></a></li>
+	        
+			
+		</ul>
+	</div>
+	<!-- 欢迎语 -->
+	<div class="notice">
+	
+	</div>
+
+	<!-- 导航栏 -->
+	<nav class="navbar animate-init">
+		<ul>
+			
+	        <li class="nav-item"><a href="/">主页</a></li>
+	      	
+	        <li class="nav-item"><a href="/archives/">归档</a></li>
+	      	
+	        <li class="nav-item"><a href="/about/">关于</a></li>
+	      	
+		</ul>
+	</nav>
+</header>
+<div class="container">
+	<main>
+			<!-- 文章部分 -->
+	<article class="animate-init">
+
+    
+    	<h3 class="article-title">从Http变成Https</h3>
+    
+
+		<div class="article-time">
+			<a href="/2016/12/14/从Http变成Https/">2016-12-14</a>
+		</div>
+		<div class="article-content">
+			
+				<input type="hidden" class="isFancy" />
+			
+			<div class="entry">
+			      
+			        <p>　　2017年不仅是ios强制Https,而且谷歌也会把Http标记为不安全网站,微软也会在明年大力推行Https，所以给自己域名加一个Https也变成了势在必行了。<br><a id="more"></a></p>
+<p><img src="https://pic.52xyi.cn/9e3df8dcd100baa1e31affa24e10b912c8fc2ef0.jpg" alt="image"></p>
+<p>　　首先说一下，为什么这些互联网大公司要大力推行Https呢？因为Http协议是不安全的，通过Http协议传输的数据都是明文的，也就是说，使用Http协议传输数据就相当于数据在网络络里裸奔，任何信息数据都处在的窃听、篡改、冒充这三大风险之中，而谷歌、苹果、微软正是因为如此，所以在2017年大力推行Https。</p>
+<p>　　Https是Http的安全版，即Http下加入SSL层，Https的安全基础是SSL，因此加密的详细内容就需要SSL。Https的原理，不在这里复述了，感兴趣的小伙伴可以去谷歌一下。那么如何把自己的网站从Http变成Https呢？</p>
+<p>　　一、如果是github、coding的pages服务搭建的网站，可以去 <a href="https://www.cloudflare.com" target="_blank" rel="noopener">Cloudflare</a> 注册一个账号，然后把自己的域名托管给Cloudflare就可以了，然后开启Https，同时也开启github、coding里面的Https,这样一来你的博客或网站的域名就变成了https了。</p>
+<p>　　二、如果你是使用的vps，就拿我的腾讯云服务器来说，首先腾讯云提供了免费的Https证书，申请地址：<a href="https://console.qcloud.com/ssl" target="_blank" rel="noopener">https://console.qcloud.com/ssl</a>,腾讯云提供的免费证书是DVSSL证书，申请很快捷，可以自动帮你解析验证域名的所有权(必须是腾讯云申请的域名才可以)，申请完成后可以去把域名中多出来的那个cname删除掉，那个cname解析只是为了验证域名所有权的，所以可以删除掉。</p>
+<p>　　证书申请完成后，需要把证书部署到Apache或者Nginx中去。</p>
+<p>　　Apache部署方法:</p>
+<p>　　1. 下载你的证书,下载后是一个压缩包，加压后会得到一个文件夹，在这个文件夹里就有Apache、Nginx、IIS的证书。在Apache文件夹内获得证书文件 1_root_bundle.crt，2_www.xxx.com_cert.crt 和私钥文件 3_www.xxx.com.key。</p>
+<p>　　2. 证书安装,首先上传证书到你的linux服务器中。接着编辑Apache根目录下 conf/httpd.conf 文件，<br>找到 #LoadModule ssl_module modules/mod_ssl.so 和 #Include conf/extra/httpd-ssl.conf，去掉前面的#号注释；<br>编辑Apache根目录下 conf/extra/httpd-ssl.conf 文件，修改如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:443&gt;</span><br><span class="line">    DocumentRoot &quot;/var/www/html&quot;  //网站根目录</span><br><span class="line">    ServerName www.xxx.com //网站域名</span><br><span class="line">    SSLEngine on</span><br><span class="line">    SSLCertificateFile /usr/local/apache/conf/2_www.domain.com_cert.crt</span><br><span class="line">    SSLCertificateKeyFile /usr/local/apache/conf/3_www.domain.com.key</span><br><span class="line">    SSLCertificateChainFile /usr/local/apache/conf/1_root_bundle.crt</span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+<p>　　完成了这两步，你的网站域名就可以用Https访问了，例如我的<a href="https://www.52xyi.cn" target="_blank" rel="noopener">https://www.52xyi.cn</a></p>
+<p><img src="https://pic.52xyi.cn/QQ20161214-1.png" alt="image"></p>
+<p>　　由于腾讯云提供的免费证书,一个证书只能绑定一个域名，比如我的是www.52xyi.cn,而这个证书则对m.52xyi.cn无效的，必须重新配置，当然你是土豪的话，那就宁当别论了，可以自己去购买一个多域名的证书。</p>
+<p>　　配置好Https证书后，想让用户输入你的域名就自动跳转到https的话,需要在你网站的根目录内添加.htaccess文件，文件内容如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RewriteEngine on</span><br><span class="line">RewriteCond %&#123;SERVER_PORT&#125; 80</span><br><span class="line">RewriteRule ^(.*)$ https://你的域名/$1 [R,L]</span><br></pre></td></tr></table></figure>
+<p> 添加好之后，当别人输入你的网址，就会自动的变成https啦！</p>
+
+			      
+	      	</div>
+		</div>
+
+		<div class="article-footer clearfix">
+		
+			
+				<div class="article-meta pull-left">
+				
+				    <span class="post-categories">
+				      <i class="glyphicon glyphicon-chevron-left"></i>
+				        <a href="/2016/12/02/hexo-theme制作笔记-长期更新/">Hexo theme制作笔记(长期更新)</a>
+				    </span>
+				
+		    	</div>
+				 <div class="article-meta pull-right">
+				 
+					  <span>
+					  	<a href="/2017/01/13/Hexo-Xone主题/">Hexo Xone主题</a>
+					    <i class="glyphicon glyphicon-chevron-right"></i>
+					  </span>
+				
+				</div>
+			
+		
+		</div>
+	</article>
+
+  
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: 'https://blog.domeyi.com/2016/12/14/从Http变成Https/', // 可选。默认为 location.href
+  owner: 'racall',
+  repo: 'comment',
+  oauth: {
+    client_id: 'c7d336cf3868196517c0',
+    client_secret: 'a6bee65b0275b51140b2fd203ff90d57e0b00ad5',
+  },
+})
+gitment.render('container')
+</script>
+
+
+
+	</main>
+<section class="BR">
+	<!-- 右下角标签云 -->
+
+<section class="tags">
+	<div class="tags-box">
+		<a href="/tags/2016/" style="font-size: 10px;">2016</a> <a href="/tags/2017/" style="font-size: 10px;">2017</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/Hexo主题/" style="font-size: 10px;">Hexo主题</a> <a href="/tags/Https/" style="font-size: 10px;">Https</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MVC/" style="font-size: 10px;">MVC</a> <a href="/tags/MacBook/" style="font-size: 10px;">MacBook</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/TK域名/" style="font-size: 10px;">TK域名</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Webhook/" style="font-size: 13.33px;">Webhook</a> <a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/tags/mongoDB/" style="font-size: 10px;">mongoDB</a> <a href="/tags/ngrok/" style="font-size: 10px;">ngrok</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/php/" style="font-size: 13.33px;">php</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/七牛/" style="font-size: 10px;">七牛</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/多说评论/" style="font-size: 10px;">多说评论</a> <a href="/tags/大学/" style="font-size: 10px;">大学</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/转载/" style="font-size: 10px;">转载</a>
+	</div>
+	<div class="pop-tags" title="标签"></div>
+</section>
+
+	<!-- 右下角友链 -->
+
+	<section class="friends">
+		<div class="friends-box">
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/racall">GitHub</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.netcan666.com">Netcan</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.waydrow.com">Waydrow</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://hubojing.github.io">胡博靖</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.yuedongxu.cn">Ezreal</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.iqi7.com/">七夏浅笑</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.isecret.vip/">Secret Blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://cshrimp.cc/">CGSP&#39;s blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.manso-he.net/">Manso</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.qaq6.cn/">67博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://hannahsuu.top/">Hannah Su</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://wehentai.org/">Linger</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.iwangyu.cn">Wang Yu&#39;s Blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://ykksmile.top">Ykksir</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://mao486.me/">MAO486</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://nk39.net">愤青博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://hoofoo.me/">Hoofoo&#39;s Blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.daraw.cn/">DaraW</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://ruke.xyz">ruke驿站</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.poyuming.com">铅笔的破博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.fmemory.pw/">风潇水寒</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.qiujinfeng.com/">疯疯</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://itsay.tech">张大侠</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.werelone.cn/">Werelone的博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://blessing.studio">Blessing Studio</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://liyuans.com">Leonn的博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://itruke.com/">技术宅男子</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.huxinchun.com/">胡新春博客</a>
+            
+		</div>
+		<div class="pop-friends" title="友链"></div>
+	</section>
+
+</section>
+</div>
+<footer>
+	<p>
+		访客数:<span id="busuanzi_value_site_uv"></span>
+		访问量:<span id="busuanzi_value_site_pv"></span>
+	</p>
+	<p class="author">Copyright <i class="glyphicon glyphicon-copyright-mark"></i> <a href="http://www.domeyi.com">Racall</a> 2016</p>
+	<p class="motto">
+		<i class="glyphicon glyphicon-chevron-left"></i>
+		THE PROGRAME CHANGE THE WORLD
+		<i class="glyphicon glyphicon-italic"></i>
+		<i class="glyphicon glyphicon-chevron-right"></i>
+	</p>
+</footer>
+<div id="backtoTop" title="回到顶部" data-action="gototop">
+	<canvas id="backtoTopCanvas" width="48" height="48"></canvas>
+	<div class="per" data-percent="100"></div>
+</div>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+
+<script src="/js/jquery.marquee.min.js"></script>
+<script src="/js/tipso.min.js"></script>
+<script src="/js/right.js"></script>
+<script src="/js/time.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/gotop.js"></script>
+
+	<script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+</body>
+</html>

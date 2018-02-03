@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+  
+  <title>服务器上搭建Node.js环境 | 小 忆 博 客 | 有梦想，有精彩</title>
+  <script type="text/javascript" src="https://tajs.qq.com/stats?sId=61247340" charset="UTF-8"></script>
+  
+    <link rel="icon" href="/img/site.png">
+  
+  
+    <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <script src="/js/jquery.min.js"></script>
+</head>
+<body ontouchstart="">
+<!--[if lt IE 10]>
+<p class="browserupgrade">
+  You are using an <strong>outdated</strong> browser.
+  Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
+</p>
+<![endif]-->
+<header>
+	<!-- 站点信息 -->
+	<div class="site-info">
+		<a href="/" class="avatar"><img src="/img/avatar.jpg" class="animated zoomIn"></a>
+		<div class="info">
+			<h1 class="site-title"><a href="/">小忆</a></h1>
+			<span class="describe">有梦想，有精彩</span>
+		</div>
+		<ul>
+	        
+	            <li class="link"><a href="mailto:xy@domeyi.com" class="iconfont icon-email" target="_blank"></a></li>
+	        
+	            <li class="link"><a href="https://github.com/racall" class="iconfont icon-github" target="_blank"></a></li>
+	        
+	            <li class="link"><a href="https://twitter.com/xexiaoyi" class="iconfont icon-twitter" target="_blank"></a></li>
+	        
+	            <li class="link"><a href="http://sighttp.qq.com/authd?IDKEY=d05bb896ad60f4735751ee569b9626f9ba5e1d397da3530c" class="iconfont icon-qq" target="_blank"></a></li>
+	        
+			
+		</ul>
+	</div>
+	<!-- 欢迎语 -->
+	<div class="notice">
+	
+	</div>
+
+	<!-- 导航栏 -->
+	<nav class="navbar animate-init">
+		<ul>
+			
+	        <li class="nav-item"><a href="/">主页</a></li>
+	      	
+	        <li class="nav-item"><a href="/archives/">归档</a></li>
+	      	
+	        <li class="nav-item"><a href="/about/">关于</a></li>
+	      	
+		</ul>
+	</nav>
+</header>
+<div class="container">
+	<main>
+			<!-- 文章部分 -->
+	<article class="animate-init">
+
+    
+    	<h3 class="article-title">服务器上搭建Node.js环境</h3>
+    
+
+		<div class="article-time">
+			<a href="/2017/05/19/服务器上搭建Node-js环境/">2017-05-19</a>
+		</div>
+		<div class="article-content">
+			
+				<input type="hidden" class="isFancy" />
+			
+			<div class="entry">
+			      
+			        <p>说实话自己部署线上Node.js运行环境真的很麻烦…如果你有什么好的环境集成包，可以在下面留言! <a id="more"></a></p>
+<h4 id="本文所使用的环境"><a href="#本文所使用的环境" class="headerlink" title="本文所使用的环境:"></a>本文所使用的环境:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">服务器：CentOS6.9 X64</span><br><span class="line">Node版本：v6.10.3</span><br></pre></td></tr></table></figure>
+<h4 id="安装wget、curl、git、vim"><a href="#安装wget、curl、git、vim" class="headerlink" title="安装wget、curl、git、vim"></a>安装wget、curl、git、vim</h4><p>（这些是linux上的常用工具）</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum install wget curl git vim</span></span><br></pre></td></tr></table></figure>
+<h4 id="安装nvm和Node-js"><a href="#安装nvm和Node-js" class="headerlink" title="安装nvm和Node.js"></a>安装nvm和Node.js</h4><p>进入GitHub搜索nvm或者直接输入地址<a href="https://github.com/creationix/nvm" target="_blank" rel="noopener">https://github.com/creationix/nvm</a>，找到nvm的安装脚本。</p>
+<p>如果没有找到，可以用下面的安装脚本命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash</span><br></pre></td></tr></table></figure>
+<p>通过安装脚本安装完nvm以后，会提示我们再开一个新的终端来连接服务器，连接上服务器以后,使用:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nvm install v6.10.3 #安装node.js 6.10.3版本</span><br><span class="line">nvm use v.6.10.3 #把node版本指向6.10.3</span><br><span class="line">nvm alias default v6.10.3 #把node版本设置成默认版本</span><br></pre></td></tr></table></figure>
+<p>接下来可以查看Node.js版本和npm的版本,如果Node.js版本为你所安装的版本那就证明安装成功啦。。。</p>
+<p>升级npm:</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">npm install -g npm</span></span><br></pre></td></tr></table></figure>
+<h4 id="安装PM2"><a href="#安装PM2" class="headerlink" title="安装PM2"></a>安装PM2</h4><p>到现在服务器上Node.js环境有啦！你以为这就安装好了吗？NO。。。为了让Node.js后台运行并且能方便管理Node.js项目,所以还是要安装PM2这款工具</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install pm2 -g #全局安装pm2</span><br></pre></td></tr></table></figure>
+<p>安装好pm2之后，还是没完呢！</p>
+<h4 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h4><p>接下来安装Nginx来实现反向代理…</p>
+<p>由于我的服务器中yum源没有nginx，所以呢…自己添加源吧！</p>
+<p>在/etc/yum.repos.d/目录下创建一个源配置文件nginx.repo：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/yum.repos.d/  </span><br><span class="line">vim nginx.repo</span><br></pre></td></tr></table></figure>
+<p>填写如下内容：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[nginx]</span></span><br><span class="line"><span class="string">name=nginx</span> <span class="string">repo</span>  </span><br><span class="line"><span class="string">baseurl=http://nginx.org/packages/centos/$releasever/$basearch/</span>  </span><br><span class="line"><span class="string">gpgcheck=0</span>  </span><br><span class="line"><span class="string">enabled=1</span></span><br></pre></td></tr></table></figure>
+<p>保存（不会使用vim的自己去查）,然后运行:</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum install nginx</span></span><br></pre></td></tr></table></figure>
+<p>好了，安装完成了。</p>
+<h4 id="附上反向代码的配置文件"><a href="#附上反向代码的配置文件" class="headerlink" title="附上反向代码的配置文件"></a>附上反向代码的配置文件</h4><p>在写配置文件之前查看/etc/nginx/nginx.conf里面:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">include</span> <span class="string">/etc/nginx/conf.d/*.conf;</span> <span class="comment">#这句话是否被注释</span></span><br></pre></td></tr></table></figure>
+<p>配置文件在/etc/nginx/conf.d (不要去修改默认的配置文件，自己新建吧!后缀名conf)</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">upstream</span> <span class="string">reply</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">server</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:3030;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="string">server</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line">    <span class="string">listen</span> <span class="number">80</span><span class="string">;</span></span><br><span class="line">    <span class="string">server_name</span> <span class="string">api.domeyi.com;</span></span><br><span class="line">    <span class="string">location</span> <span class="string">/</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">proxy_pass</span> <span class="attr">http://127.0.0.1:3030/;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>Nginx相关的命令：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">service</span> <span class="string">nginx</span> <span class="string">start</span> <span class="comment">#启动</span></span><br><span class="line"><span class="string">service</span> <span class="string">nginx</span> <span class="string">stop</span> <span class="comment">#停止</span></span><br><span class="line"><span class="string">nginx</span> <span class="bullet">-t</span> <span class="comment">#检查配置文件是否有错误,有'successful'字样就没错</span></span><br><span class="line"><span class="string">nginx</span> <span class="bullet">-s</span> <span class="string">reload</span> <span class="comment">#重新加载配置文件</span></span><br></pre></td></tr></table></figure>
+
+			      
+	      	</div>
+		</div>
+
+		<div class="article-footer clearfix">
+		
+			
+				<div class="article-meta pull-left">
+				
+				    <span class="post-categories">
+				      <i class="glyphicon glyphicon-chevron-left"></i>
+				        <a href="/2017/05/16/mongoDB安全权限访问控制/">mongoDB安全权限访问控制</a>
+				    </span>
+				
+		    	</div>
+				 <div class="article-meta pull-right">
+				 
+					  <span>
+					  	<a href="/2017/05/21/SSH免密码登录Linux/">SSH免密码登录Linux</a>
+					    <i class="glyphicon glyphicon-chevron-right"></i>
+					  </span>
+				
+				</div>
+			
+		
+		</div>
+	</article>
+
+  
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: 'https://blog.domeyi.com/2017/05/19/服务器上搭建Node-js环境/', // 可选。默认为 location.href
+  owner: 'racall',
+  repo: 'comment',
+  oauth: {
+    client_id: 'c7d336cf3868196517c0',
+    client_secret: 'a6bee65b0275b51140b2fd203ff90d57e0b00ad5',
+  },
+})
+gitment.render('container')
+</script>
+
+
+
+	</main>
+<section class="BR">
+	<!-- 右下角标签云 -->
+
+<section class="tags">
+	<div class="tags-box">
+		<a href="/tags/2016/" style="font-size: 10px;">2016</a> <a href="/tags/2017/" style="font-size: 10px;">2017</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/Hexo主题/" style="font-size: 10px;">Hexo主题</a> <a href="/tags/Https/" style="font-size: 10px;">Https</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MVC/" style="font-size: 10px;">MVC</a> <a href="/tags/MacBook/" style="font-size: 10px;">MacBook</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/TK域名/" style="font-size: 10px;">TK域名</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Webhook/" style="font-size: 13.33px;">Webhook</a> <a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/tags/mongoDB/" style="font-size: 10px;">mongoDB</a> <a href="/tags/ngrok/" style="font-size: 10px;">ngrok</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/php/" style="font-size: 13.33px;">php</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/七牛/" style="font-size: 10px;">七牛</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/多说评论/" style="font-size: 10px;">多说评论</a> <a href="/tags/大学/" style="font-size: 10px;">大学</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/转载/" style="font-size: 10px;">转载</a>
+	</div>
+	<div class="pop-tags" title="标签"></div>
+</section>
+
+	<!-- 右下角友链 -->
+
+	<section class="friends">
+		<div class="friends-box">
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/racall">GitHub</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.netcan666.com">Netcan</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.waydrow.com">Waydrow</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://hubojing.github.io">胡博靖</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.yuedongxu.cn">Ezreal</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.iqi7.com/">七夏浅笑</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.isecret.vip/">Secret Blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://cshrimp.cc/">CGSP&#39;s blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.manso-he.net/">Manso</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.qaq6.cn/">67博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://hannahsuu.top/">Hannah Su</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://wehentai.org/">Linger</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.iwangyu.cn">Wang Yu&#39;s Blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://ykksmile.top">Ykksir</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://mao486.me/">MAO486</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://nk39.net">愤青博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://hoofoo.me/">Hoofoo&#39;s Blog</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.daraw.cn/">DaraW</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://ruke.xyz">ruke驿站</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.poyuming.com">铅笔的破博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.fmemory.pw/">风潇水寒</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.qiujinfeng.com/">疯疯</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://itsay.tech">张大侠</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.werelone.cn/">Werelone的博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://blessing.studio">Blessing Studio</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="https://liyuans.com">Leonn的博客</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://itruke.com/">技术宅男子</a>
+            
+              <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.huxinchun.com/">胡新春博客</a>
+            
+		</div>
+		<div class="pop-friends" title="友链"></div>
+	</section>
+
+</section>
+</div>
+<footer>
+	<p>
+		访客数:<span id="busuanzi_value_site_uv"></span>
+		访问量:<span id="busuanzi_value_site_pv"></span>
+	</p>
+	<p class="author">Copyright <i class="glyphicon glyphicon-copyright-mark"></i> <a href="http://www.domeyi.com">Racall</a> 2016</p>
+	<p class="motto">
+		<i class="glyphicon glyphicon-chevron-left"></i>
+		THE PROGRAME CHANGE THE WORLD
+		<i class="glyphicon glyphicon-italic"></i>
+		<i class="glyphicon glyphicon-chevron-right"></i>
+	</p>
+</footer>
+<div id="backtoTop" title="回到顶部" data-action="gototop">
+	<canvas id="backtoTopCanvas" width="48" height="48"></canvas>
+	<div class="per" data-percent="100"></div>
+</div>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+
+<script src="/js/jquery.marquee.min.js"></script>
+<script src="/js/tipso.min.js"></script>
+<script src="/js/right.js"></script>
+<script src="/js/time.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/gotop.js"></script>
+
+	<script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+</body>
+</html>
