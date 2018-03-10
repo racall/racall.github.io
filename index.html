@@ -97,6 +97,51 @@
 
     
 		<h3 class="article-title">
+			<a href="/2018/03/10/MacOS-App代码提权详解/">MacOS App代码提权详解</a>
+		</h3>
+    
+
+		<div class="article-time">
+			<a href="/2018/03/10/MacOS-App代码提权详解/">2018-03-10</a>
+		</div>
+		<div class="article-content">
+			
+				<input type="hidden" class="isFancy" />
+			
+			<div class="entry">
+			      
+			        <p>  最近一段时间开发公司一款MacOS平台的App时需要用到管理员权限，于是乎上网查询了MacOS App使用代码提权的方式，目前主要有以下几种：</p>
+<h3 id="1-通过ServiceManagement注册LaunchdDaemon"><a href="#1-通过ServiceManagement注册LaunchdDaemon" class="headerlink" title="1.通过ServiceManagement注册LaunchdDaemon"></a>1.通过ServiceManagement注册LaunchdDaemon</h3><p>  这种方法是目前苹果官方推荐的一种提权方式，官方也提供了一个SMJobBless的Demo，但是需要用苹果开发者账号编译（我会在后面的文章单独介绍一种不需要开发者账号编译的方式，也能通过这种方式达到高权限的需求，在本文末尾会提供思路!），而且使用起来很复杂。带来的好处是，将高权限任务封装到独立的子程序，将按需调用，不会让整个程序处于高权限的状态会相对安全一些，子程序便能轻松实现开启自启、常驻后台、高权限的需求。<br>
+			      
+	      	</div>
+		</div>
+
+		<div class="article-footer clearfix">
+		
+			<div class="article-meta pull-left">
+		    
+
+		    
+			    
+			    <span class="post-tags">
+			      <i class="glyphicon glyphicon-tag"></i>
+			        <a href="/tags/MacOS开发/">MacOS开发</a>
+			    </span>
+			
+	    	</div>
+	    	
+			
+		</div>
+	</article>
+
+	
+
+	
+			<!-- 文章部分 -->
+	<article class="animate-init">
+
+    
+		<h3 class="article-title">
 			<a href="/2018/02/03/2017年终总结/">2017年终总结</a>
 		</h3>
     
@@ -475,44 +520,6 @@
 
 	
 
-	
-			<!-- 文章部分 -->
-	<article class="animate-init">
-
-    
-		<h3 class="article-title">
-			<a href="/2017/05/16/mongoDB安全权限访问控制/">mongoDB安全权限访问控制</a>
-		</h3>
-    
-
-		<div class="article-time">
-			<a href="/2017/05/16/mongoDB安全权限访问控制/">2017-05-16</a>
-		</div>
-		<div class="article-content">
-			
-				<input type="hidden" class="isFancy" />
-			
-			<div class="entry">
-			      
-			        <p>如果你使用过mongoDB，就会知道默认情况下，任何人都可以连接，这样使得线上的数据很不安全，那么mongoDB可以像MySQL那样设置账号密码登录吗？
-			      
-	      	</div>
-		</div>
-
-		<div class="article-footer clearfix">
-		
-			<div class="article-meta pull-left">
-		    
-
-		    
-	    	</div>
-	    	
-			
-		</div>
-	</article>
-
-	
-
 
 <div class="pagination">
 
@@ -526,7 +533,7 @@
 
 <section class="tags">
 	<div class="tags-box">
-		<a href="/tags/2016/" style="font-size: 10px;">2016</a> <a href="/tags/2017/" style="font-size: 10px;">2017</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/Hexo主题/" style="font-size: 10px;">Hexo主题</a> <a href="/tags/Https/" style="font-size: 10px;">Https</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MVC/" style="font-size: 10px;">MVC</a> <a href="/tags/MacBook/" style="font-size: 10px;">MacBook</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/TK域名/" style="font-size: 10px;">TK域名</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Webhook/" style="font-size: 13.33px;">Webhook</a> <a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/tags/mongoDB/" style="font-size: 10px;">mongoDB</a> <a href="/tags/ngrok/" style="font-size: 10px;">ngrok</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/php/" style="font-size: 13.33px;">php</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/七牛/" style="font-size: 10px;">七牛</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/多说评论/" style="font-size: 10px;">多说评论</a> <a href="/tags/大学/" style="font-size: 10px;">大学</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/转载/" style="font-size: 10px;">转载</a>
+		<a href="/tags/2016/" style="font-size: 10px;">2016</a> <a href="/tags/2017/" style="font-size: 10px;">2017</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/Hexo主题/" style="font-size: 10px;">Hexo主题</a> <a href="/tags/Https/" style="font-size: 10px;">Https</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MVC/" style="font-size: 10px;">MVC</a> <a href="/tags/MacBook/" style="font-size: 10px;">MacBook</a> <a href="/tags/MacOS开发/" style="font-size: 10px;">MacOS开发</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/TK域名/" style="font-size: 10px;">TK域名</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Webhook/" style="font-size: 13.33px;">Webhook</a> <a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/tags/mongoDB/" style="font-size: 10px;">mongoDB</a> <a href="/tags/ngrok/" style="font-size: 10px;">ngrok</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/php/" style="font-size: 13.33px;">php</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/七牛/" style="font-size: 10px;">七牛</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/多说评论/" style="font-size: 10px;">多说评论</a> <a href="/tags/大学/" style="font-size: 10px;">大学</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/转载/" style="font-size: 10px;">转载</a>
 	</div>
 	<div class="pop-tags" title="标签"></div>
 </section>
