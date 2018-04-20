@@ -134,7 +134,7 @@ padding: 0;
     
         <script>
             var gitment = new Gitment({
-                id: window.location.href,
+                id: window.location.href.replace(/(\/$)/g,""),
                 owner: "racall",
                 repo: "comment",
                 oauth: {
