@@ -1,0 +1,173 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>shell脚本初接触 | 小 忆 博 客</title>
+    
+        <meta name="keywords" content="shell," />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/img/avatar.jpg">
+    <meta name="description" content="在mac上虽然搭建好了PHP环境，但发现启动灰常麻烦，所以就自己写了一个shell脚本，也是第一次写shell脚本，错误之处，麻烦大家给予指出。">
+<meta name="keywords" content="shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shell脚本初接触">
+<meta property="og:url" content="https://blog.iiwo.vip/2016/04/16/shell脚本初接触/index.html">
+<meta property="og:site_name" content="小 忆 博 客">
+<meta property="og:description" content="在mac上虽然搭建好了PHP环境，但发现启动灰常麻烦，所以就自己写了一个shell脚本，也是第一次写shell脚本，错误之处，麻烦大家给予指出。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2016-05-08T14:12:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="shell脚本初接触">
+<meta name="twitter:description" content="在mac上虽然搭建好了PHP环境，但发现启动灰常麻烦，所以就自己写了一个shell脚本，也是第一次写shell脚本，错误之处，麻烦大家给予指出。">
+    
+        
+            <link rel="stylesheet" href="//fonts.openapi.link/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext">
+        
+            <link rel="stylesheet" href="/css/gitment.css">
+        
+            <link rel="stylesheet" href="/css/hola.css">
+        
+    
+    
+        <script type="text/javascript">
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//tajs.qq.com/stats?sId=";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header-outer">
+            <div class="header-site">
+                <div class="header-title">
+                    小 忆 博 客
+                </div>
+                <div id="hitokoto" class="header-subtitle">
+                    有梦想，有精彩
+                </div>
+            </div>
+            <div class="header-menu">
+                
+                    <span class="header-nav">
+                        <a href="/">首页</a>
+                    </span>
+                
+                    <span class="header-nav">
+                        <a href="/about">关于</a>
+                    </span>
+                
+                    <span class="header-nav">
+                        <a href="/links">友链</a>
+                    </span>
+                
+            </div>
+        </div>
+
+        <div id="content-outer">
+            <div id="content-inner">
+                
+
+
+<article class="post">
+    <h1 class="post-title">shell脚本初接触</h1>
+    
+    <p>在mac上虽然搭建好了PHP环境，但发现启动灰常麻烦，所以就自己写了一个shell脚本，也是第一次写shell脚本，错误之处，麻烦大家给予指出。<br><a id="more"></a><br>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">userID=$(id -u);</span><br><span class="line">apc=$(pgrep httpd | wc -l);</span><br><span class="line">msql=$(pgrep mysqld | wc -l);</span><br><span class="line">if [[ $userID == 0 ]]; then</span><br><span class="line">	case &quot;$1&quot; in</span><br><span class="line">		&quot;0&quot; )</span><br><span class="line">		if [[ $msql -eq 0 &amp;&amp; $apc -eq 0 ]]; then</span><br><span class="line">			apachectl start</span><br><span class="line">			echo &quot;Starting apache ...OK&quot;;</span><br><span class="line">			echo $(/usr/local/mysql/support-files/mysql.server start) &gt;&gt; null;</span><br><span class="line">			echo &quot;Starting MySQL ...OK&quot;;</span><br><span class="line">		else</span><br><span class="line">			if [[ $apc -ne 0 ]]; then</span><br><span class="line">				echo &quot;apache已运行。。。&quot;;</span><br><span class="line">			fi</span><br><span class="line">			if [[ $msql -ne 0 ]]; then</span><br><span class="line">				echo &quot;MySQL已运行。。。&quot;;</span><br><span class="line">			fi</span><br><span class="line">		fi</span><br><span class="line">		;;</span><br><span class="line">		&quot;1&quot; )</span><br><span class="line">			if [[ $apc -ne 0 ]]; then</span><br><span class="line">				apachectl stop</span><br><span class="line">			fi</span><br><span class="line">			if [[ $msql -ne 0 ]]; then</span><br><span class="line">				/usr/local/mysql/support-files/mysql.server stop</span><br><span class="line">			fi		</span><br><span class="line">		;;</span><br><span class="line">		*)</span><br><span class="line">		echo &quot;参数不正确,0为启动，1为关闭&quot;;</span><br><span class="line">	esac</span><br><span class="line">else</span><br><span class="line">	echo &quot;请以ROOT运行脚本！&quot;;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+</article>
+<div class="post-footer">
+    <div class="post-author">
+        <span>创作于 2016年4月16日</span>
+    </div>
+    <div class="post-category">
+        <span>分类于「」
+        </span>
+    </div>
+    <div class="post-tags">
+        
+            
+            <a href="/tags/shell">#shell</a>
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div class="nav-next nav-item">
+                        <a href="/2016/03/29/Mac下搭建php环境/">Mac下搭建php环境</a>
+                </div>
+            
+            
+                <div class="nav-prev nav-item">
+                        <a href="/2016/05/08/搭建ngrok服务器/">搭建ngrok服务器</a>
+                </div>
+            
+        </div>
+    
+</div>
+<div id="gitment"></div>
+            </div>
+        </div>
+
+        <div class="footer-outer">
+            <div class="footer-author">
+                © 2015 - 2018 小忆
+            </div>
+            <div class="footer-inner">由 <a href="http://hexo.io">Hexo</a> 强力驱动 | 主题 - <a href="https://github.com/isecret/Hola">Hola</a></div>
+        </div>
+    </div>
+    
+        
+            <script src="/js/jquery.min.js"></script>
+        
+            <script src="/js/fetch.min.js"></script>
+        
+            <script src="/js/instantclick.min.js"></script>
+        
+            <script src="/js/gitment.browser.min.js"></script>
+        
+            <script src="/js/hola.js"></script>
+        
+    
+    
+        <script>
+            var gitment = new Gitment({
+                id: window.location.href,
+                owner: "racall",
+                repo: "comment",
+                oauth: {
+                    client_id: "c7d336cf3868196517c0",
+                    client_secret: "a6bee65b0275b51140b2fd203ff90d57e0b00ad5"
+                }
+            });
+            gitment.render("gitment");
+        </script>
+    
+    
+    <script>
+        fetch('https://v1.hitokoto.cn')
+            .then(function (res){
+                return res.json();
+            })
+            .then(function (data) {
+                var hitokoto = document.getElementById('hitokoto');
+                hitokoto.innerText = '「' + data.hitokoto + '」——' + data.from;
+            })
+            .catch(function (err) {
+                console.error(err);
+            });
+    </script>
+    
+    <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>

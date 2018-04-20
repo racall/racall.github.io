@@ -1,0 +1,225 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>mongoDB安全权限访问控制 | 小 忆 博 客</title>
+    
+        <meta name="keywords" content="XiaoYi Blog, Rcall, 小忆博客" />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/img/avatar.jpg">
+    <meta name="description" content="如果你使用过mongoDB，就会知道默认情况下，任何人都可以连接，这样使得线上的数据很不安全，那么mongoDB可以像MySQL那样设置账号密码登录吗？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mongoDB安全权限访问控制">
+<meta property="og:url" content="https://blog.iiwo.vip/2017/05/16/mongoDB安全权限访问控制/index.html">
+<meta property="og:site_name" content="小 忆 博 客">
+<meta property="og:description" content="如果你使用过mongoDB，就会知道默认情况下，任何人都可以连接，这样使得线上的数据很不安全，那么mongoDB可以像MySQL那样设置账号密码登录吗？">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-05-23T07:49:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mongoDB安全权限访问控制">
+<meta name="twitter:description" content="如果你使用过mongoDB，就会知道默认情况下，任何人都可以连接，这样使得线上的数据很不安全，那么mongoDB可以像MySQL那样设置账号密码登录吗？">
+    
+        
+            <link rel="stylesheet" href="//fonts.openapi.link/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext">
+        
+            <link rel="stylesheet" href="/css/gitment.css">
+        
+            <link rel="stylesheet" href="/css/hola.css">
+        
+    
+    
+        <script type="text/javascript">
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//tajs.qq.com/stats?sId=";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header-outer">
+            <div class="header-site">
+                <div class="header-title">
+                    小 忆 博 客
+                </div>
+                <div id="hitokoto" class="header-subtitle">
+                    有梦想，有精彩
+                </div>
+            </div>
+            <div class="header-menu">
+                
+                    <span class="header-nav">
+                        <a href="/">首页</a>
+                    </span>
+                
+                    <span class="header-nav">
+                        <a href="/about">关于</a>
+                    </span>
+                
+                    <span class="header-nav">
+                        <a href="/links">友链</a>
+                    </span>
+                
+            </div>
+        </div>
+
+        <div id="content-outer">
+            <div id="content-inner">
+                
+
+
+<article class="post">
+    <h1 class="post-title">mongoDB安全权限访问控制</h1>
+    
+        <h2>目录</h2>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#首先使用以下命令启动mongoDB"><span class="toc-text">首先使用以下命令启动mongoDB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#连接并切换到需要设置登录的数据"><span class="toc-text">连接并切换到需要设置登录的数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建登录账户"><span class="toc-text">创建登录账户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#停止mongoDB服务"><span class="toc-text">停止mongoDB服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最后安全的启动mongoDB"><span class="toc-text">最后安全的启动mongoDB</span></a></li></ol>
+        <br>
+    
+    <p>如果你使用过mongoDB，就会知道默认情况下，任何人都可以连接，这样使得线上的数据很不安全，那么mongoDB可以像MySQL那样设置账号密码登录吗？<a id="more"></a></p>
+<p>答案是肯定的，mongoDB当然可以设置,下面分享一下如何设置mongoDB的账号和密码吧！</p>
+<h3 id="首先使用以下命令启动mongoDB"><a href="#首先使用以下命令启动mongoDB" class="headerlink" title="首先使用以下命令启动mongoDB"></a>首先使用以下命令启动mongoDB</h3><p>在配置文件没有修改的情况下(配置文件：<code>/etc/mongod.conf</code>),使用：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">service</span> <span class="string">mongod</span> <span class="string">start</span></span><br></pre></td></tr></table></figure>
+<p>注意：/path/db是我的数据库存放路径</p>
+<p>启动mongoDB后就可以直接连接到mongoDB数据库，并且不需要任何密码验证，并且拥有mongoDB的所有权限，这样我们就可以建立数据库登录账号啦!</p>
+<h3 id="连接并切换到需要设置登录的数据"><a href="#连接并切换到需要设置登录的数据" class="headerlink" title="连接并切换到需要设置登录的数据"></a>连接并切换到需要设置登录的数据</h3><p>命令：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#连接到mongoDB</span></span><br><span class="line"><span class="string">mongo</span> <span class="string">IP地址:端口</span></span><br><span class="line"><span class="comment">#切换到需要设置登录的数据库</span></span><br><span class="line"><span class="string">use</span> <span class="string">数据库名</span></span><br></pre></td></tr></table></figure>
+<p>为什么连接数据库后，直接切换到需要设置登录的数据库。在mongoDB安全机制中，你需要对那个数据库设置账户密码登录，必须要切换到那个数据库去创建登录账户。</p>
+<h3 id="创建登录账户"><a href="#创建登录账户" class="headerlink" title="创建登录账户"></a>创建登录账户</h3><blockquote>
+<p>注意：在为其他数据库设置账号密码之前,请先切换到admin数据库设置一个超级管理员,权限:root。如果不设置超级管理员，一旦开起了安全权限运行,这时无权限操作其他数据库!</p>
+</blockquote>
+<p>命令:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#这条命令在实际使用中可以写一行</span></span><br><span class="line"><span class="string">db.createUser(&#123;</span> <span class="attr">user:</span> <span class="string">"用户名"</span><span class="string">,</span></span><br><span class="line"><span class="attr">  pwd:</span> <span class="string">"密码"</span><span class="string">,</span></span><br><span class="line"><span class="attr">  roles:</span> <span class="string">[</span></span><br><span class="line">    <span class="string">&#123;</span> <span class="attr">role:</span> <span class="string">"权限"</span><span class="string">,</span> <span class="attr">db:</span> <span class="string">"数据库"</span> <span class="string">&#125;,</span></span><br><span class="line">    <span class="string">...</span></span><br><span class="line">  <span class="string">]</span></span><br><span class="line"><span class="string">&#125;)</span></span><br></pre></td></tr></table></figure>
+<p>权限分为：</p>
+<ol>
+<li><p>read：允许用户读取指定数据库</p>
+</li>
+<li><p>readWrite：允许用户读写指定数据库</p>
+</li>
+<li><p>dbAdmin：允许用户在指定数据库中执行管理函数，如索引创建、删除，查看统计或访问system.profile</p>
+</li>
+<li><p>dbOwner: 拥有read、readWrite、dbAdmin的所有权限</p>
+</li>
+<li><p>userAdmin：允许用户向system.users集合写入，可以找指定数据库里创建、删除和管理用户</p>
+</li>
+<li><p>clusterAdmin：只在admin数据库中可用，赋予用户所有分片和复制集相关函数的管理权限。</p>
+</li>
+<li><p>readAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读权限</p>
+</li>
+<li><p>readWriteAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读写权限</p>
+</li>
+<li><p>userAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的userAdmin权限</p>
+</li>
+<li><p>dbAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的dbAdmin权限。</p>
+</li>
+<li><p>root：只在admin数据库中可用。超级账号，超级权限</p>
+</li>
+</ol>
+<p>如果看到”Successful”字样就证明你设置成功了…</p>
+<p>即是设置成功了，我们使用:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">db.auth("用户名","密码")</span></span><br></pre></td></tr></table></figure>
+<p>来验证一下吧！运行成功后返回输出1则证明设置成功!</p>
+<h3 id="停止mongoDB服务"><a href="#停止mongoDB服务" class="headerlink" title="停止mongoDB服务"></a>停止mongoDB服务</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">service</span> <span class="string">mongod</span> <span class="string">stop</span></span><br></pre></td></tr></table></figure>
+<h3 id="最后安全的启动mongoDB"><a href="#最后安全的启动mongoDB" class="headerlink" title="最后安全的启动mongoDB"></a>最后安全的启动mongoDB</h3><ol>
+<li><p>修改配置文件</p>
+<p> 配置文件：<code>/etc/mongod.conf</code></p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在配置文件的第32行修改</span></span><br><span class="line"><span class="attr">security:</span></span><br><span class="line"> 	  <span class="attr">authorization:</span> <span class="string">'enabled'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动mongoDB</p>
+<p> 命令：</p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">service</span> <span class="string">mongod</span> <span class="string">start</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+</article>
+<div class="post-footer">
+    <div class="post-author">
+        <span>创作于 2017年5月16日</span>
+    </div>
+    <div class="post-category">
+        <span>分类于「」
+        </span>
+    </div>
+    <div class="post-tags">
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div class="nav-next nav-item">
+                        <a href="/2017/04/05/解决Node-js升级后Hexo报错/">解决Node.js升级后Hexo报错</a>
+                </div>
+            
+            
+                <div class="nav-prev nav-item">
+                        <a href="/2017/05/19/服务器上搭建Node-js环境/">服务器上搭建Node.js环境</a>
+                </div>
+            
+        </div>
+    
+</div>
+<div id="gitment"></div>
+            </div>
+        </div>
+
+        <div class="footer-outer">
+            <div class="footer-author">
+                © 2015 - 2018 小忆
+            </div>
+            <div class="footer-inner">由 <a href="http://hexo.io">Hexo</a> 强力驱动 | 主题 - <a href="https://github.com/isecret/Hola">Hola</a></div>
+        </div>
+    </div>
+    
+        
+            <script src="/js/jquery.min.js"></script>
+        
+            <script src="/js/fetch.min.js"></script>
+        
+            <script src="/js/instantclick.min.js"></script>
+        
+            <script src="/js/gitment.browser.min.js"></script>
+        
+            <script src="/js/hola.js"></script>
+        
+    
+    
+        <script>
+            var gitment = new Gitment({
+                id: window.location.href,
+                owner: "racall",
+                repo: "comment",
+                oauth: {
+                    client_id: "c7d336cf3868196517c0",
+                    client_secret: "a6bee65b0275b51140b2fd203ff90d57e0b00ad5"
+                }
+            });
+            gitment.render("gitment");
+        </script>
+    
+    
+    <script>
+        fetch('https://v1.hitokoto.cn')
+            .then(function (res){
+                return res.json();
+            })
+            .then(function (data) {
+                var hitokoto = document.getElementById('hitokoto');
+                hitokoto.innerText = '「' + data.hitokoto + '」——' + data.from;
+            })
+            .catch(function (err) {
+                console.error(err);
+            });
+    </script>
+    
+    <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>

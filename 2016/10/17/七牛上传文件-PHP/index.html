@@ -1,0 +1,184 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>七牛上传文件(PHP) | 小 忆 博 客</title>
+    
+        <meta name="keywords" content="七牛," />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/img/avatar.jpg">
+    <meta name="description" content="自从知道七牛以来，就一直在用七牛做图片外链，但是每次需要到七牛官网登录，然后再上传图片。感觉很麻烦，最近想做一个自己的上传到七牛的平台，开始的想法是用C#写一个windows客户端，在用swift写一个mac客户端，于是左思右想之后，觉得采用php写一个小网站，方便自己往七牛传图片之类的东西，在此感谢Wang Yu’s Blog的博主的帮助。">
+<meta name="keywords" content="七牛">
+<meta property="og:type" content="article">
+<meta property="og:title" content="七牛上传文件(PHP)">
+<meta property="og:url" content="https://blog.iiwo.vip/2016/10/17/七牛上传文件-PHP/index.html">
+<meta property="og:site_name" content="小 忆 博 客">
+<meta property="og:description" content="自从知道七牛以来，就一直在用七牛做图片外链，但是每次需要到七牛官网登录，然后再上传图片。感觉很麻烦，最近想做一个自己的上传到七牛的平台，开始的想法是用C#写一个windows客户端，在用swift写一个mac客户端，于是左思右想之后，觉得采用php写一个小网站，方便自己往七牛传图片之类的东西，在此感谢Wang Yu’s Blog的博主的帮助。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://pic.52xyi.cn/1017.png">
+<meta property="og:updated_time" content="2016-10-17T03:57:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="七牛上传文件(PHP)">
+<meta name="twitter:description" content="自从知道七牛以来，就一直在用七牛做图片外链，但是每次需要到七牛官网登录，然后再上传图片。感觉很麻烦，最近想做一个自己的上传到七牛的平台，开始的想法是用C#写一个windows客户端，在用swift写一个mac客户端，于是左思右想之后，觉得采用php写一个小网站，方便自己往七牛传图片之类的东西，在此感谢Wang Yu’s Blog的博主的帮助。">
+<meta name="twitter:image" content="http://pic.52xyi.cn/1017.png">
+    
+        
+            <link rel="stylesheet" href="//fonts.openapi.link/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext">
+        
+            <link rel="stylesheet" href="/css/gitment.css">
+        
+            <link rel="stylesheet" href="/css/hola.css">
+        
+    
+    
+        <script type="text/javascript">
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//tajs.qq.com/stats?sId=";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header-outer">
+            <div class="header-site">
+                <div class="header-title">
+                    小 忆 博 客
+                </div>
+                <div id="hitokoto" class="header-subtitle">
+                    有梦想，有精彩
+                </div>
+            </div>
+            <div class="header-menu">
+                
+                    <span class="header-nav">
+                        <a href="/">首页</a>
+                    </span>
+                
+                    <span class="header-nav">
+                        <a href="/about">关于</a>
+                    </span>
+                
+                    <span class="header-nav">
+                        <a href="/links">友链</a>
+                    </span>
+                
+            </div>
+        </div>
+
+        <div id="content-outer">
+            <div id="content-inner">
+                
+
+
+<article class="post">
+    <h1 class="post-title">七牛上传文件(PHP)</h1>
+    
+    <p>　　自从知道七牛以来，就一直在用七牛做图片外链，但是每次需要到七牛官网登录，然后再上传图片。感觉很麻烦，最近想做一个自己的上传到七牛的平台，开始的想法是用C#写一个windows客户端，在用swift写一个mac客户端，于是左思右想之后，觉得采用php写一个小网站，方便自己往七牛传图片之类的东西，在此感谢<a href="http://blog.iwangyu.cn/" target="_blank" rel="noopener">Wang Yu’s Blog</a>的博主的帮助。<a id="more"></a></p>
+<p>　　七牛上传文件有两种，第一种方法是在表单中设置隐藏的input元素，并在value中通过后端语言获取到token上传凭证。例如这样:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;form method=&quot;post&quot; action=&quot;http://upload.qiniu.com/&quot;</span><br><span class="line"> enctype=&quot;multipart/form-data&quot;&gt;</span><br><span class="line">  &lt;input name=&quot;key&quot; type=&quot;hidden&quot; value=&quot;&lt;resource_key&gt;&quot;&gt;</span><br><span class="line">  &lt;input name=&quot;x:&lt;custom_name&gt;&quot; type=&quot;hidden&quot; value=&quot;&lt;custom_value&gt;&quot;&gt;</span><br><span class="line">  &lt;input name=&quot;token&quot; type=&quot;hidden&quot; value=&quot;&lt;upload_token&gt;&quot;&gt;</span><br><span class="line">  &lt;input name=&quot;file&quot; type=&quot;file&quot; /&gt;</span><br><span class="line">  &lt;input name=&quot;crc32&quot; type=&quot;hidden&quot; /&gt;</span><br><span class="line">  &lt;input name=&quot;accept&quot; type=&quot;hidden&quot; /&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<p>　　提交之后,upload.qiniu.com会给你返回一个json数据，如果你不用七牛指定的提交地址，可以用自己通过SDK编写的,可以参考七牛SDK里面的examples。</p>
+<p><img src="http://pic.52xyi.cn/1017.png" alt="前端"></p>
+<blockquote>
+<p>前端采用bootstrap快速布局，不想写CSS，太懒了。。。</p>
+<p>上传采用了jquery的ajax,使用了html5的FormData。</p>
+</blockquote>
+<p>　　七牛上传文件的第二种方法是分片上传，请参考七牛开发者文档,在这里不多做介绍.</p>
+<p>源代码:<a href="https://coding.net/u/racall/p/qiniu/git" target="_blank" rel="noopener">https://git.coding.net/racall/qiniu.git</a> (Git克隆)</p>
+
+</article>
+<div class="post-footer">
+    <div class="post-author">
+        <span>创作于 2016年10月17日</span>
+    </div>
+    <div class="post-category">
+        <span>分类于「」
+        </span>
+    </div>
+    <div class="post-tags">
+        
+            
+            <a href="/tags/七牛">#七牛</a>
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div class="nav-next nav-item">
+                        <a href="/2016/10/14/分享一个前端Demo-有旋转特效的模态框/">分享一个前端Demo(有旋转特效的模态框)</a>
+                </div>
+            
+            
+                <div class="nav-prev nav-item">
+                        <a href="/2016/10/25/PHP环境管理工具（Mac版）/">PHP环境管理工具（Mac版）</a>
+                </div>
+            
+        </div>
+    
+</div>
+<div id="gitment"></div>
+            </div>
+        </div>
+
+        <div class="footer-outer">
+            <div class="footer-author">
+                © 2015 - 2018 小忆
+            </div>
+            <div class="footer-inner">由 <a href="http://hexo.io">Hexo</a> 强力驱动 | 主题 - <a href="https://github.com/isecret/Hola">Hola</a></div>
+        </div>
+    </div>
+    
+        
+            <script src="/js/jquery.min.js"></script>
+        
+            <script src="/js/fetch.min.js"></script>
+        
+            <script src="/js/instantclick.min.js"></script>
+        
+            <script src="/js/gitment.browser.min.js"></script>
+        
+            <script src="/js/hola.js"></script>
+        
+    
+    
+        <script>
+            var gitment = new Gitment({
+                id: window.location.href,
+                owner: "racall",
+                repo: "comment",
+                oauth: {
+                    client_id: "c7d336cf3868196517c0",
+                    client_secret: "a6bee65b0275b51140b2fd203ff90d57e0b00ad5"
+                }
+            });
+            gitment.render("gitment");
+        </script>
+    
+    
+    <script>
+        fetch('https://v1.hitokoto.cn')
+            .then(function (res){
+                return res.json();
+            })
+            .then(function (data) {
+                var hitokoto = document.getElementById('hitokoto');
+                hitokoto.innerText = '「' + data.hitokoto + '」——' + data.from;
+            })
+            .catch(function (err) {
+                console.error(err);
+            });
+    </script>
+    
+    <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>

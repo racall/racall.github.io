@@ -1,0 +1,192 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>MacOS App代码提权详解 | 小 忆 博 客</title>
+    
+        <meta name="keywords" content="MacOS开发," />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/img/avatar.jpg">
+    <meta name="description" content="最近一段时间开发公司一款MacOS平台的App时需要用到管理员权限，于是乎上网查询了MacOS App使用代码提权的方式，目前主要有以下几种： 1.通过ServiceManagement注册LaunchdDaemon  这种方法是目前苹果官方推荐的一种提权方式，官方也提供了一个SMJobBless的Demo，但是需要用苹果开发者账号编译（我会在后面的文章单独介绍一种不需要开发者账号编译的方式，">
+<meta name="keywords" content="MacOS开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MacOS App代码提权详解">
+<meta property="og:url" content="https://blog.iiwo.vip/2018/03/10/MacOS-App代码提权详解/index.html">
+<meta property="og:site_name" content="小 忆 博 客">
+<meta property="og:description" content="最近一段时间开发公司一款MacOS平台的App时需要用到管理员权限，于是乎上网查询了MacOS App使用代码提权的方式，目前主要有以下几种： 1.通过ServiceManagement注册LaunchdDaemon  这种方法是目前苹果官方推荐的一种提权方式，官方也提供了一个SMJobBless的Demo，但是需要用苹果开发者账号编译（我会在后面的文章单独介绍一种不需要开发者账号编译的方式，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-10T05:50:08.663Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MacOS App代码提权详解">
+<meta name="twitter:description" content="最近一段时间开发公司一款MacOS平台的App时需要用到管理员权限，于是乎上网查询了MacOS App使用代码提权的方式，目前主要有以下几种： 1.通过ServiceManagement注册LaunchdDaemon  这种方法是目前苹果官方推荐的一种提权方式，官方也提供了一个SMJobBless的Demo，但是需要用苹果开发者账号编译（我会在后面的文章单独介绍一种不需要开发者账号编译的方式，">
+    
+        
+            <link rel="stylesheet" href="//fonts.openapi.link/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext">
+        
+            <link rel="stylesheet" href="/css/gitment.css">
+        
+            <link rel="stylesheet" href="/css/hola.css">
+        
+    
+    
+        <script type="text/javascript">
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//tajs.qq.com/stats?sId=";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header-outer">
+            <div class="header-site">
+                <div class="header-title">
+                    小 忆 博 客
+                </div>
+                <div id="hitokoto" class="header-subtitle">
+                    有梦想，有精彩
+                </div>
+            </div>
+            <div class="header-menu">
+                
+                    <span class="header-nav">
+                        <a href="/">首页</a>
+                    </span>
+                
+                    <span class="header-nav">
+                        <a href="/about">关于</a>
+                    </span>
+                
+                    <span class="header-nav">
+                        <a href="/links">友链</a>
+                    </span>
+                
+            </div>
+        </div>
+
+        <div id="content-outer">
+            <div id="content-inner">
+                
+
+
+<article class="post">
+    <h1 class="post-title">MacOS App代码提权详解</h1>
+    
+        <h2>目录</h2>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-通过ServiceManagement注册LaunchdDaemon"><span class="toc-text">1.通过ServiceManagement注册LaunchdDaemon</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-在xcode中编译项目-Product-gt-Build或者command-b"><span class="toc-text">1.在xcode中编译项目 (Product &gt; Build或者command+b)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-使用终端进入项目根目录，运行以下命令"><span class="toc-text">2.使用终端进入项目根目录，运行以下命令:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-clean项目-Product-gt-Clean-，然后再次编译-Product-gt-Build-。"><span class="toc-text">3.clean项目(Product &gt; Clean)，然后再次编译(Product &gt; Build)。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-在项目根目录下，终端执行："><span class="toc-text">4.在项目根目录下，终端执行：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-运行编译的APP。"><span class="toc-text">5.运行编译的APP。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-AuthorizationExecuteWithPrivileges函数"><span class="toc-text">2.AuthorizationExecuteWithPrivileges函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-使用AppleScript提权"><span class="toc-text">3.使用AppleScript提权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-自创的提权方法-思路"><span class="toc-text">4.自创的提权方法(思路)</span></a></li></ol>
+        <br>
+    
+    <p>  最近一段时间开发公司一款MacOS平台的App时需要用到管理员权限，于是乎上网查询了MacOS App使用代码提权的方式，目前主要有以下几种：</p>
+<h3 id="1-通过ServiceManagement注册LaunchdDaemon"><a href="#1-通过ServiceManagement注册LaunchdDaemon" class="headerlink" title="1.通过ServiceManagement注册LaunchdDaemon"></a>1.通过ServiceManagement注册LaunchdDaemon</h3><p>  这种方法是目前苹果官方推荐的一种提权方式，官方也提供了一个SMJobBless的Demo，但是需要用苹果开发者账号编译（我会在后面的文章单独介绍一种不需要开发者账号编译的方式，也能通过这种方式达到高权限的需求，在本文末尾会提供思路!），而且使用起来很复杂。带来的好处是，将高权限任务封装到独立的子程序，将按需调用，不会让整个程序处于高权限的状态会相对安全一些，子程序便能轻松实现开启自启、常驻后台、高权限的需求。<br><a id="more"></a><br>  我通过研究官方SMJobBless的Demo，发现其实是通过launchd工具加载一个与Daemon程序相关的标准的plist文件，由于launchd需要高权限运行，所以启动的子程序自然而然也是高权限运行。程序运行之后，会将子程序放到<code>/Library/PrivilegedHelperTools</code>这个目录，需要的plist文件会被放到<code>/Library/LaunchDaemons</code>，这样launchd加载plist时，会去启动子程序。</p>
+<p>  在SMJobBless的Demo中是通过ServiceManagement这个框架的API来完成提权操作的，而这框架在10.6就出现了，所以不需要担心兼容性的问题。本文在这里不详细介绍如何使用相关API了，只是在这里简单说说编译方法吧！在Demo中的ReadMe.txt中虽然讲述的很清楚，但是新版xcode编译之后的目录有所不同。(注意：程序虽然编译成功，但在默认的<code>SMJobBlessHelper-Launchd.plist</code>中并没有<code>RunAtLoad</code>这一属性，所以launchd不会启动子程序，只会将子程序放和plist文件到相关目录，如需启动子程序，需在<code>SMJobBlessHelper-Launchd.plist</code>中添加<code>RunAtLoad</code>属性，Boolean类型，值为<code>YES</code>)</p>
+<h4 id="1-在xcode中编译项目-Product-gt-Build或者command-b"><a href="#1-在xcode中编译项目-Product-gt-Build或者command-b" class="headerlink" title="1.在xcode中编译项目 (Product &gt; Build或者command+b)"></a>1.在xcode中编译项目 (Product &gt; Build或者<code>command+b</code>)</h4><h4 id="2-使用终端进入项目根目录，运行以下命令"><a href="#2-使用终端进入项目根目录，运行以下命令" class="headerlink" title="2.使用终端进入项目根目录，运行以下命令:"></a>2.使用终端进入项目根目录，运行以下命令:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./SMJobBlessUtil.py setreq &lt;SMJobBlessApp.app:path&gt; SMJobBlessApp/SMJobBlessApp-Info.plist SMJobBlessHelper/SMJobBlessHelper-Info.plist</span><br></pre></td></tr></table></figure>
+<p><code>&lt;SMJobBlessApp.app:path&gt;</code>是指在xcode左边的Navigator的product下的编译的APP的路径</p>
+<p>脚本运行成功会输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SMJobBlessApp/SMJobBlessApp-Info.plist: updated</span><br><span class="line">SMJobBlessHelper/SMJobBlessHelper-Info.plist: updated</span><br></pre></td></tr></table></figure>
+<h4 id="3-clean项目-Product-gt-Clean-，然后再次编译-Product-gt-Build-。"><a href="#3-clean项目-Product-gt-Clean-，然后再次编译-Product-gt-Build-。" class="headerlink" title="3.clean项目(Product &gt; Clean)，然后再次编译(Product &gt; Build)。"></a>3.clean项目(Product &gt; Clean)，然后再次编译(Product &gt; Build)。</h4><h4 id="4-在项目根目录下，终端执行："><a href="#4-在项目根目录下，终端执行：" class="headerlink" title="4.在项目根目录下，终端执行："></a>4.在项目根目录下，终端执行：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./SMJobBlessUtil.py check &lt;SMJobBlessApp.app:path&gt;</span><br></pre></td></tr></table></figure>
+<p>脚本运行成功没有输出任何东西，说明成功了。</p>
+<h4 id="5-运行编译的APP。"><a href="#5-运行编译的APP。" class="headerlink" title="5.运行编译的APP。"></a>5.运行编译的APP。</h4><p>这时会弹出需要输入密码的认证提示框，输入密码之后，xcode在控制台打印<code>Job is available!</code>，App上有显示<code>The Helper Tool is available!</code>字样，表示成功运行了。</p>
+<p>官方Demo：<a href="https://developer.apple.com/library/mac/samplecode/SMJobBless/SMJobBless.zip" target="_blank" rel="noopener">SMJobBless.zip</a></p>
+<h3 id="2-AuthorizationExecuteWithPrivileges函数"><a href="#2-AuthorizationExecuteWithPrivileges函数" class="headerlink" title="2.AuthorizationExecuteWithPrivileges函数"></a>2.AuthorizationExecuteWithPrivileges函数</h3><p>  这个函数是Security.framework中的一函数，使用很方便，而且还有一个封装非常好的库<a href="https://github.com/sveinbjornt/STPrivilegedTask" target="_blank" rel="noopener">STPrivilegedTask</a>，接口和NSTask几乎一样。但是AuthorizationExecuteWithPrivileges函数在MacOS 10.7的时候就开始被弃用了，在新版的10.13.3中发现某些时候会提权失败，所以不推荐使用这种方法，在本文也不做过多介绍！</p>
+<h3 id="3-使用AppleScript提权"><a href="#3-使用AppleScript提权" class="headerlink" title="3.使用AppleScript提权"></a>3.使用AppleScript提权</h3><p>  AppleScript是苹果独有的脚本语言，通过OC或者Swift都可以调用AppleScript，在这里提供一个OC写的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">-(NSDictionary*)doAppleScript:(NSString*)cmd&#123;</span><br><span class="line">    cmd=[NSString stringWithFormat:@&quot;do shell script \&quot;%@\&quot; with administrator privileges&quot;,cmd];</span><br><span class="line">    NSAppleScript *script= [[NSAppleScript alloc] initWithSource:cmd];</span><br><span class="line">    NSDictionary *scriptError = nil;</span><br><span class="line">    NSAppleEventDescriptor *descriptor = [script executeAndReturnError:&amp;scriptError];</span><br><span class="line">    NSMutableDictionary *dicResult=[NSMutableDictionary dictionary];</span><br><span class="line">    if(scriptError) &#123;</span><br><span class="line">        [dicResult setObject:@NO forKey:@&quot;id&quot;];</span><br><span class="line">        [dicResult setObject:[scriptError objectForKey:NSAppleScriptErrorMessage] forKey:@&quot;result&quot;];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        NSAppleEventDescriptor *unicode = [descriptor coerceToDescriptorType:typeUnicodeText];</span><br><span class="line">        NSData *data = [unicode data];</span><br><span class="line">        NSString *result = [[NSString alloc] initWithCharacters:(unichar*)[data bytes] length:[data length] / sizeof(unichar)];</span><br><span class="line">        [dicResult setObject:@YES forKey:@&quot;id&quot;];</span><br><span class="line">        [dicResult setObject:result forKey:@&quot;result&quot;];</span><br><span class="line">    &#125;</span><br><span class="line">    return dicResult;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  AppleScript方法固然简单，但是还有一些缺点，比如每次需要管理员权限时，都需要提示输入密码，会让用户感觉你总是在获取权限，造成用户对你程序的不信任，在执行需要等待结果的命令时，会造成UI卡住，一直占有线程，所以建议在子线程中运行!</p>
+<h3 id="4-自创的提权方法-思路"><a href="#4-自创的提权方法-思路" class="headerlink" title="4.自创的提权方法(思路)"></a>4.自创的提权方法(思路)</h3><p>  提供一个通过AppleScript启动launchd子程序的思路（后面文章单独做介绍），这样也可以实现高权限，常驻后台的需求。</p>
+<p>  AppleScript可以运行shell脚本（方法3提供的OC语言的方法就可以执行脚本），而shell脚本可以传入参数，知道这两点，我们就可以在自己项目中建立子程序和需要plist文件，通过AppleScript执行管理员权限运行shell脚本，shell脚本把plist文件和子程序移动到方法1中的所提到的目录中，这样是不是可以达到一样的方法呢？感兴趣的童鞋可以试试！</p>
+
+</article>
+<div class="post-footer">
+    <div class="post-author">
+        <span>创作于 2018年3月10日</span>
+    </div>
+    <div class="post-category">
+        <span>分类于「」
+        </span>
+    </div>
+    <div class="post-tags">
+        
+            
+            <a href="/tags/MacOS开发">#MacOS开发</a>
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div class="nav-next nav-item">
+                        <a href="/2018/02/03/2017年终总结/">2017年终总结</a>
+                </div>
+            
+            
+                <div class="nav-prev nav-item">
+                        <a href="/2018/03/21/Xstatus的诞生/">Xstatus的诞生</a>
+                </div>
+            
+        </div>
+    
+</div>
+<div id="gitment"></div>
+            </div>
+        </div>
+
+        <div class="footer-outer">
+            <div class="footer-author">
+                © 2015 - 2018 小忆
+            </div>
+            <div class="footer-inner">由 <a href="http://hexo.io">Hexo</a> 强力驱动 | 主题 - <a href="https://github.com/isecret/Hola">Hola</a></div>
+        </div>
+    </div>
+    
+        
+            <script src="/js/jquery.min.js"></script>
+        
+            <script src="/js/fetch.min.js"></script>
+        
+            <script src="/js/instantclick.min.js"></script>
+        
+            <script src="/js/gitment.browser.min.js"></script>
+        
+            <script src="/js/hola.js"></script>
+        
+    
+    
+        <script>
+            var gitment = new Gitment({
+                id: window.location.href,
+                owner: "racall",
+                repo: "comment",
+                oauth: {
+                    client_id: "c7d336cf3868196517c0",
+                    client_secret: "a6bee65b0275b51140b2fd203ff90d57e0b00ad5"
+                }
+            });
+            gitment.render("gitment");
+        </script>
+    
+    
+    <script>
+        fetch('https://v1.hitokoto.cn')
+            .then(function (res){
+                return res.json();
+            })
+            .then(function (data) {
+                var hitokoto = document.getElementById('hitokoto');
+                hitokoto.innerText = '「' + data.hitokoto + '」——' + data.from;
+            })
+            .catch(function (err) {
+                console.error(err);
+            });
+    </script>
+    
+    <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>

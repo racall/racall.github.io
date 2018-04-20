@@ -1,0 +1,202 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>Mac下搭建php环境 | 小 忆 博 客</title>
+    
+        <meta name="keywords" content="PHP," />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/img/avatar.jpg">
+    <meta name="description" content="最近需要做php网站开发，所以就尝试着在本地搭建php环境,在Mac OS X下自带了apache和php,但默认情况下没有开启，所以也必要在网上去下载一些php集成环境，只需要你开启就可以了。">
+<meta name="keywords" content="PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac下搭建php环境">
+<meta property="og:url" content="https://blog.iiwo.vip/2016/03/29/Mac下搭建php环境/index.html">
+<meta property="og:site_name" content="小 忆 博 客">
+<meta property="og:description" content="最近需要做php网站开发，所以就尝试着在本地搭建php环境,在Mac OS X下自带了apache和php,但默认情况下没有开启，所以也必要在网上去下载一些php集成环境，只需要你开启就可以了。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2016-05-09T15:03:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mac下搭建php环境">
+<meta name="twitter:description" content="最近需要做php网站开发，所以就尝试着在本地搭建php环境,在Mac OS X下自带了apache和php,但默认情况下没有开启，所以也必要在网上去下载一些php集成环境，只需要你开启就可以了。">
+    
+        
+            <link rel="stylesheet" href="//fonts.openapi.link/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext">
+        
+            <link rel="stylesheet" href="/css/gitment.css">
+        
+            <link rel="stylesheet" href="/css/hola.css">
+        
+    
+    
+        <script type="text/javascript">
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//tajs.qq.com/stats?sId=";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header-outer">
+            <div class="header-site">
+                <div class="header-title">
+                    小 忆 博 客
+                </div>
+                <div id="hitokoto" class="header-subtitle">
+                    有梦想，有精彩
+                </div>
+            </div>
+            <div class="header-menu">
+                
+                    <span class="header-nav">
+                        <a href="/">首页</a>
+                    </span>
+                
+                    <span class="header-nav">
+                        <a href="/about">关于</a>
+                    </span>
+                
+                    <span class="header-nav">
+                        <a href="/links">友链</a>
+                    </span>
+                
+            </div>
+        </div>
+
+        <div id="content-outer">
+            <div id="content-inner">
+                
+
+
+<article class="post">
+    <h1 class="post-title">Mac下搭建php环境</h1>
+    
+    <p>　　最近需要做php网站开发，所以就尝试着在本地搭建php环境,在Mac OS X下自带了apache和php,但默认情况下没有开启，所以也必要在网上去下载一些php集成环境，只需要你开启就可以了。<a id="more"></a></p>
+<p><strong>一、配置Apache</strong></p>
+<p>在Mac OS 10.11.4中，打开终端，在终端中启动Apache，一下是几个操作Apache常用的命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//启动Apache服务</span><br><span class="line"></span><br><span class="line">sudo apachectl start</span><br><span class="line"></span><br><span class="line">//关闭Apache服务</span><br><span class="line"></span><br><span class="line">sudo apachectl stop</span><br><span class="line"></span><br><span class="line">//重启Apache服务</span><br><span class="line"></span><br><span class="line">sudo apachectl restart</span><br><span class="line"></span><br><span class="line">//查看Apache版本</span><br><span class="line"></span><br><span class="line">httpd -v</span><br></pre></td></tr></table></figure>
+<p>废话不多说，先启动Apache服务，然后在浏览器中输入localhost或者127.0.0.1，出现It works字样，说明Apache服务启动成功了，需要说明一下，在Mac下，Apache的网站服务器根目录在/Library/WebServer/Documents路径下。</p>
+<p><strong>二、配置PHP</strong></p>
+<p>虽然在Mac中自带了PHP，但是还是需要我们在Apache的配置文件中添加Apache对PHP的支持,步骤如下:</p>
+<p>1、编辑http.conf配置文件，命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/apache2/httpd.conf</span><br></pre></td></tr></table></figure>
+<p>2、去掉以下部分的注释:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule php5_module libexec/apache2/libphp5.so</span><br></pre></td></tr></table></figure>
+<p>3、重启Apache服务；</p>
+<p>完成以上步骤，我们的Apache就可以执行PHP文件了</p>
+<p><strong>三、配置MySQL</strong></p>
+<p>由于Mac中没有自带MySQL，所以需要到官网去下载MySQL版本，<a href="http://dev.mysql.com/downloads/mysql/" target="_blank" rel="noopener">http://dev.mysql.com/downloads/mysql/</a>,下载安装包后，安装即可。</p>
+<p>安装完成之后，打开“系统偏好设置”，选择“MySQL”,在打开的对话框中点击“start mysql server”，这个时候MySQL就已经打开了，但是还是不能够使用的，打开终端：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">alias mysql=/usr/local/mysql/bin/mysqlalias mysqladmin=/usr/local/mysql/bin/mysqladmin</span><br></pre></td></tr></table></figure>
+<p>上面的命令是将mysql的环境变量添加进来，方便我们在终端中得使用。</p>
+<p>这个时候，在终端中输入:mysql,会提示链接本地mysql服务器失败，怎么解决呢，查了很多资料，找到了解决方法,首先在“系统偏好设置”中停止MySQL服务，然后在终端中输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/local/mysql/bin/mysqld_safe --user=mysql --skip-grant-tables --skip-networking &amp;</span><br></pre></td></tr></table></figure>
+<p>执行之后，保留开启mysqld_safe的终端，新开一个终端窗口，输入：mysql，这个时候，我们可以直接进入到mysql，然后在终端中执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">update user set authentication_string=PASSWORD(&apos;123456&apos;) where user=&apos;root&apos; and host=&apos;localhost&apos;;</span><br></pre></td></tr></table></figure>
+<p>上面的update是修改mysql的root用户密码，我这里设置的是123456,密码设置完成以后，在执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges</span><br></pre></td></tr></table></figure>
+<p>好了，关闭所有终端窗口，然后重新启动一下mysql服务，这一步很重要，不然mysql会出现关闭不了的现象。</p>
+<p><strong>四、配置PHPMyAdmin</strong></p>
+<p>phpmyadmin是干什么的呢？是为了方便我们管理mysql服务器的，首先下载phpmyadmin,<a href="http://www.phpmyadmin.net/home_page/downloads.php" target="_blank" rel="noopener">http://www.phpmyadmin.net/home_page/downloads.php</a>,下载完成之后呢，解压到Apache的网站根目录下，然后把解压出来的文件夹重命名为：phpmyadmin,打开浏览器访问：</p>
+<p><a href="http://localhost/phpmyadmin/" target="_blank" rel="noopener">http://localhost/phpmyadmin/</a></p>
+<p>如果能正确访问，说明配置成功了，但我们使用mysql的账号和密码登陆时发现，提示密码过期了，所以我们还要去终端设置一下密码，打开终端:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p 123456</span><br><span class="line">//进入了mysql,输入:</span><br><span class="line">SET PASSWORD = PASSWORD(&apos;123456&apos;);</span><br><span class="line">QUIT;</span><br></pre></td></tr></table></figure>
+<p>执行完成之后，在次在phpmyadmin中登陆就成功进入到了mysql中，配置起来还是不容易，小伙伴们，你们配置好了吗？</p>
+
+</article>
+<div class="post-footer">
+    <div class="post-author">
+        <span>创作于 2016年3月29日</span>
+    </div>
+    <div class="post-category">
+        <span>分类于「」
+        </span>
+    </div>
+    <div class="post-tags">
+        
+            
+            <a href="/tags/PHP">#PHP</a>
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div class="nav-next nav-item">
+                        <a href="/2016/03/15/Java求100以内的完数/">Java求100以内的完数</a>
+                </div>
+            
+            
+                <div class="nav-prev nav-item">
+                        <a href="/2016/04/16/shell脚本初接触/">shell脚本初接触</a>
+                </div>
+            
+        </div>
+    
+</div>
+<div id="gitment"></div>
+            </div>
+        </div>
+
+        <div class="footer-outer">
+            <div class="footer-author">
+                © 2015 - 2018 小忆
+            </div>
+            <div class="footer-inner">由 <a href="http://hexo.io">Hexo</a> 强力驱动 | 主题 - <a href="https://github.com/isecret/Hola">Hola</a></div>
+        </div>
+    </div>
+    
+        
+            <script src="/js/jquery.min.js"></script>
+        
+            <script src="/js/fetch.min.js"></script>
+        
+            <script src="/js/instantclick.min.js"></script>
+        
+            <script src="/js/gitment.browser.min.js"></script>
+        
+            <script src="/js/hola.js"></script>
+        
+    
+    
+        <script>
+            var gitment = new Gitment({
+                id: window.location.href,
+                owner: "racall",
+                repo: "comment",
+                oauth: {
+                    client_id: "c7d336cf3868196517c0",
+                    client_secret: "a6bee65b0275b51140b2fd203ff90d57e0b00ad5"
+                }
+            });
+            gitment.render("gitment");
+        </script>
+    
+    
+    <script>
+        fetch('https://v1.hitokoto.cn')
+            .then(function (res){
+                return res.json();
+            })
+            .then(function (data) {
+                var hitokoto = document.getElementById('hitokoto');
+                hitokoto.innerText = '「' + data.hitokoto + '」——' + data.from;
+            })
+            .catch(function (err) {
+                console.error(err);
+            });
+    </script>
+    
+    <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>
