@@ -1,0 +1,232 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    
+        <meta name="keywords" content="Webhook," />
+    
+    <meta name="description" content="Coding或者GitHub上都有Webhook这个功能，以前不知道这个有什么用，今天看到一篇关于Webhook的文章，一时兴起就尝试Coding上的Webhook（主要原因是GitHub上的关于Webhook的文档看不太懂）。">
+<meta name="keywords" content="Webhook">
+<meta property="og:type" content="article">
+<meta property="og:title" content="尝试Coding的Webhook">
+<meta property="og:url" content="https://blog.iiwo.vip/2017/05/26/尝试Coding的Webhook/index.html">
+<meta property="og:site_name" content="小 忆 博 客">
+<meta property="og:description" content="Coding或者GitHub上都有Webhook这个功能，以前不知道这个有什么用，今天看到一篇关于Webhook的文章，一时兴起就尝试Coding上的Webhook（主要原因是GitHub上的关于Webhook的文档看不太懂）。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-05-26T14:22:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="尝试Coding的Webhook">
+<meta name="twitter:description" content="Coding或者GitHub上都有Webhook这个功能，以前不知道这个有什么用，今天看到一篇关于Webhook的文章，一时兴起就尝试Coding上的Webhook（主要原因是GitHub上的关于Webhook的文档看不太懂）。">
+    <title>尝试Coding的Webhook | 小 忆 博 客</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://pic.52xyi.cn/1531298345.jpeg">
+    
+        
+            <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext">
+        
+            <link rel="stylesheet" href="/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/gitment.css">
+        
+            <link rel="stylesheet" href="/css/highlight.css">
+        
+            <link rel="stylesheet" href="/css/hola.css">
+        
+    
+    
+        <script type="text/javascript">
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//tajs.qq.com/stats?sId=65927492";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header-outer">
+            <div class="header-site">
+                <div class="header-title">
+                    小 忆 博 客
+                </div>
+                <div id="hitokoto" class="header-subtitle">
+                    有梦想，有精彩
+                </div>
+            </div>
+            <div class="header-menu">
+                
+                    <span class="header-nav">
+                        <a href="/">Home</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="/about">About</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="/links">Links</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="https://buymeacoff.ee/racall">Coffee</a>
+                    </span>
+                    
+                
+            </div>
+        </div>
+
+        <div id="content-outer">
+            <div id="content-inner">
+                
+
+
+<article class="post">
+    <h1 class="post-title">尝试Coding的Webhook</h1>
+    
+        <h2>目录</h2>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是Webhook"><span class="toc-text">什么是Webhook?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Coding的Webhook事件"><span class="toc-text">Coding的Webhook事件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#附上自己的测试代码吧"><span class="toc-text">附上自己的测试代码吧</span></a></li></ol>
+        <br>
+    
+    <p>Coding或者GitHub上都有Webhook这个功能，以前不知道这个有什么用，今天看到一篇关于Webhook的文章，一时兴起就尝试Coding上的Webhook（主要原因是GitHub上的关于Webhook的文档看不太懂）。<a id="more"></a></p>
+<h4 id="什么是Webhook"><a href="#什么是Webhook" class="headerlink" title="什么是Webhook?"></a>什么是Webhook?</h4><p>Webhook 允许第三方应用监听 Coding.net 上的特定事件，在这些事件发生时通过 HTTP POST 方式通知( 超时5秒) 到第三方应用指定的 Web URL。WebHook 可方便用户实现自动部署，自动测试，自动打包，监控项目变化等。</p>
+<p>写了几遍，感觉自己解释不清楚，所以直接复制Coding官方文档中的一段话。</p>
+<h4 id="Coding的Webhook事件"><a href="#Coding的Webhook事件" class="headerlink" title="Coding的Webhook事件"></a>Coding的Webhook事件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Ping </span><br><span class="line">Push</span><br><span class="line">Member</span><br><span class="line">Task</span><br><span class="line">Topic</span><br><span class="line">Document</span><br><span class="line">Star</span><br><span class="line">MR/PR</span><br></pre></td></tr></table></figure>
+<p>Webhook中的每个POST请求都包含特殊的Header</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X-Coding-Event</td>
+<td>事件名（具体每个事件对应的 event 就是上面事件列表的事件名字）</td>
+</tr>
+<tr>
+<td>User-Agent</td>
+<td>Coding.net Hook</td>
+</tr>
+</tbody>
+</table>
+<h4 id="附上自己的测试代码吧"><a href="#附上自己的测试代码吧" class="headerlink" title="附上自己的测试代码吧"></a>附上自己的测试代码吧</h4><p>等我研究透彻了，在写一篇详细的文章给大家。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">var</span> bodyParser = <span class="built_in">require</span>(<span class="string">'body-parser'</span>);</span><br><span class="line"><span class="keyword">var</span> process = <span class="built_in">require</span>(<span class="string">'child_process'</span>);</span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"></span><br><span class="line">app.use(bodyParser.json()); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.post(<span class="string">'/webhook'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">if</span>(<span class="string">'xxx'</span> === req.body[<span class="string">'token'</span>] )&#123;</span><br><span class="line">         <span class="built_in">console</span>.log(req.headers[<span class="string">'user-agent'</span>]);</span><br><span class="line">        <span class="comment">//console.log(req.body.event);</span></span><br><span class="line">    process.exec(<span class="string">'git pull origin master'</span>, &#123;<span class="string">'cwd'</span>:<span class="string">'/root/whtest'</span>&#125;,</span><br><span class="line">            <span class="function"><span class="keyword">function</span> (<span class="params">error, stdout, stderr</span>) </span>&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'stdout========================\n'</span> + stdout);</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'stderr========================\n'</span> + stderr);</span><br><span class="line">                <span class="keyword">if</span> (error !== <span class="literal">null</span>) &#123;</span><br><span class="line">                    res.send(<span class="string">'&lt;pre&gt;fail!!!\n'</span> + stdout + error + <span class="string">'&lt;/pre&gt;'</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    res.send(<span class="string">'&lt;pre&gt;done!!!\n'</span> + stdout + <span class="string">'&lt;/pre&gt;'</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'failed token'</span>)</span><br><span class="line">        res.send(<span class="string">'&lt;pre&gt;token不正确?&lt;/pre&gt;'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.set(<span class="string">'port'</span>, <span class="number">9000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> server = app.listen(<span class="number">9000</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Listening on port %d'</span>, server.address().port);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+</article>
+<div class="post-footer">
+    <div class="post-author">
+        <span>Written in 2017年5月26日</span>
+    </div>
+    <div class="post-category">
+        
+    </div>
+    <div class="post-tags">
+        
+            
+                
+                <a href="/tags/Webhook">#Webhook</a>
+            
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div class="nav-next nav-item">
+                    <a href="/2017/05/23/线上安装mongoDB/">
+                        <i class="fa fa-angle-left"></i>
+                        <span>线上安装mongoDB</span>
+                    </a>
+                </div>
+            
+            
+                <div class="nav-prev nav-item">
+                    <a href="/2017/05/28/浅析Webhook/">
+                        <span>浅析Webhook</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            
+        </div>
+    
+</div>
+<div id="gitment"></div>
+            </div>
+        </div>
+
+        <div class="footer-outer">
+            <div class="footer-items">
+                <span class="footer-copyright">
+                    <i class="fa fa-copyright"></i>
+                </span>
+                <span class="footer-year">
+                    2015 - 2018
+                </span>
+                <span class="footer-author">
+                    小忆
+                </span>
+                
+                    <span class="footer-wordcount">
+                        <i class="fa fa-pencil footer-icon"></i>
+                        Has 26.7k words.
+                    </span>
+                
+            </div>
+            <div class="footer-inner">
+                <span class="footer-other">
+                    Hosted by <a href="https://github.com">GitHub</a>, 
+                    Proudly powered by <a href="http://hexo.io">Hexo</a> and Theme by <a href="https://github.com/isecret/Hola">Hola</a>.
+                </span>
+            </div>
+        </div>
+    </div>
+    
+        
+            <script src="/js/jquery.min.js"></script>
+        
+            <script src="/js/fetch.min.js"></script>
+        
+            <script src="/js/md5.min.js"></script>
+        
+            <script src="/js/instantclick.min.js"></script>
+        
+            <script src="/js/gitment.browser.min.js"></script>
+        
+            <script src="/js/hola.js"></script>
+        
+    
+    
+        <script>
+            var gitment = new Gitment({
+                id: window.location.pathname.replace(/(\/$)/g,"").length > 49 ? md5(window.location.pathname): window.location.pathname.replace(/(\/$)/g,""),
+                owner: "racall",
+                repo: "comment",
+                oauth: {
+                    client_id: "c7d336cf3868196517c0",
+                    client_secret: "a6bee65b0275b51140b2fd203ff90d57e0b00ad5"
+                }
+            });
+            gitment.render("gitment");
+        </script>
+    
+    
+    <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>

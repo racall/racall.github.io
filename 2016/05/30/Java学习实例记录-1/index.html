@@ -1,0 +1,209 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    
+        <meta name="keywords" content="Java," />
+    
+    <meta name="description" content="记录一些实例，以便后期复习。">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java学习实例记录(1)">
+<meta property="og:url" content="https://blog.iiwo.vip/2016/05/30/Java学习实例记录-1/index.html">
+<meta property="og:site_name" content="小 忆 博 客">
+<meta property="og:description" content="记录一些实例，以便后期复习。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2016-05-30T14:51:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java学习实例记录(1)">
+<meta name="twitter:description" content="记录一些实例，以便后期复习。">
+    <title>Java学习实例记录(1) | 小 忆 博 客</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://pic.52xyi.cn/1531298345.jpeg">
+    
+        
+            <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext">
+        
+            <link rel="stylesheet" href="/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/gitment.css">
+        
+            <link rel="stylesheet" href="/css/highlight.css">
+        
+            <link rel="stylesheet" href="/css/hola.css">
+        
+    
+    
+        <script type="text/javascript">
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//tajs.qq.com/stats?sId=65927492";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header-outer">
+            <div class="header-site">
+                <div class="header-title">
+                    小 忆 博 客
+                </div>
+                <div id="hitokoto" class="header-subtitle">
+                    有梦想，有精彩
+                </div>
+            </div>
+            <div class="header-menu">
+                
+                    <span class="header-nav">
+                        <a href="/">Home</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="/about">About</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="/links">Links</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="https://buymeacoff.ee/racall">Coffee</a>
+                    </span>
+                    
+                
+            </div>
+        </div>
+
+        <div id="content-outer">
+            <div id="content-inner">
+                
+
+
+<article class="post">
+    <h1 class="post-title">Java学习实例记录(1)</h1>
+    
+    <p>记录一些实例，以便后期复习。<br><a id="more"></a></p>
+<p>Server.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">package sc;</span><br><span class="line"></span><br><span class="line">import java.io.BufferedReader;</span><br><span class="line">import java.io.BufferedWriter;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.io.InputStreamReader;</span><br><span class="line">import java.io.OutputStream;</span><br><span class="line">import java.io.OutputStreamWriter;</span><br><span class="line">import java.net.ServerSocket;</span><br><span class="line">import java.net.Socket;</span><br><span class="line"></span><br><span class="line">public class Server &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) throws Exception &#123;</span><br><span class="line">		// TODO Auto-generated method stub</span><br><span class="line">		//建立serversocket</span><br><span class="line">		ServerSocket server=new ServerSocket(8888);</span><br><span class="line">		//使用accept()侦听端口</span><br><span class="line">		int count=0;</span><br><span class="line">		Socket s=null;</span><br><span class="line">		while(true)&#123;</span><br><span class="line">			s=server.accept();</span><br><span class="line">			ServerThread st=new ServerThread(s);</span><br><span class="line">			st.start();</span><br><span class="line">			count++;</span><br><span class="line">			System.out.println(&quot;当前连接数：&quot;+count);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ServerThread.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">package sc;</span><br><span class="line"></span><br><span class="line">import java.io.BufferedReader;</span><br><span class="line">import java.io.BufferedWriter;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.io.InputStreamReader;</span><br><span class="line">import java.io.OutputStream;</span><br><span class="line">import java.io.OutputStreamWriter;</span><br><span class="line">import java.net.Socket;</span><br><span class="line"></span><br><span class="line">public class ServerThread extends Thread &#123;</span><br><span class="line">	Socket s=null;</span><br><span class="line">	public ServerThread(Socket s)&#123;</span><br><span class="line">		this.s=s;</span><br><span class="line">	&#125;</span><br><span class="line">	public void run()&#123;</span><br><span class="line">		InputStream is=null;</span><br><span class="line">		InputStreamReader isr=null;</span><br><span class="line">		OutputStream os=null;</span><br><span class="line">		BufferedWriter bw=null;</span><br><span class="line">		BufferedReader br=null;</span><br><span class="line">		try &#123;</span><br><span class="line">			is = s.getInputStream();</span><br><span class="line">			isr=new InputStreamReader(is);</span><br><span class="line">			br=new BufferedReader(isr);</span><br><span class="line">			String str=br.readLine();</span><br><span class="line">			while(str!=null)&#123;</span><br><span class="line">				System.out.println(s.getInetAddress()+&quot;客服端说：&quot;+str);</span><br><span class="line">				str=br.readLine();</span><br><span class="line">			&#125;</span><br><span class="line">			s.shutdownInput();</span><br><span class="line">			// 向客服端发送消息</span><br><span class="line">			os=s.getOutputStream();</span><br><span class="line">			bw=new BufferedWriter(new OutputStreamWriter(os));</span><br><span class="line">			bw.write(&quot;我是服务端&quot;);</span><br><span class="line">			bw.flush();</span><br><span class="line">			s.shutdownOutput();</span><br><span class="line">		&#125; catch (IOException e) &#123;</span><br><span class="line">			// TODO Auto-generated catch block</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;finally&#123;</span><br><span class="line">			</span><br><span class="line">			try &#123;</span><br><span class="line">				bw.close();</span><br><span class="line">				os.close();</span><br><span class="line">				br.close();</span><br><span class="line">				isr.close();</span><br><span class="line">				is.close();</span><br><span class="line">				s.close();</span><br><span class="line">			&#125; catch (IOException e) &#123;</span><br><span class="line">				// TODO Auto-generated catch block</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Client.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">package sc;</span><br><span class="line"></span><br><span class="line">import java.io.BufferedReader;</span><br><span class="line">import java.io.BufferedWriter;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.io.InputStreamReader;</span><br><span class="line">import java.io.OutputStream;</span><br><span class="line">import java.io.OutputStreamWriter;</span><br><span class="line">import java.net.InetAddress;</span><br><span class="line">import java.net.Socket;</span><br><span class="line">import java.util.Random;</span><br><span class="line"></span><br><span class="line">public class Client &#123;</span><br><span class="line">	public static void main(String[] args) throws Exception &#123;</span><br><span class="line">		InetAddress adr=InetAddress.getLocalHost();</span><br><span class="line">		String host=adr.getHostAddress();</span><br><span class="line">		//建立socket</span><br><span class="line">		Random rd=new Random();</span><br><span class="line">		Socket client=new Socket(host,8888);</span><br><span class="line">		//输出流</span><br><span class="line">		OutputStream os=client.getOutputStream();</span><br><span class="line">		OutputStreamWriter osw=new OutputStreamWriter(os);</span><br><span class="line">		BufferedWriter bw=new BufferedWriter(osw);</span><br><span class="line">		bw.write(&quot;我是客服端:&quot;+rd.nextInt(100));</span><br><span class="line">		bw.flush();</span><br><span class="line">		client.shutdownOutput();</span><br><span class="line">		//输入流</span><br><span class="line">		InputStream is=client.getInputStream();</span><br><span class="line">		BufferedReader br=new BufferedReader(new InputStreamReader(is));</span><br><span class="line">		String str=br.readLine();</span><br><span class="line">		while(str!=null)&#123;</span><br><span class="line">			System.out.println(&quot;服务端说：&quot;+str);</span><br><span class="line">			str=br.readLine();</span><br><span class="line">		&#125;</span><br><span class="line">		client.shutdownInput();</span><br><span class="line">		//关闭资源</span><br><span class="line">		br.close();</span><br><span class="line">		is.close();</span><br><span class="line">		bw.close();</span><br><span class="line">		osw.close();</span><br><span class="line">		os.close();</span><br><span class="line">		client.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article>
+<div class="post-footer">
+    <div class="post-author">
+        <span>Written in 2016年5月30日</span>
+    </div>
+    <div class="post-category">
+        
+    </div>
+    <div class="post-tags">
+        
+            
+                
+                <a href="/tags/Java">#Java</a>
+            
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div class="nav-next nav-item">
+                    <a href="/2016/05/26/Java-IO流笔记-3/">
+                        <i class="fa fa-angle-left"></i>
+                        <span>Java IO流笔记(3)</span>
+                    </a>
+                </div>
+            
+            
+                <div class="nav-prev nav-item">
+                    <a href="/2016/06/17/不求止梦，只求终身追梦/">
+                        <span>不求止梦，只求终身追梦</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            
+        </div>
+    
+</div>
+<div id="gitment"></div>
+            </div>
+        </div>
+
+        <div class="footer-outer">
+            <div class="footer-items">
+                <span class="footer-copyright">
+                    <i class="fa fa-copyright"></i>
+                </span>
+                <span class="footer-year">
+                    2015 - 2018
+                </span>
+                <span class="footer-author">
+                    小忆
+                </span>
+                
+                    <span class="footer-wordcount">
+                        <i class="fa fa-pencil footer-icon"></i>
+                        Has 26.7k words.
+                    </span>
+                
+            </div>
+            <div class="footer-inner">
+                <span class="footer-other">
+                    Hosted by <a href="https://github.com">GitHub</a>, 
+                    Proudly powered by <a href="http://hexo.io">Hexo</a> and Theme by <a href="https://github.com/isecret/Hola">Hola</a>.
+                </span>
+            </div>
+        </div>
+    </div>
+    
+        
+            <script src="/js/jquery.min.js"></script>
+        
+            <script src="/js/fetch.min.js"></script>
+        
+            <script src="/js/md5.min.js"></script>
+        
+            <script src="/js/instantclick.min.js"></script>
+        
+            <script src="/js/gitment.browser.min.js"></script>
+        
+            <script src="/js/hola.js"></script>
+        
+    
+    
+        <script>
+            var gitment = new Gitment({
+                id: window.location.pathname.replace(/(\/$)/g,"").length > 49 ? md5(window.location.pathname): window.location.pathname.replace(/(\/$)/g,""),
+                owner: "racall",
+                repo: "comment",
+                oauth: {
+                    client_id: "c7d336cf3868196517c0",
+                    client_secret: "a6bee65b0275b51140b2fd203ff90d57e0b00ad5"
+                }
+            });
+            gitment.render("gitment");
+        </script>
+    
+    
+    <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>

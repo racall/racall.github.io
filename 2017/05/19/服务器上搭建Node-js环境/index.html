@@ -1,0 +1,237 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    
+        <meta name="keywords" content="Node.js," />
+    
+    <meta name="description" content="说实话自己部署线上Node.js运行环境真的很麻烦…如果你有什么好的环境集成包，可以在下面留言!">
+<meta name="keywords" content="Node.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="服务器上搭建Node.js环境">
+<meta property="og:url" content="https://blog.iiwo.vip/2017/05/19/服务器上搭建Node-js环境/index.html">
+<meta property="og:site_name" content="小 忆 博 客">
+<meta property="og:description" content="说实话自己部署线上Node.js运行环境真的很麻烦…如果你有什么好的环境集成包，可以在下面留言!">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-05-20T12:14:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="服务器上搭建Node.js环境">
+<meta name="twitter:description" content="说实话自己部署线上Node.js运行环境真的很麻烦…如果你有什么好的环境集成包，可以在下面留言!">
+    <title>服务器上搭建Node.js环境 | 小 忆 博 客</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://pic.52xyi.cn/1531298345.jpeg">
+    
+        
+            <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext">
+        
+            <link rel="stylesheet" href="/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/gitment.css">
+        
+            <link rel="stylesheet" href="/css/highlight.css">
+        
+            <link rel="stylesheet" href="/css/hola.css">
+        
+    
+    
+        <script type="text/javascript">
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//tajs.qq.com/stats?sId=65927492";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header-outer">
+            <div class="header-site">
+                <div class="header-title">
+                    小 忆 博 客
+                </div>
+                <div id="hitokoto" class="header-subtitle">
+                    有梦想，有精彩
+                </div>
+            </div>
+            <div class="header-menu">
+                
+                    <span class="header-nav">
+                        <a href="/">Home</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="/about">About</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="/links">Links</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="https://buymeacoff.ee/racall">Coffee</a>
+                    </span>
+                    
+                
+            </div>
+        </div>
+
+        <div id="content-outer">
+            <div id="content-inner">
+                
+
+
+<article class="post">
+    <h1 class="post-title">服务器上搭建Node.js环境</h1>
+    
+        <h2>目录</h2>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#本文所使用的环境"><span class="toc-text">本文所使用的环境:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装wget、curl、git、vim"><span class="toc-text">安装wget、curl、git、vim</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装nvm和Node-js"><span class="toc-text">安装nvm和Node.js</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装PM2"><span class="toc-text">安装PM2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装Nginx"><span class="toc-text">安装Nginx</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#附上反向代码的配置文件"><span class="toc-text">附上反向代码的配置文件</span></a></li></ol>
+        <br>
+    
+    <p>说实话自己部署线上Node.js运行环境真的很麻烦…如果你有什么好的环境集成包，可以在下面留言! <a id="more"></a></p>
+<h4 id="本文所使用的环境"><a href="#本文所使用的环境" class="headerlink" title="本文所使用的环境:"></a>本文所使用的环境:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">服务器：CentOS6.9 X64</span><br><span class="line">Node版本：v6.10.3</span><br></pre></td></tr></table></figure>
+<h4 id="安装wget、curl、git、vim"><a href="#安装wget、curl、git、vim" class="headerlink" title="安装wget、curl、git、vim"></a>安装wget、curl、git、vim</h4><p>（这些是linux上的常用工具）</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum install wget curl git vim</span></span><br></pre></td></tr></table></figure>
+<h4 id="安装nvm和Node-js"><a href="#安装nvm和Node-js" class="headerlink" title="安装nvm和Node.js"></a>安装nvm和Node.js</h4><p>进入GitHub搜索nvm或者直接输入地址<a href="https://github.com/creationix/nvm" target="_blank" rel="noopener">https://github.com/creationix/nvm</a>，找到nvm的安装脚本。</p>
+<p>如果没有找到，可以用下面的安装脚本命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash</span><br></pre></td></tr></table></figure>
+<p>通过安装脚本安装完nvm以后，会提示我们再开一个新的终端来连接服务器，连接上服务器以后,使用:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nvm install v6.10.3 #安装node.js 6.10.3版本</span><br><span class="line">nvm use v.6.10.3 #把node版本指向6.10.3</span><br><span class="line">nvm alias default v6.10.3 #把node版本设置成默认版本</span><br></pre></td></tr></table></figure>
+<p>接下来可以查看Node.js版本和npm的版本,如果Node.js版本为你所安装的版本那就证明安装成功啦。。。</p>
+<p>升级npm:</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">npm install -g npm</span></span><br></pre></td></tr></table></figure>
+<h4 id="安装PM2"><a href="#安装PM2" class="headerlink" title="安装PM2"></a>安装PM2</h4><p>到现在服务器上Node.js环境有啦！你以为这就安装好了吗？NO。。。为了让Node.js后台运行并且能方便管理Node.js项目,所以还是要安装PM2这款工具</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install pm2 -g #全局安装pm2</span><br></pre></td></tr></table></figure>
+<p>安装好pm2之后，还是没完呢！</p>
+<h4 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h4><p>接下来安装Nginx来实现反向代理…</p>
+<p>由于我的服务器中yum源没有nginx，所以呢…自己添加源吧！</p>
+<p>在/etc/yum.repos.d/目录下创建一个源配置文件nginx.repo：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/yum.repos.d/  </span><br><span class="line">vim nginx.repo</span><br></pre></td></tr></table></figure>
+<p>填写如下内容：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[nginx]</span></span><br><span class="line"><span class="string">name=nginx</span> <span class="string">repo</span>  </span><br><span class="line"><span class="string">baseurl=http://nginx.org/packages/centos/$releasever/$basearch/</span>  </span><br><span class="line"><span class="string">gpgcheck=0</span>  </span><br><span class="line"><span class="string">enabled=1</span></span><br></pre></td></tr></table></figure>
+<p>保存（不会使用vim的自己去查）,然后运行:</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum install nginx</span></span><br></pre></td></tr></table></figure>
+<p>好了，安装完成了。</p>
+<h4 id="附上反向代码的配置文件"><a href="#附上反向代码的配置文件" class="headerlink" title="附上反向代码的配置文件"></a>附上反向代码的配置文件</h4><p>在写配置文件之前查看/etc/nginx/nginx.conf里面:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">include</span> <span class="string">/etc/nginx/conf.d/*.conf;</span> <span class="comment">#这句话是否被注释</span></span><br></pre></td></tr></table></figure>
+<p>配置文件在/etc/nginx/conf.d (不要去修改默认的配置文件，自己新建吧!后缀名conf)</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">upstream</span> <span class="string">reply</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">server</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:3030;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="string">server</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line">    <span class="string">listen</span> <span class="number">80</span><span class="string">;</span></span><br><span class="line">    <span class="string">server_name</span> <span class="string">api.domeyi.com;</span></span><br><span class="line">    <span class="string">location</span> <span class="string">/</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">proxy_pass</span> <span class="attr">http://127.0.0.1:3030/;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>Nginx相关的命令：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">service</span> <span class="string">nginx</span> <span class="string">start</span> <span class="comment">#启动</span></span><br><span class="line"><span class="string">service</span> <span class="string">nginx</span> <span class="string">stop</span> <span class="comment">#停止</span></span><br><span class="line"><span class="string">nginx</span> <span class="bullet">-t</span> <span class="comment">#检查配置文件是否有错误,有'successful'字样就没错</span></span><br><span class="line"><span class="string">nginx</span> <span class="bullet">-s</span> <span class="string">reload</span> <span class="comment">#重新加载配置文件</span></span><br></pre></td></tr></table></figure>
+
+</article>
+<div class="post-footer">
+    <div class="post-author">
+        <span>Written in 2017年5月19日</span>
+    </div>
+    <div class="post-category">
+        
+    </div>
+    <div class="post-tags">
+        
+            
+                
+                <a href="/tags/Node.js">#Node.js</a>
+            
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div class="nav-next nav-item">
+                    <a href="/2017/05/16/mongoDB安全权限访问控制/">
+                        <i class="fa fa-angle-left"></i>
+                        <span>mongoDB安全权限访问控制</span>
+                    </a>
+                </div>
+            
+            
+                <div class="nav-prev nav-item">
+                    <a href="/2017/05/21/SSH免密码登录Linux/">
+                        <span>SSH免密码登录Linux</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            
+        </div>
+    
+</div>
+<div id="gitment"></div>
+            </div>
+        </div>
+
+        <div class="footer-outer">
+            <div class="footer-items">
+                <span class="footer-copyright">
+                    <i class="fa fa-copyright"></i>
+                </span>
+                <span class="footer-year">
+                    2015 - 2018
+                </span>
+                <span class="footer-author">
+                    小忆
+                </span>
+                
+                    <span class="footer-wordcount">
+                        <i class="fa fa-pencil footer-icon"></i>
+                        Has 26.7k words.
+                    </span>
+                
+            </div>
+            <div class="footer-inner">
+                <span class="footer-other">
+                    Hosted by <a href="https://github.com">GitHub</a>, 
+                    Proudly powered by <a href="http://hexo.io">Hexo</a> and Theme by <a href="https://github.com/isecret/Hola">Hola</a>.
+                </span>
+            </div>
+        </div>
+    </div>
+    
+        
+            <script src="/js/jquery.min.js"></script>
+        
+            <script src="/js/fetch.min.js"></script>
+        
+            <script src="/js/md5.min.js"></script>
+        
+            <script src="/js/instantclick.min.js"></script>
+        
+            <script src="/js/gitment.browser.min.js"></script>
+        
+            <script src="/js/hola.js"></script>
+        
+    
+    
+        <script>
+            var gitment = new Gitment({
+                id: window.location.pathname.replace(/(\/$)/g,"").length > 49 ? md5(window.location.pathname): window.location.pathname.replace(/(\/$)/g,""),
+                owner: "racall",
+                repo: "comment",
+                oauth: {
+                    client_id: "c7d336cf3868196517c0",
+                    client_secret: "a6bee65b0275b51140b2fd203ff90d57e0b00ad5"
+                }
+            });
+            gitment.render("gitment");
+        </script>
+    
+    
+    <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>

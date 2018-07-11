@@ -1,0 +1,227 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    
+        <meta name="keywords" content="Git," />
+    
+    <meta name="description" content="在昨天发现了一个新的前端框架Semantic UI,觉得比较新奇嘛,于是乎就动手做一个页面试试,在晚上11点左右页面做好了并上传到GitHub,开启了pages.今天上午发现手机上显示有问题,修改了代码,准备再次Push到GitHub上的时候,问题出现了:">
+<meta name="keywords" content="Git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决Git远程与本地冲突">
+<meta property="og:url" content="https://blog.iiwo.vip/2017/03/12/解决Git远程与本地冲突/index.html">
+<meta property="og:site_name" content="小 忆 博 客">
+<meta property="og:description" content="在昨天发现了一个新的前端框架Semantic UI,觉得比较新奇嘛,于是乎就动手做一个页面试试,在晚上11点左右页面做好了并上传到GitHub,开启了pages.今天上午发现手机上显示有问题,修改了代码,准备再次Push到GitHub上的时候,问题出现了:">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://pic.52xyi.cn/git1.jpg">
+<meta property="og:updated_time" content="2017-03-15T09:54:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="解决Git远程与本地冲突">
+<meta name="twitter:description" content="在昨天发现了一个新的前端框架Semantic UI,觉得比较新奇嘛,于是乎就动手做一个页面试试,在晚上11点左右页面做好了并上传到GitHub,开启了pages.今天上午发现手机上显示有问题,修改了代码,准备再次Push到GitHub上的时候,问题出现了:">
+<meta name="twitter:image" content="https://pic.52xyi.cn/git1.jpg">
+    <title>解决Git远程与本地冲突 | 小 忆 博 客</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://pic.52xyi.cn/1531298345.jpeg">
+    
+        
+            <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext">
+        
+            <link rel="stylesheet" href="/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/gitment.css">
+        
+            <link rel="stylesheet" href="/css/highlight.css">
+        
+            <link rel="stylesheet" href="/css/hola.css">
+        
+    
+    
+        <script type="text/javascript">
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//tajs.qq.com/stats?sId=65927492";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header-outer">
+            <div class="header-site">
+                <div class="header-title">
+                    小 忆 博 客
+                </div>
+                <div id="hitokoto" class="header-subtitle">
+                    有梦想，有精彩
+                </div>
+            </div>
+            <div class="header-menu">
+                
+                    <span class="header-nav">
+                        <a href="/">Home</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="/about">About</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="/links">Links</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="https://buymeacoff.ee/racall">Coffee</a>
+                    </span>
+                    
+                
+            </div>
+        </div>
+
+        <div id="content-outer">
+            <div id="content-inner">
+                
+
+
+<article class="post">
+    <h1 class="post-title">解决Git远程与本地冲突</h1>
+    
+    <p>在昨天发现了一个新的前端框架Semantic UI,觉得比较新奇嘛,于是乎就动手做一个页面试试,在晚上11点左右页面做好了并上传到GitHub,开启了pages.今天上午发现手机上显示有问题,修改了代码,准备再次Push到GitHub上的时候,问题出现了: <a id="more"></a></p>
+<p><img src="https://pic.52xyi.cn/git1.jpg" alt="wt"></p>
+<p>看到这提示,我马上打开GitHub查看了一番,发现GitHub在给pages添加域名时,创建了一个CNMAE的文件.远程有了更新而本地也有了更新,怎么办呢？我的做法是这样的.</p>
+<blockquote>
+<p>把远程仓库master分支下载到本地并存为tmp分支</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin master:tmp</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>查看tmp分支与本地原有分支的不同</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff tmp</span><br></pre></td></tr></table></figure>
+<p>这里主要是看看有没有其他的改动…</p>
+<blockquote>
+<p>将tmp分支和本地的master分支合并</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge tmp</span><br></pre></td></tr></table></figure>
+<p>这个时候呢,本地与远程就没有冲突了,而且还保留了我今天的代码,现在Push就OK啦！</p>
+<blockquote>
+<p>最后别忘记删除tmp分支</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d tmp</span><br></pre></td></tr></table></figure>
+<p>哈哈,又可以快乐的coding啦…</p>
+
+</article>
+<div class="post-footer">
+    <div class="post-author">
+        <span>Written in 2017年3月12日</span>
+    </div>
+    <div class="post-category">
+        
+    </div>
+    <div class="post-tags">
+        
+            
+                
+                <a href="/tags/Git">#Git</a>
+            
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div class="nav-next nav-item">
+                    <a href="/2017/03/04/ss-spanel清空流量脚本/">
+                        <i class="fa fa-angle-left"></i>
+                        <span>ss-spanel清空流量脚本</span>
+                    </a>
+                </div>
+            
+            
+                <div class="nav-prev nav-item">
+                    <a href="/2017/04/05/解决Node-js升级后Hexo报错/">
+                        <span>解决Node.js升级后Hexo报错</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            
+        </div>
+    
+</div>
+<div id="gitment"></div>
+            </div>
+        </div>
+
+        <div class="footer-outer">
+            <div class="footer-items">
+                <span class="footer-copyright">
+                    <i class="fa fa-copyright"></i>
+                </span>
+                <span class="footer-year">
+                    2015 - 2018
+                </span>
+                <span class="footer-author">
+                    小忆
+                </span>
+                
+                    <span class="footer-wordcount">
+                        <i class="fa fa-pencil footer-icon"></i>
+                        Has 26.7k words.
+                    </span>
+                
+            </div>
+            <div class="footer-inner">
+                <span class="footer-other">
+                    Hosted by <a href="https://github.com">GitHub</a>, 
+                    Proudly powered by <a href="http://hexo.io">Hexo</a> and Theme by <a href="https://github.com/isecret/Hola">Hola</a>.
+                </span>
+            </div>
+        </div>
+    </div>
+    
+        
+            <script src="/js/jquery.min.js"></script>
+        
+            <script src="/js/fetch.min.js"></script>
+        
+            <script src="/js/md5.min.js"></script>
+        
+            <script src="/js/instantclick.min.js"></script>
+        
+            <script src="/js/gitment.browser.min.js"></script>
+        
+            <script src="/js/hola.js"></script>
+        
+    
+    
+        <script>
+            var gitment = new Gitment({
+                id: window.location.pathname.replace(/(\/$)/g,"").length > 49 ? md5(window.location.pathname): window.location.pathname.replace(/(\/$)/g,""),
+                owner: "racall",
+                repo: "comment",
+                oauth: {
+                    client_id: "c7d336cf3868196517c0",
+                    client_secret: "a6bee65b0275b51140b2fd203ff90d57e0b00ad5"
+                }
+            });
+            gitment.render("gitment");
+        </script>
+    
+    
+    <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>

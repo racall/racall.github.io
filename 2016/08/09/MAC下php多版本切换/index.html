@@ -1,0 +1,209 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    
+        <meta name="keywords" content="小忆博客" />
+    
+    <meta name="description" content="前段时间，在自己的电脑上升级了php，php7.0虽然有部分更新，速度也提升了不少，但最近在做微信开发时，发现很多引擎不支持php7，于是想能不能安装两个版本进行切换，百度了很多方法发现不行。于是自己着手研究，发现在终端下运行“php -v”，php的版本居然还是mac os自带的php版本，于是想到了可以改apache配置文件来切换php版本.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MAC下php多版本切换">
+<meta property="og:url" content="https://blog.iiwo.vip/2016/08/09/MAC下php多版本切换/index.html">
+<meta property="og:site_name" content="小 忆 博 客">
+<meta property="og:description" content="前段时间，在自己的电脑上升级了php，php7.0虽然有部分更新，速度也提升了不少，但最近在做微信开发时，发现很多引擎不支持php7，于是想能不能安装两个版本进行切换，百度了很多方法发现不行。于是自己着手研究，发现在终端下运行“php -v”，php的版本居然还是mac os自带的php版本，于是想到了可以改apache配置文件来切换php版本.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2016-08-09T16:29:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MAC下php多版本切换">
+<meta name="twitter:description" content="前段时间，在自己的电脑上升级了php，php7.0虽然有部分更新，速度也提升了不少，但最近在做微信开发时，发现很多引擎不支持php7，于是想能不能安装两个版本进行切换，百度了很多方法发现不行。于是自己着手研究，发现在终端下运行“php -v”，php的版本居然还是mac os自带的php版本，于是想到了可以改apache配置文件来切换php版本.">
+    <title>MAC下php多版本切换 | 小 忆 博 客</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://pic.52xyi.cn/1531298345.jpeg">
+    
+        
+            <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext">
+        
+            <link rel="stylesheet" href="/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/gitment.css">
+        
+            <link rel="stylesheet" href="/css/highlight.css">
+        
+            <link rel="stylesheet" href="/css/hola.css">
+        
+    
+    
+        <script type="text/javascript">
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//tajs.qq.com/stats?sId=65927492";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header-outer">
+            <div class="header-site">
+                <div class="header-title">
+                    小 忆 博 客
+                </div>
+                <div id="hitokoto" class="header-subtitle">
+                    有梦想，有精彩
+                </div>
+            </div>
+            <div class="header-menu">
+                
+                    <span class="header-nav">
+                        <a href="/">Home</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="/about">About</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="/links">Links</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="https://buymeacoff.ee/racall">Coffee</a>
+                    </span>
+                    
+                
+            </div>
+        </div>
+
+        <div id="content-outer">
+            <div id="content-inner">
+                
+
+
+<article class="post">
+    <h1 class="post-title">MAC下php多版本切换</h1>
+    
+    <p>前段时间，在自己的电脑上升级了php，php7.0虽然有部分更新，速度也提升了不少，但最近在做微信开发时，发现很多引擎不支持php7，于是想能不能安装两个版本进行切换，百度了很多方法发现不行。于是自己着手研究，发现在终端下运行“php -v”，php的版本居然还是mac os自带的php版本，于是想到了可以改apache配置文件来切换php版本.<br><a id="more"></a></p>
+<p>1、在/usr/local/php5目录下找到entropy-php.conf，用文本编辑器打开,将</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule php7_module        /usr/local/php5/libphp7.so</span><br></pre></td></tr></table></figure>
+<p>这句配置复制下来，然后删掉.</p>
+<p>2、在/etc/apache2目录下找到httpd.conf,用文本编辑器打开,查找</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule php5_module        libexec/apache2/libphp5.so</span><br></pre></td></tr></table></figure>
+<p>将前面的#去掉，在下一行粘贴刚刚复制下来的那句配置，并用#注释掉.</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LoadModule php5_module        libexec/apache2/libphp5.so</span><br><span class="line">#LoadModule php7_module        /usr/local/php5/libphp7.so</span><br></pre></td></tr></table></figure>
+<p>然后再终端下执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apachectl restart</span><br></pre></td></tr></table></figure>
+<p>重启apache，这时候用phpinfo探测php版本，你会发现php版本已经切换到php5啦!</p>
+
+</article>
+<div class="post-footer">
+    <div class="post-author">
+        <span>Written in 2016年8月9日</span>
+    </div>
+    <div class="post-category">
+        
+    </div>
+    <div class="post-tags">
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div class="nav-next nav-item">
+                    <a href="/2016/07/26/Mac下升级php5到php7/">
+                        <i class="fa fa-angle-left"></i>
+                        <span>Mac下升级php5到php7</span>
+                    </a>
+                </div>
+            
+            
+                <div class="nav-prev nav-item">
+                    <a href="/2016/08/27/关于更换域名说明/">
+                        <span>关于更换域名说明</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            
+        </div>
+    
+</div>
+<div id="gitment"></div>
+            </div>
+        </div>
+
+        <div class="footer-outer">
+            <div class="footer-items">
+                <span class="footer-copyright">
+                    <i class="fa fa-copyright"></i>
+                </span>
+                <span class="footer-year">
+                    2015 - 2018
+                </span>
+                <span class="footer-author">
+                    小忆
+                </span>
+                
+                    <span class="footer-wordcount">
+                        <i class="fa fa-pencil footer-icon"></i>
+                        Has 26.7k words.
+                    </span>
+                
+            </div>
+            <div class="footer-inner">
+                <span class="footer-other">
+                    Hosted by <a href="https://github.com">GitHub</a>, 
+                    Proudly powered by <a href="http://hexo.io">Hexo</a> and Theme by <a href="https://github.com/isecret/Hola">Hola</a>.
+                </span>
+            </div>
+        </div>
+    </div>
+    
+        
+            <script src="/js/jquery.min.js"></script>
+        
+            <script src="/js/fetch.min.js"></script>
+        
+            <script src="/js/md5.min.js"></script>
+        
+            <script src="/js/instantclick.min.js"></script>
+        
+            <script src="/js/gitment.browser.min.js"></script>
+        
+            <script src="/js/hola.js"></script>
+        
+    
+    
+        <script>
+            var gitment = new Gitment({
+                id: window.location.pathname.replace(/(\/$)/g,"").length > 49 ? md5(window.location.pathname): window.location.pathname.replace(/(\/$)/g,""),
+                owner: "racall",
+                repo: "comment",
+                oauth: {
+                    client_id: "c7d336cf3868196517c0",
+                    client_secret: "a6bee65b0275b51140b2fd203ff90d57e0b00ad5"
+                }
+            });
+            gitment.render("gitment");
+        </script>
+    
+    
+    <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>
