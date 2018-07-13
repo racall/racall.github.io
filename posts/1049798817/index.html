@@ -1,0 +1,205 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    
+        <meta name="keywords" content="小忆博客" />
+    
+    <meta name="description" content="以前对Node.js不是很了解，最近认真的学习了一下Node.js，在学习过程中发现自己Node.js版本过低，于是升级了Node.js，在此说一下Node.js的升级吧!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决Node.js升级后Hexo报错">
+<meta property="og:url" content="https://blog.iiwo.vip/posts/1049798817/index.html">
+<meta property="og:site_name" content="小 忆 博 客">
+<meta property="og:description" content="以前对Node.js不是很了解，最近认真的学习了一下Node.js，在学习过程中发现自己Node.js版本过低，于是升级了Node.js，在此说一下Node.js的升级吧!">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-13T14:37:14.678Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="解决Node.js升级后Hexo报错">
+<meta name="twitter:description" content="以前对Node.js不是很了解，最近认真的学习了一下Node.js，在学习过程中发现自己Node.js版本过低，于是升级了Node.js，在此说一下Node.js的升级吧!">
+    <title>解决Node.js升级后Hexo报错 | 小 忆 博 客</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://pic.52xyi.cn/1531298345.jpeg">
+    
+        
+            <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext">
+        
+            <link rel="stylesheet" href="/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/gitment.css">
+        
+            <link rel="stylesheet" href="/css/highlight.css">
+        
+            <link rel="stylesheet" href="/css/hola.css">
+        
+    
+    
+        <script type="text/javascript">
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//tajs.qq.com/stats?sId=65927492";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header-outer">
+            <div class="header-site">
+                <div class="header-title">
+                    小 忆 博 客
+                </div>
+                <div id="hitokoto" class="header-subtitle">
+                    有梦想，有精彩
+                </div>
+            </div>
+            <div class="header-menu">
+                
+                    <span class="header-nav">
+                        <a href="/">Home</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="/about">About</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="/links">Links</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="https://buymeacoff.ee/racall">Coffee</a>
+                    </span>
+                    
+                
+            </div>
+        </div>
+
+        <div id="content-outer">
+            <div id="content-inner">
+                
+
+
+<article class="post">
+    <h1 class="post-title">解决Node.js升级后Hexo报错</h1>
+    
+        <h2>目录</h2>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装模块n-该模块可以管理Node-js的版本"><span class="toc-text">安装模块n (该模块可以管理Node.js的版本)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#升级Node-js"><span class="toc-text">升级Node.js</span></a></li></ol>
+        <br>
+    
+    <p>以前对Node.js不是很了解，最近认真的学习了一下Node.js，在学习过程中发现自己Node.js版本过低，于是升级了Node.js，在此说一下Node.js的升级吧! <a id="more"></a></p>
+<h4 id="安装模块n-该模块可以管理Node-js的版本"><a href="#安装模块n-该模块可以管理Node-js的版本" class="headerlink" title="安装模块n (该模块可以管理Node.js的版本)"></a>安装模块n (该模块可以管理Node.js的版本)</h4><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">npm install -g n</span></span><br></pre></td></tr></table></figure>
+<h4 id="升级Node-js"><a href="#升级Node-js" class="headerlink" title="升级Node.js"></a>升级Node.js</h4><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">n lts</span></span><br></pre></td></tr></table></figure>
+<p>LTS版本为长期支持版本，稳定性比最新版本好。</p>
+<p>安装好了Node.js，发现在Hexo相关命令运行时报错，然后各种搜索答案，找到了一条命令，具体是更新还是重新安装，我也不知道，查了文档，没能读懂其意思。希望各位大大们解答…</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo npm install --unsafe-perm --verbose -g hexo</span></span><br></pre></td></tr></table></figure>
+<p>到此问题解决啦！嘻嘻…</p>
+
+</article>
+<div class="post-footer">
+    <div class="post-author">
+        <span>Written in 2017年4月5日</span>
+    </div>
+    <div class="post-category">
+        
+    </div>
+    <div class="post-tags">
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div class="nav-next nav-item">
+                    <a href="/posts/3497102895/">
+                        <i class="fa fa-angle-left"></i>
+                        <span>解决Git远程与本地冲突</span>
+                    </a>
+                </div>
+            
+            
+                <div class="nav-prev nav-item">
+                    <a href="/posts/4091415208/">
+                        <span>mongoDB安全权限访问控制</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            
+        </div>
+    
+</div>
+<div id="gitment"></div>
+            </div>
+        </div>
+
+        <div class="footer-outer">
+            <div class="footer-items">
+                <span class="footer-copyright">
+                    <i class="fa fa-copyright"></i>
+                </span>
+                <span class="footer-year">
+                    2015 - 2018
+                </span>
+                <span class="footer-author">
+                    小忆
+                </span>
+                
+                    <span class="footer-wordcount">
+                        <i class="fa fa-pencil footer-icon"></i>
+                        Has 26.7k words.
+                    </span>
+                
+            </div>
+            <div class="footer-inner">
+                <span class="footer-other">
+                    Hosted by <a href="https://github.com">GitHub</a>, 
+                    Proudly powered by <a href="http://hexo.io">Hexo</a> and Theme by <a href="https://github.com/isecret/Hola">Hola</a>.
+                </span>
+            </div>
+        </div>
+    </div>
+    
+        
+            <script src="/js/jquery.min.js"></script>
+        
+            <script src="/js/fetch.min.js"></script>
+        
+            <script src="/js/md5.min.js"></script>
+        
+            <script src="/js/gitment.browser.min.js"></script>
+        
+            <script src="/js/hola.js"></script>
+        
+    
+    
+        <script>
+            var gitment = new Gitment({
+                id: window.location.pathname.replace(/(\/$)/g,"").length > 49 ? md5(window.location.pathname): window.location.pathname.replace(/(\/$)/g,""),
+                owner: "racall",
+                repo: "comment",
+                oauth: {
+                    client_id: "c7d336cf3868196517c0",
+                    client_secret: "a6bee65b0275b51140b2fd203ff90d57e0b00ad5"
+                }
+            });
+            gitment.render("gitment");
+        </script>
+    
+    
+</body>
+</html>

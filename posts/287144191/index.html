@@ -1,0 +1,201 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    
+        <meta name="keywords" content="Ubuntu," />
+    
+    <meta name="description" content=".tar解包：tar xvf FileName.tar打包：tar cvf FileName.tar DirName（注：tar是打包，不是压缩！）———————————————">
+<meta name="keywords" content="Ubuntu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录Ubuntu下各种压缩和解压方式">
+<meta property="og:url" content="https://blog.iiwo.vip/posts/287144191/index.html">
+<meta property="og:site_name" content="小 忆 博 客">
+<meta property="og:description" content=".tar解包：tar xvf FileName.tar打包：tar cvf FileName.tar DirName（注：tar是打包，不是压缩！）———————————————">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-13T14:37:14.679Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记录Ubuntu下各种压缩和解压方式">
+<meta name="twitter:description" content=".tar解包：tar xvf FileName.tar打包：tar cvf FileName.tar DirName（注：tar是打包，不是压缩！）———————————————">
+    <title>记录Ubuntu下各种压缩和解压方式 | 小 忆 博 客</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://pic.52xyi.cn/1531298345.jpeg">
+    
+        
+            <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext">
+        
+            <link rel="stylesheet" href="/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/gitment.css">
+        
+            <link rel="stylesheet" href="/css/highlight.css">
+        
+            <link rel="stylesheet" href="/css/hola.css">
+        
+    
+    
+        <script type="text/javascript">
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//tajs.qq.com/stats?sId=65927492";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header-outer">
+            <div class="header-site">
+                <div class="header-title">
+                    小 忆 博 客
+                </div>
+                <div id="hitokoto" class="header-subtitle">
+                    有梦想，有精彩
+                </div>
+            </div>
+            <div class="header-menu">
+                
+                    <span class="header-nav">
+                        <a href="/">Home</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="/about">About</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="/links">Links</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="https://buymeacoff.ee/racall">Coffee</a>
+                    </span>
+                    
+                
+            </div>
+        </div>
+
+        <div id="content-outer">
+            <div id="content-inner">
+                
+
+
+<article class="post">
+    <h1 class="post-title">记录Ubuntu下各种压缩和解压方式</h1>
+    
+    <p>.tar<br><br>解包：tar xvf FileName.tar<br><br>打包：tar cvf FileName.tar DirName<br><br>（注：tar是打包，不是压缩！）<br><br>———————————————<br><br><a id="more"></a><br>.gz<br><br>解压1：gunzip FileName.gz<br><br>解压2：gzip -d FileName.gz<br><br>压缩：gzip FileName<br><br>.tar.gz<br><br>解压：tar zxvf FileName.tar.gz<br><br>压缩：tar zcvf FileName.tar.gz DirName<br><br>———————————————<br><br>.bz2<br><br>解压1：bzip2 -d FileName.bz2<br><br>解压2：bunzip2 FileName.bz2<br><br>压缩： bzip2 -z FileName<br><br>.tar.bz2<br><br>解压：tar jxvf FileName.tar.bz2<br><br>压缩：tar jcvf FileName.tar.bz2 DirName<br><br>———————————————<br><br>.bz<br><br>解压1：bzip2 -d FileName.bz<br><br>解压2：bunzip2 FileName.bz<br><br>.tar.bz<br><br>解压：tar jxvf FileName.tar.bz<br><br>———————————————<br><br>.Z<br><br>解压：uncompress FileName.Z<br><br>压缩：compress FileName<br><br>.tar.Z<br><br>解压：tar Zxvf FileName.tar.Z<br><br>压缩：tar Zcvf FileName.tar.Z DirName<br><br>———————————————<br><br>.tgz<br><br>解压：tar zxvf FileName.tgz<br><br>.tar.tgz<br><br>解压：tar zxvf FileName.tar.tgz<br><br>压缩：tar zcvf FileName.tar.tgz FileName<br><br>———————————————<br><br>.zip<br><br>解压：unzip FileName.zip<br><br>压缩：zip FileName.zip DirName<br><br>———————————————<br><br>.rar<br><br>解压：rar a FileName.rar<br><br>压缩：rar e FileName.rar<br><br>———————————————<br><br>.lha<br><br>解压：lha -e FileName.lha<br><br>压缩：lha -a FileName.lha FileName</p>
+
+</article>
+<div class="post-footer">
+    <div class="post-author">
+        <span>Written in 2015年8月1日</span>
+    </div>
+    <div class="post-category">
+        
+    </div>
+    <div class="post-tags">
+        
+            
+                
+                <a href="/tags/Ubuntu">#Ubuntu</a>
+            
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div class="nav-next nav-item">
+                    <a href="/posts/373186536/">
+                        <i class="fa fa-angle-left"></i>
+                        <span>New Blog</span>
+                    </a>
+                </div>
+            
+            
+                <div class="nav-prev nav-item">
+                    <a href="/posts/1373556762/">
+                        <span>Hexo使用多说评论教程</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            
+        </div>
+    
+</div>
+<div id="gitment"></div>
+            </div>
+        </div>
+
+        <div class="footer-outer">
+            <div class="footer-items">
+                <span class="footer-copyright">
+                    <i class="fa fa-copyright"></i>
+                </span>
+                <span class="footer-year">
+                    2015 - 2018
+                </span>
+                <span class="footer-author">
+                    小忆
+                </span>
+                
+                    <span class="footer-wordcount">
+                        <i class="fa fa-pencil footer-icon"></i>
+                        Has 26.7k words.
+                    </span>
+                
+            </div>
+            <div class="footer-inner">
+                <span class="footer-other">
+                    Hosted by <a href="https://github.com">GitHub</a>, 
+                    Proudly powered by <a href="http://hexo.io">Hexo</a> and Theme by <a href="https://github.com/isecret/Hola">Hola</a>.
+                </span>
+            </div>
+        </div>
+    </div>
+    
+        
+            <script src="/js/jquery.min.js"></script>
+        
+            <script src="/js/fetch.min.js"></script>
+        
+            <script src="/js/md5.min.js"></script>
+        
+            <script src="/js/gitment.browser.min.js"></script>
+        
+            <script src="/js/hola.js"></script>
+        
+    
+    
+        <script>
+            var gitment = new Gitment({
+                id: window.location.pathname.replace(/(\/$)/g,"").length > 49 ? md5(window.location.pathname): window.location.pathname.replace(/(\/$)/g,""),
+                owner: "racall",
+                repo: "comment",
+                oauth: {
+                    client_id: "c7d336cf3868196517c0",
+                    client_secret: "a6bee65b0275b51140b2fd203ff90d57e0b00ad5"
+                }
+            });
+            gitment.render("gitment");
+        </script>
+    
+    
+</body>
+</html>
