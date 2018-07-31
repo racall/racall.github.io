@@ -1,0 +1,238 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    
+        <meta name="keywords" content="小忆博客" />
+    
+    <meta name="description" content="什么是Docker?Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口。    —来自：百度百科 上面一段文字是百度百科对Docker的解释，其实Docker就是把开发环境或者生产环境打包，然后可以放到任何Linux或macOS、windows机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker学习笔记：搭建NMP环境">
+<meta property="og:url" content="https://blog.iiwo.vip/posts/94112d7a/index.html">
+<meta property="og:site_name" content="小 忆 博 客">
+<meta property="og:description" content="什么是Docker?Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口。    —来自：百度百科 上面一段文字是百度百科对Docker的解释，其实Docker就是把开发环境或者生产环境打包，然后可以放到任何Linux或macOS、windows机">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://pic.52xyi.cn/1533016827.png">
+<meta property="og:image" content="https://pic.52xyi.cn/1533016905.png">
+<meta property="og:image" content="https://pic.52xyi.cn/1533017514.png">
+<meta property="og:image" content="https://pic.52xyi.cn/1533017685.png">
+<meta property="og:image" content="https://pic.52xyi.cn/1533018221.png">
+<meta property="og:image" content="https://pic.52xyi.cn/1533018133.png">
+<meta property="og:image" content="https://pic.52xyi.cn/1533019367.png">
+<meta property="og:image" content="https://pic.52xyi.cn/1533020267.png">
+<meta property="og:updated_time" content="2018-07-31T07:06:41.231Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker学习笔记：搭建NMP环境">
+<meta name="twitter:description" content="什么是Docker?Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口。    —来自：百度百科 上面一段文字是百度百科对Docker的解释，其实Docker就是把开发环境或者生产环境打包，然后可以放到任何Linux或macOS、windows机">
+<meta name="twitter:image" content="https://pic.52xyi.cn/1533016827.png">
+    <title>Docker学习笔记：搭建NMP环境 | 小 忆 博 客</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://pic.52xyi.cn/1531298345.jpeg">
+    
+        
+            <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext">
+        
+            <link rel="stylesheet" href="/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/gitment.css">
+        
+            <link rel="stylesheet" href="/css/highlight.css">
+        
+            <link rel="stylesheet" href="/css/hola.css">
+        
+    
+    
+        <script type="text/javascript">
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//tajs.qq.com/stats?sId=65927492";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header-outer">
+            <div class="header-site">
+                <div class="header-title">
+                    小 忆 博 客
+                </div>
+                <div id="hitokoto" class="header-subtitle">
+                    有梦想，有精彩
+                </div>
+            </div>
+            <div class="header-menu">
+                
+                    <span class="header-nav">
+                        <a href="/">Home</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="/about">About</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="/links">Links</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="https://buymeacoff.ee/racall">Coffee</a>
+                    </span>
+                    
+                
+            </div>
+        </div>
+
+        <div id="content-outer">
+            <div id="content-inner">
+                
+
+
+<article class="post">
+    <h1 class="post-title">Docker学习笔记：搭建NMP环境</h1>
+    
+        <h2>目录</h2>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是Docker"><span class="toc-text">什么是Docker?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#下载并安装Docker"><span class="toc-text">下载并安装Docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更换Docker镜像库"><span class="toc-text">更换Docker镜像库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么要更换Docker镜像库？"><span class="toc-text">为什么要更换Docker镜像库？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更换Docker镜像库-1"><span class="toc-text">更换Docker镜像库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署NMP环境"><span class="toc-text">部署NMP环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建资源文件夹"><span class="toc-text">创建资源文件夹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#部署MySQL"><span class="toc-text">部署MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#拉取镜像"><span class="toc-text">拉取镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行容器"><span class="toc-text">运行容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#进入容器测试"><span class="toc-text">进入容器测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#进入MySQL"><span class="toc-text">进入MySQL</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#部署PHP"><span class="toc-text">部署PHP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#拉取镜像-1"><span class="toc-text">拉取镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行容器-1"><span class="toc-text">运行容器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#部署Nginx"><span class="toc-text">部署Nginx</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#拉取镜像-2"><span class="toc-text">拉取镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行容器-2"><span class="toc-text">运行容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编辑配置文件"><span class="toc-text">编辑配置文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#填坑"><span class="toc-text">填坑</span></a></li></ol></li></ol>
+        <br>
+    
+    <h2 id="什么是Docker"><a href="#什么是Docker" class="headerlink" title="什么是Docker?"></a>什么是Docker?</h2><p>Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口。    —来自：百度百科</p>
+<p>上面一段文字是百度百科对Docker的解释，其实Docker就是把开发环境或者生产环境打包，然后可以放到任何Linux或macOS、windows机器上运行，不过听说Docker对windows兼容不是很好（已经很久不用windows了）。</p>
+<h2 id="下载并安装Docker"><a href="#下载并安装Docker" class="headerlink" title="下载并安装Docker"></a>下载并安装Docker</h2><p>首先去<a href="https://www.docker.com/" target="_blank" rel="noopener">Docker官网</a></p>
+<p><img src="https://pic.52xyi.cn/1533016827.png" alt=""></p>
+<p><img src="https://pic.52xyi.cn/1533016905.png" alt=""></p>
+<p>在macOS环境下安装和安装其他软件没什么不同，这里不多做介绍，其他平台的安装请自行查阅官方文档。</p>
+<h2 id="更换Docker镜像库"><a href="#更换Docker镜像库" class="headerlink" title="更换Docker镜像库"></a>更换Docker镜像库</h2><h3 id="为什么要更换Docker镜像库？"><a href="#为什么要更换Docker镜像库？" class="headerlink" title="为什么要更换Docker镜像库？"></a>为什么要更换Docker镜像库？</h3><p>俗话说，工欲善其事必先利其器，Docker自带的镜像库是国外，下载镜像的速度很缓慢，不利于我们工作。</p>
+<h3 id="更换Docker镜像库-1"><a href="#更换Docker镜像库-1" class="headerlink" title="更换Docker镜像库"></a>更换Docker镜像库</h3><p>在macOS下运行Docker后，会在菜单栏上出现一个<img src="https://pic.52xyi.cn/1533017514.png" alt="">这样一个图标，单击该图标（首次可能会让你登录Docker.com的账号）。</p>
+<p><img src="https://pic.52xyi.cn/1533017685.png" alt=""></p>
+<p>点击Preferences… -&gt; Daemon </p>
+<p><img src="https://pic.52xyi.cn/1533018221.png" alt=""></p>
+<p>我这里使用的是阿里的镜像库，可以去<a href="https://dev.aliyun.com/search.html" target="_blank" rel="noopener">阿里开发者平台</a>获取一个镜像库地址。在管理控制台-&gt;容器镜像服务-&gt;镜像加速器 可查看到你的镜像库地址。</p>
+<p><img src="https://pic.52xyi.cn/1533018133.png" alt=""></p>
+<p>填写好镜像库地址后，点击Apply &amp; Restart按钮，等待Docker重启并应用配置的镜像加速器。</p>
+<h2 id="部署NMP环境"><a href="#部署NMP环境" class="headerlink" title="部署NMP环境"></a>部署NMP环境</h2><p>NMP是nginx、php、mysql的缩写。。。</p>
+<h3 id="创建资源文件夹"><a href="#创建资源文件夹" class="headerlink" title="创建资源文件夹"></a>创建资源文件夹</h3><p>既然安装好了Docker，我们创建容器后，我们需要映射一些配置文件或网站程序文件到宿主机，所以我们创建一些文件夹来存放这些东西。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/docker</span><br><span class="line">  /mysql  存放数据库备份</span><br><span class="line">  /nginx  nginx配置文件</span><br><span class="line">    /conf</span><br><span class="line">  /wwwroot  网站文件</span><br><span class="line">  /wwwlogs  日志</span><br><span class="line">  /source  程序源代码</span><br><span class="line">  /download 下载目录</span><br></pre></td></tr></table></figure>
+<h3 id="部署MySQL"><a href="#部署MySQL" class="headerlink" title="部署MySQL"></a>部署MySQL</h3><h4 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h4><p>在终端中执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:5.7</span><br></pre></td></tr></table></figure>
+<h4 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mysql5.7 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7</span><br><span class="line"></span><br><span class="line">参数说明</span><br><span class="line">-d 让容器在后台运行</span><br><span class="line">-p 添加主机到容器的端口映射，前面是映射到本地的端口，后面是需要映射的端口</span><br><span class="line">-e 设置环境变量，MYSQL_ROOT_PASSWORD这里是设置mysql的root用户的初始密码</span><br><span class="line">--name 容器的名字，随便取，但是必须唯一</span><br><span class="line">最后一个参数是容器名：容器版本(tag 标签)</span><br></pre></td></tr></table></figure>
+<h4 id="进入容器测试"><a href="#进入容器测试" class="headerlink" title="进入容器测试"></a>进入容器测试</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mysql5.7 /bin/bash</span><br><span class="line"></span><br><span class="line">参数说明</span><br><span class="line">-t 在容器里生产一个伪终端</span><br><span class="line">-i 对容器内的标准输入 (STDIN) 进行交互</span><br></pre></td></tr></table></figure>
+<p><img src="https://pic.52xyi.cn/1533019367.png" alt=""></p>
+<h4 id="进入MySQL"><a href="#进入MySQL" class="headerlink" title="进入MySQL"></a>进入MySQL</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p123456</span><br></pre></td></tr></table></figure>
+<p>如果可以成功登录到MySQL，说明MySQL部署成功。(测试发现Docker中MySQL 5.7版本中默认开启远程连接)</p>
+<h3 id="部署PHP"><a href="#部署PHP" class="headerlink" title="部署PHP"></a>部署PHP</h3><h4 id="拉取镜像-1"><a href="#拉取镜像-1" class="headerlink" title="拉取镜像"></a>拉取镜像</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull php:7.0-fpm</span><br></pre></td></tr></table></figure>
+<h4 id="运行容器-1"><a href="#运行容器-1" class="headerlink" title="运行容器"></a>运行容器</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 9000:9000 -v /Users/xiaoyi/docker/wwwroot:/usr/share/nginx/html --link mysql5.7:mysql --name php-fpm7.0 php:7.0-fpm</span><br><span class="line"></span><br><span class="line">参数说明</span><br><span class="line">-d 让容器在后台运行</span><br><span class="line">-p 添加主机到容器的端口映射</span><br><span class="line">-v 添加目录映射</span><br><span class="line">–-name 容器的名字，随便取，但是必须唯一</span><br><span class="line">--link link 是在两个contain之间建立一种父子关系，父container中的web，可以得到子container db上的信息。</span><br><span class="line">通过link的方式创建容器，我们可以使用被Link容器的别名进行访问，而不是通过IP，解除了对IP的依赖。</span><br></pre></td></tr></table></figure>
+<h3 id="部署Nginx"><a href="#部署Nginx" class="headerlink" title="部署Nginx"></a>部署Nginx</h3><h4 id="拉取镜像-2"><a href="#拉取镜像-2" class="headerlink" title="拉取镜像"></a>拉取镜像</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull nginx</span><br></pre></td></tr></table></figure>
+<h4 id="运行容器-2"><a href="#运行容器-2" class="headerlink" title="运行容器"></a>运行容器</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80:80 -v /Users/xiaoyi/docker/wwwroot:/usr/share/nginx/html -v /Users/xiaoyi/docker/nginx/nginx.conf:/etc/nginx/nginx.conf -v /Users/xiaoyi/docker/nginx/conf:/etc/nginx/conf.d -v ~/docker/wwwlogs:/var/log/nginx --link php-fpm7.0:phpfpm --name m_nginx nginx:latest</span><br></pre></td></tr></table></figure>
+<h4 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h4><p>修改<code>/Users/xiaoyi/docker/nginx/conf/default.conf</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    #charset koi8-r;</span><br><span class="line">    #access_log  /var/log/nginx/host.access.log  main;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">        index  index.html index.htm index.php;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    #error_page  404              /404.html;</span><br><span class="line"></span><br><span class="line">    # redirect server error pages to the static page /50x.html</span><br><span class="line">    #</span><br><span class="line">    error_page   500 502 503 504  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    # proxy the PHP scripts to Apache listening on 127.0.0.1:80</span><br><span class="line">    #</span><br><span class="line">    #location ~ \.php$ &#123;</span><br><span class="line">    #    proxy_pass   http://127.0.0.1;</span><br><span class="line">    #&#125;</span><br><span class="line"></span><br><span class="line">    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000</span><br><span class="line">    #</span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        root           /usr/share/nginx/html;</span><br><span class="line">        fastcgi_pass   phpfpm:9000;</span><br><span class="line">        fastcgi_index  index.php;</span><br><span class="line">        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;</span><br><span class="line">        include        fastcgi_params;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    # deny access to .htaccess files, if Apache&apos;s document root</span><br><span class="line">    # concurs with nginx&apos;s one</span><br><span class="line">    #</span><br><span class="line">    #location ~ /\.ht &#123;</span><br><span class="line">    #    deny  all;</span><br><span class="line">    #&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上是我的配置，分享给大家参考。</p>
+<p>配置完成之后，在wwwroot目录中新建一个info.php文件测试一下。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">phpinfo(); </span><br><span class="line"> <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://pic.52xyi.cn/1533020267.png" alt=""></p>
+<h3 id="填坑"><a href="#填坑" class="headerlink" title="填坑"></a>填坑</h3><p>1、php代码连接MySQL，不能使用localhost或者127.0.0.1，必须是运行容器时指定的名字，否则会出现连接MySQL错误。本文php运行容器的名字是:<code>php-fpm7.0</code></p>
+<p>2、启动MySQL容器时，如果遇到端口被占用，并且没有其他软件占用3306的情况下，退出Docker重新开启Docker。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -i :3306  #查看端口占用情况</span><br></pre></td></tr></table></figure>
+<p>3、使用软件连接MySQL时，使用127.0.0.1，但不能使用localhost。</p>
+
+</article>
+<div class="post-footer">
+    <div class="post-author">
+        <span>Written in 2018年7月31日</span>
+    </div>
+    <div class="post-category">
+        
+    </div>
+    <div class="post-tags">
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div class="nav-next nav-item">
+                    <a href="/posts/b419bc2e/">
+                        <i class="fa fa-angle-left"></i>
+                        <span>macOS App国际化和本地化</span>
+                    </a>
+                </div>
+            
+            
+        </div>
+    
+</div>
+<div id="gitment"></div>
+            </div>
+        </div>
+
+        <div class="footer-outer">
+            <div class="footer-items">
+                <span class="footer-copyright">
+                    <i class="fa fa-copyright"></i>
+                </span>
+                <span class="footer-year">
+                    2015 - 2018
+                </span>
+                <span class="footer-author">
+                    小忆
+                </span>
+                
+                    <span class="footer-wordcount">
+                        <i class="fa fa-pencil footer-icon"></i>
+                        Has 28.9k words.
+                    </span>
+                
+            </div>
+            <div class="footer-inner">
+                <span class="footer-other">
+                    Hosted by <a href="https://github.com">GitHub</a>, 
+                    Proudly powered by <a href="http://hexo.io">Hexo</a> and Theme by <a href="https://github.com/isecret/Hola">Hola</a>.
+                </span>
+            </div>
+        </div>
+    </div>
+    
+        
+            <script src="/js/jquery.min.js"></script>
+        
+            <script src="/js/fetch.min.js"></script>
+        
+            <script src="/js/md5.min.js"></script>
+        
+            <script src="/js/gitment.browser.min.js"></script>
+        
+            <script src="/js/hola.js"></script>
+        
+    
+    
+        <script>
+            var gitment = new Gitment({
+                id: window.location.pathname.replace(/(\/$)/g,"").length > 49 ? md5(window.location.pathname): window.location.pathname.replace(/(\/$)/g,""),
+                owner: "racall",
+                repo: "comment",
+                oauth: {
+                    client_id: "c7d336cf3868196517c0",
+                    client_secret: "a6bee65b0275b51140b2fd203ff90d57e0b00ad5"
+                }
+            });
+            gitment.render("gitment");
+        </script>
+    
+    
+</body>
+</html>
