@@ -27,7 +27,8 @@
 <meta property="og:image" content="https://pic.52xyi.cn/1533018133.png">
 <meta property="og:image" content="https://pic.52xyi.cn/1533019367.png">
 <meta property="og:image" content="https://pic.52xyi.cn/1533020267.png">
-<meta property="og:updated_time" content="2018-07-31T07:06:41.231Z">
+<meta property="og:image" content="https://pic.52xyi.cn/1533021324.png">
+<meta property="og:updated_time" content="2018-07-31T07:16:18.753Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker学习笔记：搭建NMP环境">
 <meta name="twitter:description" content="什么是Docker?Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口。    —来自：百度百科 上面一段文字是百度百科对Docker的解释，其实Docker就是把开发环境或者生产环境打包，然后可以放到任何Linux或macOS、windows机">
@@ -150,6 +151,9 @@
 <p>2、启动MySQL容器时，如果遇到端口被占用，并且没有其他软件占用3306的情况下，退出Docker重新开启Docker。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -i :3306  #查看端口占用情况</span><br></pre></td></tr></table></figure>
 <p>3、使用软件连接MySQL时，使用127.0.0.1，但不能使用localhost。</p>
+<p>4、Docker镜像库中的php版本没有mysqli,pdo_mysql等扩展，需要进入到容器中安装:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>安装</span><br><span class="line">docker-php-ext-install pdo_mysql</span><br><span class="line">docker-php-ext-install mysqli</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>查看php扩展</span><br><span class="line">php -m</span><br></pre></td></tr></table></figure>
+<p><img src="https://pic.52xyi.cn/1533021324.png" alt=""></p>
 
 </article>
 <div class="post-footer">
@@ -194,7 +198,7 @@
                 
                     <span class="footer-wordcount">
                         <i class="fa fa-pencil footer-icon"></i>
-                        Has 28.9k words.
+                        Has 29.0k words.
                     </span>
                 
             </div>
