@@ -3,14 +3,14 @@
 
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta http-equiv="Cache-Control" content="no-siteapp">
     
-        <meta name="keywords" content="小忆博客" />
+        <meta name="keywords" content="小忆博客">
     
     <meta name="description" content="什么是Docker?Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口。    —来自：百度百科 上面一段文字是百度百科对Docker的解释，其实Docker就是把开发环境或者生产环境打包，然后可以放到任何Linux或macOS、windows机">
 <meta property="og:type" content="article">
@@ -116,16 +116,16 @@
     <h2 id="什么是Docker"><a href="#什么是Docker" class="headerlink" title="什么是Docker?"></a>什么是Docker?</h2><p>Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口。    —来自：百度百科</p>
 <p>上面一段文字是百度百科对Docker的解释，其实Docker就是把开发环境或者生产环境打包，然后可以放到任何Linux或macOS、windows机器上运行，不过听说Docker对windows兼容不是很好（已经很久不用windows了）。</p>
 <h2 id="下载并安装Docker"><a href="#下载并安装Docker" class="headerlink" title="下载并安装Docker"></a>下载并安装Docker</h2><p>首先去<a href="https://www.docker.com/" target="_blank" rel="noopener">Docker官网</a></p>
-<p><img src="https://pic.52xyi.cn/1533016827.png" alt=""></p>
-<p><img src="https://pic.52xyi.cn/1533016905.png" alt=""></p>
+<p><img src="https://pic.52xyi.cn/1533016827.png" alt></p>
+<p><img src="https://pic.52xyi.cn/1533016905.png" alt></p>
 <p>在macOS环境下安装和安装其他软件没什么不同，这里不多做介绍，其他平台的安装请自行查阅官方文档。</p>
 <h2 id="更换Docker镜像库"><a href="#更换Docker镜像库" class="headerlink" title="更换Docker镜像库"></a>更换Docker镜像库</h2><h3 id="为什么要更换Docker镜像库？"><a href="#为什么要更换Docker镜像库？" class="headerlink" title="为什么要更换Docker镜像库？"></a>为什么要更换Docker镜像库？</h3><p>俗话说，工欲善其事必先利其器，Docker自带的镜像库是国外，下载镜像的速度很缓慢，不利于我们工作。</p>
-<h3 id="更换Docker镜像库-1"><a href="#更换Docker镜像库-1" class="headerlink" title="更换Docker镜像库"></a>更换Docker镜像库</h3><p>在macOS下运行Docker后，会在菜单栏上出现一个<img src="https://pic.52xyi.cn/1533017514.png" alt="">这样一个图标，单击该图标（首次可能会让你登录Docker.com的账号）。</p>
-<p><img src="https://pic.52xyi.cn/1533017685.png" alt=""></p>
+<h3 id="更换Docker镜像库-1"><a href="#更换Docker镜像库-1" class="headerlink" title="更换Docker镜像库"></a>更换Docker镜像库</h3><p>在macOS下运行Docker后，会在菜单栏上出现一个<img src="https://pic.52xyi.cn/1533017514.png" alt>这样一个图标，单击该图标（首次可能会让你登录Docker.com的账号）。</p>
+<p><img src="https://pic.52xyi.cn/1533017685.png" alt></p>
 <p>点击Preferences… -&gt; Daemon </p>
-<p><img src="https://pic.52xyi.cn/1533018221.png" alt=""></p>
+<p><img src="https://pic.52xyi.cn/1533018221.png" alt></p>
 <p>我这里使用的是阿里的镜像库，可以去<a href="https://dev.aliyun.com/search.html" target="_blank" rel="noopener">阿里开发者平台</a>获取一个镜像库地址。在管理控制台-&gt;容器镜像服务-&gt;镜像加速器 可查看到你的镜像库地址。</p>
-<p><img src="https://pic.52xyi.cn/1533018133.png" alt=""></p>
+<p><img src="https://pic.52xyi.cn/1533018133.png" alt></p>
 <p>填写好镜像库地址后，点击Apply &amp; Restart按钮，等待Docker重启并应用配置的镜像加速器。</p>
 <h2 id="部署NMP环境"><a href="#部署NMP环境" class="headerlink" title="部署NMP环境"></a>部署NMP环境</h2><p>NMP是nginx、php、mysql的缩写。。。</p>
 <h3 id="创建资源文件夹"><a href="#创建资源文件夹" class="headerlink" title="创建资源文件夹"></a>创建资源文件夹</h3><p>既然安装好了Docker，我们创建容器后，我们需要映射一些配置文件或网站程序文件到宿主机，所以我们创建一些文件夹来存放这些东西。</p>
@@ -134,7 +134,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:5.7</span><br></pre></td></tr></table></figure>
 <h4 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mysql5.7 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7</span><br><span class="line"></span><br><span class="line">参数说明</span><br><span class="line">-d 让容器在后台运行</span><br><span class="line">-p 添加主机到容器的端口映射，前面是映射到本地的端口，后面是需要映射的端口</span><br><span class="line">-e 设置环境变量，MYSQL_ROOT_PASSWORD这里是设置mysql的root用户的初始密码</span><br><span class="line">--name 容器的名字，随便取，但是必须唯一</span><br><span class="line">最后一个参数是容器名：容器版本(tag 标签)</span><br></pre></td></tr></table></figure>
 <h4 id="进入容器测试"><a href="#进入容器测试" class="headerlink" title="进入容器测试"></a>进入容器测试</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mysql5.7 /bin/bash</span><br><span class="line"></span><br><span class="line">参数说明</span><br><span class="line">-t 在容器里生产一个伪终端</span><br><span class="line">-i 对容器内的标准输入 (STDIN) 进行交互</span><br></pre></td></tr></table></figure>
-<p><img src="https://pic.52xyi.cn/1533019367.png" alt=""></p>
+<p><img src="https://pic.52xyi.cn/1533019367.png" alt></p>
 <h4 id="进入MySQL"><a href="#进入MySQL" class="headerlink" title="进入MySQL"></a>进入MySQL</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p123456</span><br></pre></td></tr></table></figure>
 <p>如果可以成功登录到MySQL，说明MySQL部署成功。(测试发现Docker中MySQL 5.7版本中默认开启远程连接)</p>
 <h3 id="部署PHP"><a href="#部署PHP" class="headerlink" title="部署PHP"></a>部署PHP</h3><h4 id="拉取镜像-1"><a href="#拉取镜像-1" class="headerlink" title="拉取镜像"></a>拉取镜像</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull php:7.0-fpm</span><br></pre></td></tr></table></figure>
@@ -146,14 +146,14 @@
 <p>以上是我的配置，分享给大家参考。</p>
 <p>配置完成之后，在wwwroot目录中新建一个info.php文件测试一下。</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">phpinfo(); </span><br><span class="line"> <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://pic.52xyi.cn/1533020267.png" alt=""></p>
+<p><img src="https://pic.52xyi.cn/1533020267.png" alt></p>
 <h3 id="填坑"><a href="#填坑" class="headerlink" title="填坑"></a>填坑</h3><p>1、php代码连接MySQL，不能使用localhost或者127.0.0.1，必须是运行容器时指定的名字，否则会出现连接MySQL错误。本文php运行容器的名字是:<code>php-fpm7.0</code></p>
 <p>2、启动MySQL容器时，如果遇到端口被占用，并且没有其他软件占用3306的情况下，退出Docker重新开启Docker。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -i :3306  #查看端口占用情况</span><br></pre></td></tr></table></figure>
 <p>3、使用软件连接MySQL时，使用127.0.0.1，但不能使用localhost。</p>
 <p>4、Docker镜像库中的php版本没有mysqli,pdo_mysql等扩展，需要进入到容器中安装:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>安装</span><br><span class="line">docker-php-ext-install pdo_mysql</span><br><span class="line">docker-php-ext-install mysqli</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>查看php扩展</span><br><span class="line">php -m</span><br></pre></td></tr></table></figure>
-<p><img src="https://pic.52xyi.cn/1533021324.png" alt=""></p>
+<p><img src="https://pic.52xyi.cn/1533021324.png" alt></p>
 
 </article>
 <div class="post-footer">
@@ -190,7 +190,7 @@
                     <i class="fa fa-copyright"></i>
                 </span>
                 <span class="footer-year">
-                    2015 - 2018
+                    2015 - 2019
                 </span>
                 <span class="footer-author">
                     小忆
