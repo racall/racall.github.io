@@ -12,18 +12,18 @@
     
         <meta name="keywords" content="小忆博客">
     
-    <meta name="description" content="开始写之前，小小的抱怨一下，大学里的老师在教C语言时，对于链表这个概念只是提到并没有讲，但个人觉得C语言中的链表知识对于以后的应用还是比较重要的，没办法，老师不讲解，只好自己上网去看视频，查资料学习。">
+    <meta name="description" content="过去的9个月，一直不想写博客，感觉自己的生活平淡，没有什么需要写下来的，或许是懒惰吧，思考了许久，还是来总结一下过去，说说未来吧！ 换工作18年8月份（8月20日）我正式从我上家公司离职了，为什么离职呢？因为我对macOS、IOS开发失去原有的兴趣了，内心世界想要改变，想要继续做前端开发。其实7月份开始就在思考要不要离职，离职去做前端，意味着重新开始，纠结了一个月，我听从了内心的决定，离职重新开始">
 <meta property="og:type" content="article">
-<meta property="og:title" content="链表学习笔记(一)">
-<meta property="og:url" content="https://blog.brianhe.me/posts/3924550206/index.html">
+<meta property="og:title" content="回顾与展望">
+<meta property="og:url" content="https://blog.brianhe.me/posts/95799dc0/index.html">
 <meta property="og:site_name" content="Brian&#39;s Blog">
-<meta property="og:description" content="开始写之前，小小的抱怨一下，大学里的老师在教C语言时，对于链表这个概念只是提到并没有讲，但个人觉得C语言中的链表知识对于以后的应用还是比较重要的，没办法，老师不讲解，只好自己上网去看视频，查资料学习。">
+<meta property="og:description" content="过去的9个月，一直不想写博客，感觉自己的生活平淡，没有什么需要写下来的，或许是懒惰吧，思考了许久，还是来总结一下过去，说说未来吧！ 换工作18年8月份（8月20日）我正式从我上家公司离职了，为什么离职呢？因为我对macOS、IOS开发失去原有的兴趣了，内心世界想要改变，想要继续做前端开发。其实7月份开始就在思考要不要离职，离职去做前端，意味着重新开始，纠结了一个月，我听从了内心的决定，离职重新开始">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-13T14:37:14.000Z">
+<meta property="og:updated_time" content="2019-05-11T15:36:41.578Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="链表学习笔记(一)">
-<meta name="twitter:description" content="开始写之前，小小的抱怨一下，大学里的老师在教C语言时，对于链表这个概念只是提到并没有讲，但个人觉得C语言中的链表知识对于以后的应用还是比较重要的，没办法，老师不讲解，只好自己上网去看视频，查资料学习。">
-    <title>链表学习笔记(一) | Brian&#39;s Blog</title>
+<meta name="twitter:title" content="回顾与展望">
+<meta name="twitter:description" content="过去的9个月，一直不想写博客，感觉自己的生活平淡，没有什么需要写下来的，或许是懒惰吧，思考了许久，还是来总结一下过去，说说未来吧！ 换工作18年8月份（8月20日）我正式从我上家公司离职了，为什么离职呢？因为我对macOS、IOS开发失去原有的兴趣了，内心世界想要改变，想要继续做前端开发。其实7月份开始就在思考要不要离职，离职去做前端，意味着重新开始，纠结了一个月，我听从了内心的决定，离职重新开始">
+    <title>回顾与展望 | Brian&#39;s Blog</title>
     <link rel="shortcut icon" type="image/x-icon" href="https://pic.52xyi.cn/1531298345.jpeg">
     
         
@@ -97,59 +97,24 @@
 
 
 <article class="post">
-    <h1 class="post-title">链表学习笔记(一)</h1>
+    <h1 class="post-title">回顾与展望</h1>
     
-    <p>开始写之前，小小的抱怨一下，大学里的老师在教C语言时，对于链表这个概念只是提到并没有讲，但个人觉得C语言中的链表知识对于以后的应用还是比较重要的，没办法，老师不讲解，只好自己上网去看视频，查资料学习。<br><a id="more"></a></p>
-<pre><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-typedef struct sing
-{
-    int num;
-    struct sing *next;
-}node;
-int main()
-{
-    node *head = NULL;
-    int number;
-    do{
-    scanf(&quot;%d&quot;,&amp;number);
-    if (number!=-1)
-    {
-        node *p=(node*)malloc(sizeof(node));
-        p-&gt;num=number;
-        p-&gt;next=NULL;
-        node *last=head;
-        if (last)
-        {
-            while(last-&gt;next)
-            {
-                last=last-&gt;next;
-            }
-            last-&gt;next=p;
-        }else{
-            head=p;
-        }
-    }
-    }while(number!=-1);
-    return 0;
-}
-</code></pre><p> 上面这段代码，是一个简单的链表的实现，过程是这样的:</p>
-<pre><code>1、首先将head赋值为NULL;
+        <h2>目录</h2>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#换工作"><span class="toc-text">换工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#搬家"><span class="toc-text">搬家</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小程序"><span class="toc-text">小程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#未来"><span class="toc-text">未来</span></a></li></ol>
+        <br>
+    
+    <p>过去的9个月，一直不想写博客，感觉自己的生活平淡，没有什么需要写下来的，或许是懒惰吧，思考了许久，还是来总结一下过去，说说未来吧！</p>
+<h3 id="换工作"><a href="#换工作" class="headerlink" title="换工作"></a>换工作</h3><p>18年8月份（8月20日）我正式从我上家公司离职了，为什么离职呢？因为我对macOS、IOS开发失去原有的兴趣了，内心世界想要改变，想要继续做前端开发。其实7月份开始就在思考要不要离职，离职去做前端，意味着重新开始，纠结了一个月，我听从了内心的决定，离职重新开始。</p>
+<p>离职之后，休息了半个月，开始刷题，投简历找工作。把前端需要的基础知识过了一遍，发现了17年的自己为什么找不到前端工作了，原来自己欠缺的太多了。每天恶补基础，做面试题，写了很多Demo，终于在10月中旬，我拿到了三份offer，最终综合考虑，选择了我现在这家公司。</p>
+<h3 id="搬家"><a href="#搬家" class="headerlink" title="搬家"></a>搬家</h3><p>18年10月底，原来的那个房子到期了，房东要涨价了，还有我们是三个同学合租的，其中李同学他不想一起合租了，最后被迫换房子。但最后我和申同学达成一致，还是选择一起合租，毕竟熟悉的人住在一起感觉好很多。花费了两个周末找房子，在11月份，我们搬入现在的房子，虽然离地铁口不是很久也不是很远，但是便宜呀！</p>
+<h3 id="小程序"><a href="#小程序" class="headerlink" title="小程序"></a>小程序</h3><p>这里的小程序是指微信、百度等小程序，为什么要单独提出来写呢？进入我现在这个公司，第一个项目就是小程序，一直到现在还是写小程序，也正是小程序，学习到了很多前端以外的东西，跟着公司产品学到了一些产品相关的东西。正是这样，我那颗想做一款产品，想创业的心，发芽了～而且越来越强烈，总想去试试。</p>
+<p>从12月份到现在，创业的心，做自己的产品和品牌的想法，一直围绕在内心，但是不知道做什么。。。谁有好项目，带着我呀～</p>
+<h3 id="未来"><a href="#未来" class="headerlink" title="未来"></a>未来</h3><p>我在纠结，纠结我是换工作还是创业？</p>
 
-2、开辟一个新内存给p;
-
-3、将当前输入的值赋给p-&gt;num;
-
-4、把p-&gt;next赋值为NULL;
-
-5、把head赋给last
-
-6、如果输入的是第一个数值，那么last肯定为NULL，这个时候将p赋给head，head里面就变成了p；第二个值输入的时候，last不为NULL，而last-&gt;next为NULL，这里将p赋给last-&gt;next,当输入后面的值时，while
-</code></pre>
 </article>
 <div class="post-footer">
     <div class="post-author">
-        <span>Written in 2016年1月28日</span>
+        <span>Written in 2019年5月11日</span>
     </div>
     <div class="post-category">
         
@@ -161,19 +126,12 @@ int main()
         <div class="pagination">
             
                 <div class="nav-next nav-item">
-                    <a href="/posts/3861797498/">
+                    <a href="/posts/94112d7a/">
                         <i class="fa fa-angle-left"></i>
-                        <span>2016 奋斗</span>
+                        <span>Docker学习笔记：搭建NMP环境</span>
                     </a>
                 </div>
             
-            
-                <div class="nav-prev nav-item">
-                    <a href="/posts/745096081/">
-                        <span>Java中类的理解</span>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                </div>
             
         </div>
     
