@@ -1,0 +1,219 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    
+        <meta name="keywords" content="小忆博客">
+    
+    <meta name="description" content="前言前一段时间在某宝，购入一台95新的iphone 4s，一是收藏之用，二是摆在桌子上当时钟使用，后来觉得只是当时钟使用太浪费了，想通前置摄像头，可以随时查看房间情况。在Google搜索的帮助下，了解到webRTC。 webRTC是Google在2010年开源夸平台用于浏览器实时传输音视频的引擎。是一个支持网页浏览器进行实时语音对话或视频对话的API。在直播和音视频通讯中应用较多。 webRTC设">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebRTC_自制桌面监控">
+<meta property="og:url" content="https://blog.brianhe.me/posts/fb283c51/index.html">
+<meta property="og:site_name" content="Brian&#39;s Blog">
+<meta property="og:description" content="前言前一段时间在某宝，购入一台95新的iphone 4s，一是收藏之用，二是摆在桌子上当时钟使用，后来觉得只是当时钟使用太浪费了，想通前置摄像头，可以随时查看房间情况。在Google搜索的帮助下，了解到webRTC。 webRTC是Google在2010年开源夸平台用于浏览器实时传输音视频的引擎。是一个支持网页浏览器进行实时语音对话或视频对话的API。在直播和音视频通讯中应用较多。 webRTC设">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-10T09:17:40.187Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WebRTC_自制桌面监控">
+<meta name="twitter:description" content="前言前一段时间在某宝，购入一台95新的iphone 4s，一是收藏之用，二是摆在桌子上当时钟使用，后来觉得只是当时钟使用太浪费了，想通前置摄像头，可以随时查看房间情况。在Google搜索的帮助下，了解到webRTC。 webRTC是Google在2010年开源夸平台用于浏览器实时传输音视频的引擎。是一个支持网页浏览器进行实时语音对话或视频对话的API。在直播和音视频通讯中应用较多。 webRTC设">
+    <title>WebRTC_自制桌面监控 | Brian&#39;s Blog</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://pic.52xyi.cn/1531298345.jpeg">
+    
+        
+            <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext">
+        
+            <link rel="stylesheet" href="/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/gitment.css">
+        
+            <link rel="stylesheet" href="/css/highlight.css">
+        
+            <link rel="stylesheet" href="/css/hola.css">
+        
+    
+    
+        <script type="text/javascript">
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//tajs.qq.com/stats?sId=65927492";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header-outer">
+            <div class="header-site">
+                <div class="header-title">
+                    Brian&#39;s Blog
+                </div>
+                <div id="hitokoto" class="header-subtitle">
+                    Happy Coding
+                </div>
+            </div>
+            <div class="header-menu">
+                
+                    <span class="header-nav">
+                        <a href="/">Home</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="/about">About</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="/links">Links</a>
+                    </span>
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    <span class="header-nav">
+                        <a href="https://buymeacoff.ee/racall">Coffee</a>
+                    </span>
+                    
+                
+            </div>
+        </div>
+
+        <div id="content-outer">
+            <div id="content-inner">
+                
+
+
+<article class="post">
+    <h1 class="post-title">WebRTC_自制桌面监控</h1>
+    
+        <h2>目录</h2>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#webRTC设备管理及数据采集"><span class="toc-text">webRTC设备管理及数据采集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#webRTC端对端音视频传输"><span class="toc-text">webRTC端对端音视频传输</span></a></li></ol>
+        <br>
+    
+    <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>前一段时间在某宝，购入一台95新的iphone 4s，一是收藏之用，二是摆在桌子上当时钟使用，后来觉得只是当时钟使用太浪费了，想通前置摄像头，可以随时查看房间情况。在Google搜索的帮助下，了解到webRTC。</p>
+<p>webRTC是Google在2010年开源夸平台用于浏览器实时传输音视频的引擎。是一个支持网页浏览器进行实时语音对话或视频对话的API。在直播和音视频通讯中应用较多。</p>
+<h3 id="webRTC设备管理及数据采集"><a href="#webRTC设备管理及数据采集" class="headerlink" title="webRTC设备管理及数据采集"></a>webRTC设备管理及数据采集</h3><p><code>开发环境：chrome浏览器+Javascript</code></p>
+<ol>
+<li>enumerateDevices(获取音视频设备)</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">navigator.mediaDevices.enumerateDevices().then(<span class="function">(<span class="params">devices</span>)=&gt;</span>&#123;</span><br><span class="line">    devices.forEach(<span class="function"><span class="params">device</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`设备的种类-<span class="subst">$&#123;device.kind&#125;</span>设备的名称-<span class="subst">$&#123;device.label&#125;</span>-设备ID-<span class="subst">$&#123;device.deviceId&#125;</span>-groupId-<span class="subst">$&#123;device.groupId&#125;</span>`</span>)</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>getUserMedia(获取音视频)</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">navigator.mediaDevices.getUserMedia(&#123;</span><br><span class="line">    video:<span class="literal">true</span>,</span><br><span class="line">    audio:<span class="literal">true</span>,</span><br><span class="line">&#125;).then(<span class="function">(<span class="params">stream</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'video'</span>).srcObject = stream;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><code>注意：video标签一定要设置为muted，不然有回音和噪音</code></p>
+<ol>
+<li>音视频数据约束</li>
+</ol>
+<p><code>getUserMedia</code>中的参数是对音视频进行采集约束，上面的两个参数代表收集视频和音频，里面还包含了对视频分辨率、画质等等约束。</p>
+<p>例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">navigator.mediaDevices.getUserMedia(&#123;</span><br><span class="line">    video:&#123;</span><br><span class="line">        width:<span class="number">500</span>,</span><br><span class="line">        height:<span class="number">500</span></span><br><span class="line">    &#125;,</span><br><span class="line">    audio:<span class="literal">true</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>其他参数可去<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MediaStreamConstraints" target="_blank" rel="noopener">MDN查询</a></p>
+<ol>
+<li>浏览器适配问题</li>
+</ol>
+<p>为了适配各种浏览器建议使用<a href="https://webrtc.github.io/adapter/adapter-latest.js" target="_blank" rel="noopener">adapter.js</a></p>
+<h3 id="webRTC端对端音视频传输"><a href="#webRTC端对端音视频传输" class="headerlink" title="webRTC端对端音视频传输"></a>webRTC端对端音视频传输</h3><p>webRTC不仅仅能获取音视频数据，还能把音视频数据进行端对端进行传输，共享远程桌面，录制，p2p网络加速文件传输等等。</p>
+<p>连接过程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">A、B端同时创建RTCPeerConnection</span><br><span class="line">A端调用addTrack，添加音视频流</span><br><span class="line">A端创建offer(createOffer)生成SDP协议（A端媒体信息）</span><br><span class="line">A端生成SDP之后，把自身的SDP添加到本地描述信息中去（setLocalDescription），会触发onicecandidate获取所有连接者信息</span><br><span class="line">A端发送offer（A端媒体信息）到B端</span><br><span class="line">B端添加A端媒体信息(setRemoteDescription)，创建answer(createAnswer)生成SDP协议（B端媒体信息），把自身的SDP添加到本地描述信息中去（setLocalDescription），会触发onicecandidate获取所有连接者信息</span><br><span class="line">B端发送answer（B端媒体信息）到A端，A端添加B端媒体信息(setRemoteDescription)</span><br><span class="line">A、B两端媒体协商完成，B端通过ontrack就可以拿到A端的音视频流</span><br></pre></td></tr></table></figure></p>
+<p>实例代码：(模拟)<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">id</span>=<span class="string">"local"</span> <span class="attr">autoplay</span> <span class="attr">playsinline</span> <span class="attr">muted</span>&gt;</span><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">id</span>=<span class="string">"remote"</span> <span class="attr">autoplay</span> <span class="attr">playsinline</span>&gt;</span><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"start"</span>&gt;</span>开始<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">'call'</span>&gt;</span>呼叫<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"stop"</span>&gt;</span>结束<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> startBtn = <span class="built_in">document</span>.querySelector(<span class="string">"#start"</span>);</span><br><span class="line"><span class="keyword">const</span> callBtn = <span class="built_in">document</span>.querySelector(<span class="string">"#call"</span>);</span><br><span class="line"><span class="keyword">const</span> stopBtn = <span class="built_in">document</span>.querySelector(<span class="string">"#stop"</span>);</span><br><span class="line"><span class="keyword">const</span> localVideo = <span class="built_in">document</span>.querySelector(<span class="string">"#local"</span>);</span><br><span class="line"><span class="keyword">const</span> remoteVideo = <span class="built_in">document</span>.querySelector(<span class="string">"#remote"</span>);</span><br><span class="line"><span class="keyword">var</span> localStream = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> localPC = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> remotePC = <span class="literal">null</span>;</span><br><span class="line">startBtn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (navigator.mediaDevices || navigator.mediaDevices.getUserMedia) &#123;</span><br><span class="line">        navigator.mediaDevices.getUserMedia(&#123;</span><br><span class="line">            video:<span class="literal">true</span>,</span><br><span class="line">            audio:<span class="literal">false</span></span><br><span class="line">        &#125;).then(<span class="function">(<span class="params">stream</span>)=&gt;</span>&#123;</span><br><span class="line">            localVideo.srcObject = stream;</span><br><span class="line">            localStream = stream;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">callBtn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    localPC = <span class="keyword">new</span> RTCPeerConnection();</span><br><span class="line">    remotePC = <span class="keyword">new</span> RTCPeerConnection();</span><br><span class="line">    localPC.onicecandidate = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">        remotePC.addIceCandidate(e.candidate)</span><br><span class="line">    &#125;</span><br><span class="line">    remotePC.onicecandidate = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">        localPC.addIceCandidate(e.candidate)</span><br><span class="line">    &#125;</span><br><span class="line">    remotePC.ontrack = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">        remoteVideo.srcObject = e.streams[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    localStream.getTracks().forEach(<span class="function"><span class="params">track</span> =&gt;</span> &#123;</span><br><span class="line">        localPC.addTrack(track,localStream);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    localPC.createOffer(&#123;</span><br><span class="line">        offerToReceiveAudio:<span class="number">1</span>,</span><br><span class="line">        offerToReceiveVideo:<span class="number">1</span></span><br><span class="line">    &#125;).then(<span class="function">(<span class="params">desc</span>)=&gt;</span>&#123;</span><br><span class="line">        localPC.setLocalDescription(desc)</span><br><span class="line">        remotePC.setRemoteDescription(desc)</span><br><span class="line">        remotePC.createAnswer().then(<span class="function">(<span class="params">descs</span>)=&gt;</span>&#123;</span><br><span class="line">            remotePC.setLocalDescription(descs)</span><br><span class="line">            localPC.setRemoteDescription(descs)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">stopBtn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    localPC.close();</span><br><span class="line">    remotePC.close();</span><br><span class="line">    localPC = <span class="literal">null</span>;</span><br><span class="line">    remotePC = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码只是一个简单本地传输的例子，要实现网络传输还需要用到websocket以及turn，在下篇文章中，我将详细介绍通过webrtc把4s的摄像头的画面传输到web端。</p>
+
+</article>
+<div class="post-footer">
+    <div class="post-author">
+        <span>Written in 2019年8月2日</span>
+    </div>
+    <div class="post-category">
+        
+    </div>
+    <div class="post-tags">
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div class="nav-next nav-item">
+                    <a href="/posts/95799dc0/">
+                        <i class="fa fa-angle-left"></i>
+                        <span>回顾与展望</span>
+                    </a>
+                </div>
+            
+            
+        </div>
+    
+</div>
+<div id="gitment"></div>
+            </div>
+        </div>
+
+        <div class="footer-outer">
+            <div class="footer-items">
+                <span class="footer-copyright">
+                    <i class="fa fa-copyright"></i>
+                </span>
+                <span class="footer-year">
+                    2015 - 2019
+                </span>
+                <span class="footer-author">
+                    Brian He
+                </span>
+                
+                    <span class="footer-wordcount">
+                        <i class="fa fa-pencil footer-icon"></i>
+                        Has 30.5k words.
+                    </span>
+                
+            </div>
+            <div class="footer-inner">
+                <span class="footer-other">
+                    Hosted by <a href="https://github.com">GitHub</a>, 
+                    Proudly powered by <a href="http://hexo.io">Hexo</a> and Theme by <a href="https://github.com/isecret/Hola">Hola</a>.
+                </span>
+            </div>
+        </div>
+    </div>
+    
+        
+            <script src="/js/jquery.min.js"></script>
+        
+            <script src="/js/fetch.min.js"></script>
+        
+            <script src="/js/md5.min.js"></script>
+        
+            <script src="/js/gitment.browser.min.js"></script>
+        
+            <script src="/js/hola.js"></script>
+        
+    
+    
+        <script>
+            var gitment = new Gitment({
+                id: window.location.pathname.replace(/(\/$)/g,"").length > 49 ? md5(window.location.pathname): window.location.pathname.replace(/(\/$)/g,""),
+                owner: "racall",
+                repo: "comment",
+                oauth: {
+                    client_id: "c7d336cf3868196517c0",
+                    client_secret: "a6bee65b0275b51140b2fd203ff90d57e0b00ad5"
+                }
+            });
+            gitment.render("gitment");
+        </script>
+    
+    
+</body>
+</html>
